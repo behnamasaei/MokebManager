@@ -34,6 +34,17 @@ public class MokebManagerMenuContributor : IMenuContributor
             )
         );
 
+        context.Menu.Items.Insert(
+                    0,
+                    new ApplicationMenuItem(
+                        MokebManagerMenus.Home,
+                        l["Menu:Settings"],
+                        "/",
+                        icon: "fas fa-settings",
+                        order: 0
+                    )
+                );
+
         if (MultiTenancyConsts.IsEnabled)
         {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);

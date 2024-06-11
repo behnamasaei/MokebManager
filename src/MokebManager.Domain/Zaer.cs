@@ -8,6 +8,8 @@ public class Zaer : FullAuditedAggregateRoot<Guid>
     public string? Name { get; set; }
     public string? Family { get; set; }
     public Gender Gender { get; set; }
+    public DateTime EntryDate { get; set; }
+    public DateTime ExitDate { get; set; }
     public string ImageAddress { get; set; }
     public string PassportNo { get; set; }
     public Guid MokebId { get; set; }
