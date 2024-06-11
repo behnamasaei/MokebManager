@@ -4,6 +4,7 @@ using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -53,6 +54,9 @@ public class MokebManagerDbContext :
 
     #endregion
 
+    public DbSet<Mokeb> Mokebs { get; set; }
+    public DbSet<Zaer> Zaers { get; set; }
+
     public MokebManagerDbContext(DbContextOptions<MokebManagerDbContext> options)
         : base(options)
     {
@@ -76,11 +80,19 @@ public class MokebManagerDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(MokebManagerConsts.DbTablePrefix + "YourEntities", MokebManagerConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Mokeb>(b =>
+        {
+            b.ToTable(MokebManagerConsts.DbTablePrefix + "Mokeb", MokebManagerConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.HasMany(x => x.Zaers).WithOne(x => x.Mokeb).HasForeignKey(x => x.MokebId);
+            //...
+        });
+
+        builder.Entity<Zaer>(b =>
+        {
+            b.ToTable(MokebManagerConsts.DbTablePrefix + "Zaer", MokebManagerConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.HasOne(x => x.Mokeb).WithMany(x => x.Zaers).HasForeignKey(x => x.MokebId);
+        });
     }
 }
