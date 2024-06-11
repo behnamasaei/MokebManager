@@ -56,6 +56,7 @@ public class MokebManagerDbContext :
 
     public DbSet<Mokeb> Mokebs { get; set; }
     public DbSet<Zaer> Zaers { get; set; }
+    public DbSet<EntryExitDate> EntryExitDates { get; set; }
 
     public MokebManagerDbContext(DbContextOptions<MokebManagerDbContext> options)
         : base(options)
@@ -93,6 +94,14 @@ public class MokebManagerDbContext :
             b.ToTable(MokebManagerConsts.DbTablePrefix + "Zaer", MokebManagerConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasOne(x => x.Mokeb).WithMany(x => x.Zaers).HasForeignKey(x => x.MokebId);
+            b.HasMany(x => x.EntryExitDates).WithOne(x => x.Zaer).HasForeignKey(x => x.ZaerId);
+        });
+
+        builder.Entity<EntryExitDate>(b =>
+        {
+            b.ToTable(MokebManagerConsts.DbTablePrefix + "EntryExitDate", MokebManagerConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.HasOne(x => x.Zaer).WithMany(x => x.EntryExitDates).HasForeignKey(x => x.ZaerId);
         });
     }
 }

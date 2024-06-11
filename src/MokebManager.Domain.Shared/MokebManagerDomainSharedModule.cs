@@ -43,7 +43,7 @@ public class MokebManagerDomainSharedModule : AbpModule
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Resources
-                .Add<MokebManagerResource>("en")
+                .Add<MokebManagerResource>("fa")
                 .AddBaseTypes(typeof(AbpValidationResource))
                 .AddVirtualJson("/Localization/MokebManager");
 
