@@ -4503,7 +4503,7 @@
   },
   "types": {
     "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateEntryExitZaerDto": {
-      "baseType": "Volo.Abp.Domain.Entities.Entity<System.Guid>",
+      "baseType": null,
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -4548,7 +4548,7 @@
       ]
     },
     "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateMokebDto": {
-      "baseType": "Volo.Abp.Domain.Entities.Entity<System.Guid>",
+      "baseType": null,
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -4593,7 +4593,7 @@
       ]
     },
     "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateZaerDto": {
-      "baseType": "Volo.Abp.Domain.Entities.Entity<System.Guid>",
+      "baseType": null,
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -4722,7 +4722,7 @@
       ]
     },
     "MokebManagerNg.Domain.Dtos.EntryExitZaerDto": {
-      "baseType": "Volo.Abp.Domain.Entities.Auditing.AuditedEntity<System.Guid>",
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -4767,7 +4767,7 @@
       ]
     },
     "MokebManagerNg.Domain.Dtos.MokebDto": {
-      "baseType": "Volo.Abp.Domain.Entities.Auditing.AuditedEntity<System.Guid>",
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -4812,7 +4812,7 @@
       ]
     },
     "MokebManagerNg.Domain.Dtos.ZaerDto": {
-      "baseType": "Volo.Abp.Domain.Entities.Auditing.AuditedEntity<System.Guid>",
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -5745,6 +5745,37 @@
           "jsonName": null,
           "type": "System.Boolean",
           "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.EntityDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": []
+    },
+    "Volo.Abp.Application.Dtos.EntityDto<T0>": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": [
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "TKey",
+          "typeSimple": "TKey",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -7798,78 +7829,8 @@
         }
       ]
     },
-    "Volo.Abp.Domain.Entities.Auditing.AuditedEntity<T0>": {
-      "baseType": "Volo.Abp.Domain.Entities.Auditing.CreationAuditedEntity<TKey>",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": [
-        "TKey"
-      ],
-      "properties": [
-        {
-          "name": "LastModificationTime",
-          "jsonName": null,
-          "type": "System.DateTime?",
-          "typeSimple": "string?",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "LastModifierId",
-          "jsonName": null,
-          "type": "System.Guid?",
-          "typeSimple": "string?",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
     "Volo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<T0>": {
       "baseType": "Volo.Abp.Domain.Entities.AggregateRoot<TKey>",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": [
-        "TKey"
-      ],
-      "properties": [
-        {
-          "name": "CreationTime",
-          "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "CreatorId",
-          "jsonName": null,
-          "type": "System.Guid?",
-          "typeSimple": "string?",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "Volo.Abp.Domain.Entities.Auditing.CreationAuditedEntity<T0>": {
-      "baseType": "Volo.Abp.Domain.Entities.Entity<TKey>",
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,

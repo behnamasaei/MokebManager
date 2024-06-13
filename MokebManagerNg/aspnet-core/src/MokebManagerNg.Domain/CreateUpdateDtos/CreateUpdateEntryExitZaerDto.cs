@@ -4,7 +4,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace MokebManagerNg.Domain.CreateUpdateDtos;
 
-public class CreateUpdateEntryExitZaerDto : Entity<Guid>
+public class CreateUpdateEntryExitZaerDto
 {
     public Guid ZaerId { get; set; }
     public DateTime EntryDate { get; set; }

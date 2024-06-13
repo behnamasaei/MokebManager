@@ -1,4 +1,4 @@
-import type { AggregateRoot, Entity } from '../models';
+import type { AggregateRoot } from '../models';
 import type { TKey } from '../../../../../models';
 
 export interface AuditedAggregateRoot<TKey> extends CreationAuditedAggregateRoot<TKey> {
@@ -6,17 +6,7 @@ export interface AuditedAggregateRoot<TKey> extends CreationAuditedAggregateRoot
   lastModifierId?: string;
 }
 
-export interface AuditedEntity<TKey> extends CreationAuditedEntity<TKey> {
-  lastModificationTime?: string;
-  lastModifierId?: string;
-}
-
 export interface CreationAuditedAggregateRoot<TKey> extends AggregateRoot<TKey> {
-  creationTime?: string;
-  creatorId?: string;
-}
-
-export interface CreationAuditedEntity<TKey> extends Entity<TKey> {
   creationTime?: string;
   creatorId?: string;
 }

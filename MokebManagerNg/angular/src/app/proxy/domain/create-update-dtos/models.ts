@@ -1,19 +1,18 @@
-import type { Entity } from '../../volo/abp/domain/entities/models';
 import type { Gender } from '../../gender.enum';
 
-export interface CreateUpdateEntryExitZaerDto extends Entity<string> {
+export interface CreateUpdateEntryExitZaerDto {
   zaerId?: string;
   entryDate?: string;
   exitDate?: string;
 }
 
-export interface CreateUpdateMokebDto extends Entity<string> {
+export interface CreateUpdateMokebDto {
   name?: string;
   gender: Gender;
   capacity: number;
 }
 
-export interface CreateUpdateZaerDto extends Entity<string> {
+export interface CreateUpdateZaerDto {
   name?: string;
   family?: string;
   gender: Gender;

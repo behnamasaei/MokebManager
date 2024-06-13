@@ -4,7 +4,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace MokebManagerNg.Domain.CreateUpdateDtos;
 
-public class CreateUpdateZaerDto : Entity<Guid>
+public class CreateUpdateZaerDto
 {
     public string? Name { get; set; }
     public string? Family { get; set; }

@@ -1,20 +1,20 @@
-import type { AuditedEntity } from '../../volo/abp/domain/entities/auditing/models';
+import type { EntityDto } from '@abp/ng.core';
 import type { Gender } from '../../gender.enum';
 import type { Mokeb } from '../../models';
 
-export interface EntryExitZaerDto extends AuditedEntity<string> {
+export interface EntryExitZaerDto extends EntityDto<string> {
   zaerId?: string;
   entryDate?: string;
   exitDate?: string;
 }
 
-export interface MokebDto extends AuditedEntity<string> {
+export interface MokebDto extends EntityDto<string> {
   name?: string;
   gender: Gender;
   capacity: number;
 }
 
-export interface ZaerDto extends AuditedEntity<string> {
+export interface ZaerDto extends EntityDto<string> {
   name?: string;
   family?: string;
   gender: Gender;

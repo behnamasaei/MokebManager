@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Domain.Entities.Events.Distributed;
 
 namespace MokebManagerNg.Domain.Dtos;
 
-public class ZaerDto : AuditedEntity<Guid>
+public class ZaerDto : EntityDto<Guid>
 {
     public string? Name { get; set; }
     public string? Family { get; set; }
