@@ -1,0 +1,93 @@
+<p>{{ '::MokebSettings' | abpLocalization }}</p>
+
+<p-toast />
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <p-button
+      pRipple
+      severity="success"
+      label="New"
+      icon="pi pi-plus"
+      class="mr-2"
+      (click)="openNew()"
+    />
+  </ng-template>
+</p-toolbar>
+
+<p-table
+  #dt
+  [value]="mokebs"
+  [rows]="10"
+  [paginator]="true"
+  [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h5 class="m-0">Manage Products</h5>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+          placeholder="Search..."
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 4rem">
+        <p-tableHeaderCheckbox />
+      </th>
+      <th pSortableColumn="name">{{ '::Name' | abpLocalization }} <p-sortIcon field="name" /></th>
+      <th pSortableColumn="gender">
+        {{ '::Gender' | abpLocalization }} <p-sortIcon field="gender" />
+      </th>
+      <th pSortableColumn="capacity">
+        {{ '::Capacity' | abpLocalization }} <p-sortIcon field="capacity" />
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-mokeb>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="mokeb" />
+      </td>
+      <td>
+        {{ mokeb.name }}
+      </td>
+      <td>
+        {{ mokeb.gender }}
+      </td>
+      <td>
+        {{ mokeb.capacity }}
+      </td>
+      <td>
+        <p-button
+          pRipple
+          icon="pi pi-pencil"
+          class="mr-2"
+          [rounded]="true"
+          [outlined]="true"
+          severity="success"
+          (click)="editProduct(product)"
+        />
+        <p-button
+          pRipple
+          icon="pi pi-trash"
+          severity="danger"
+          [rounded]="true"
+          [outlined]="true"
+          (click)="deleteProduct(product)"
+        />
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

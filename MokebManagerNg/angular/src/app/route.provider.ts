@@ -15,6 +15,13 @@ function configureRoutes(routesService: RoutesService) {
         order: 1,
         layout: eLayoutType.application,
       },
+      {
+        path: '/SettingsMokeb',
+        name: '::Settings',
+        iconClass: 'fas fa-cogs',
+        order: 2,
+        layout: eLayoutType.application,
+      },
     ]);
   };
 }

@@ -54,6 +54,8 @@ public class MokebManagerNgDomainModule : AbpModule
             options.Languages.Add(new LanguageInfo("zh-Hant", "zh-Hant", "繁體中文"));
             options.Languages.Add(new LanguageInfo("de-DE", "de-DE", "Deutsch", "de"));
             options.Languages.Add(new LanguageInfo("es", "es", "Español"));
+            options.Languages.Add(new LanguageInfo("fa", "fa", "فارسی"));
+
         });
 
         Configure<AbpMultiTenancyOptions>(options =>
