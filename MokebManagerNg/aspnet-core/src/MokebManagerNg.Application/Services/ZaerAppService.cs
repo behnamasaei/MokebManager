@@ -15,13 +15,21 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
                         CreateUpdateZaerDto, CreateUpdateZaerDto>,
     IZaerAppService
 {
+    IRepository<Zaer, Guid> _repository;
     public ZaerAppService(IRepository<Zaer, Guid> repository) : base(repository)
     {
+        _repository = repository;
     }
 
     public override Task<ZaerDto> CreateAsync(CreateUpdateZaerDto input)
     {
         return base.CreateAsync(input);
+    }
+
+    public async Task<ZaerDto> GetWithDetailAsync(Guid id)
+    {
+        var zaer = await _repository.GetAsync(id, includeDetails: true);
+        return ObjectMapper.Map<Zaer, ZaerDto>(zaer);
     }
 
     public Task<ZaerDto> CreateNewAsync([FromForm] CreateUpdateZaerDto input)
