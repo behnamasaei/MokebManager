@@ -18,6 +18,7 @@ import { ThemeLeptonXModule } from '@abp/ng.theme.lepton-x';
 import { SideMenuLayoutModule } from '@abp/ng.theme.lepton-x/layouts';
 import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
 import { SharedModule } from './shared/shared.module';
+import { SettingsModule } from './settings/settings.module';
 @NgModule({
   imports: [
     BrowserModule,
@@ -40,6 +41,7 @@ import { SharedModule } from './shared/shared.module';
     ThemeLeptonXModule.forRoot(),
     SideMenuLayoutModule.forRoot(),
     AccountLayoutModule.forRoot(),
+    SettingsModule,
     SharedModule,
   ],
   declarations: [AppComponent],

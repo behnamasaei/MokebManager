@@ -12,14 +12,14 @@ public class MokebManagerNgApplicationAutoMapperProfile : Profile
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
 
-        CreateMap<Mokeb, MokebDto>();
-        CreateMap<Mokeb, CreateUpdateMokebDto>();
+        CreateMap<Mokeb, MokebDto>().ReverseMap();
+        CreateMap<Mokeb, CreateUpdateMokebDto>().ReverseMap();
 
-        CreateMap<Zaer, ZaerDto>();
-        CreateMap<Zaer, CreateUpdateZaerDto>();
+        CreateMap<Zaer, ZaerDto>().ReverseMap();
+        CreateMap<Zaer, CreateUpdateZaerDto>().ReverseMap();
 
-        CreateMap<EntryExitZaer, EntryExitZaerDto>();
-        CreateMap<EntryExitZaer, CreateUpdateEntryExitZaerDto>();
+        CreateMap<EntryExitZaer, EntryExitZaerDto>().ReverseMap();
+        CreateMap<EntryExitZaer, CreateUpdateEntryExitZaerDto>().ReverseMap();
 
     }
 }

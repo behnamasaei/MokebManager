@@ -6,8 +6,28 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { DataViewModule } from 'primeng/dataview';
+import { RippleModule } from 'primeng/ripple';
+import { DropdownModule } from 'primeng/dropdown';
+import { CardModule } from 'primeng/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PaginatorModule } from 'primeng/paginator';
 
-const primeNgModules = [TableModule, ToastModule, ToolbarModule];
+const primeNgModules = [
+  TableModule,
+  ToastModule,
+  ToolbarModule,
+  ButtonModule,
+  InputTextModule,
+  DataViewModule,
+  RippleModule,
+  DropdownModule,
+  CardModule,
+  ConfirmDialogModule,
+  PaginatorModule,
+];
 
 @NgModule({
   declarations: [],

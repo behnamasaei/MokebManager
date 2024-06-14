@@ -5,7 +5,7 @@ using Volo.Abp.Domain.Entities.Events.Distributed;
 
 namespace MokebManagerNg.Domain.Dtos;
 
-public class EntryExitZaerDto : EntityDto<Guid>
+public class EntryExitZaerDto : AuditedEntityDto<Guid>
 {
     public Guid ZaerId { get; set; }
     public DateTime EntryDate { get; set; }

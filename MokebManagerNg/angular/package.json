@@ -21,6 +21,7 @@
     "@abp/ng.tenant-management": "~8.1.3",
     "@abp/ng.theme.lepton-x": "~3.1.3",
     "@abp/ng.theme.shared": "~8.1.3",
+    "@abp/nx.generators": "^8.1.4",
     "@angular/animations": "~17.1.0",
     "@angular/common": "~17.1.0",
     "@angular/compiler": "~17.1.0",
@@ -36,6 +37,7 @@
     "primeng": "^17.18.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.0.0",
+    "vazirmatn": "^33.0.3",
     "zone.js": "~0.14.0"
   },
   "devDependencies": {

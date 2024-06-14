@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~primeng/resources/themes/lara-light-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~vazirmatn/Vazirmatn-font-face.css';
+
+body,
+.p-component,
+.p-inputtext {
+  font-family: Vazirmatn, sans-serif !important;
+}
+
 @keyframes donut-spin {
   0% {
     transform: rotate(0deg);
@@ -8,7 +18,7 @@
     transform: rotate(360deg);
   }
 }
-:root  {
+:root {
   --lpx-logo: url('/assets/images/logo/logo-light.png');
   --lpx-logo-icon: url('/assets/images/logo/logo-light-thumbnail.png');
 }
@@ -27,5 +37,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
 
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  text-align: right;
 }

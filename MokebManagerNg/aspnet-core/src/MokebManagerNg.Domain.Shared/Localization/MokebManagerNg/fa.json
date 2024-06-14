@@ -8,6 +8,15 @@
         "MokebSettings": "تنظیمات موکب",
         "Name": "نام",
         "Gender": "جنسیت",
-        "Capacity": "ظرفیت"
+        "Capacity": "ظرفیت",
+        "Search": "جستجو",
+        "NameRequired": "نام ضروری است",
+        "GenderRequired": "جنسیت ضروری است",
+        "CapacityRequired": "ظرفیت ضروری است و باید بیشتر از ۰ باشد",
+        "SelectGender": "جنسیت را انتخاب کنید",
+        "Submit": "ثبت",
+        "Male": "مرد",
+        "Female": "زن",
+        "NewRecord": "رکورد جدید"
     }
 }

@@ -1,21 +1,21 @@
-import type { FullAuditedAggregateRoot } from './volo/abp/domain/entities/auditing/models';
+import type { AggregateRoot } from './volo/abp/domain/entities/models';
 import type { Gender } from './gender.enum';
 
-export interface EntryExitZaer extends FullAuditedAggregateRoot<string> {
+export interface EntryExitZaer extends AggregateRoot<string> {
   zaerId?: string;
   zaer: Zaer;
   entryDate?: string;
   exitDate?: string;
 }
 
-export interface Mokeb extends FullAuditedAggregateRoot<string> {
+export interface Mokeb extends AggregateRoot<string> {
   name?: string;
   gender: Gender;
   capacity: number;
   zaers: Zaer[];
 }
 
-export interface Zaer extends FullAuditedAggregateRoot<string> {
+export interface Zaer extends AggregateRoot<string> {
   name?: string;
   family?: string;
   gender: Gender;

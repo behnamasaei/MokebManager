@@ -5,7 +5,7 @@ using Volo.Abp.Domain.Entities.Events.Distributed;
 
 namespace MokebManagerNg.Domain.Dtos;
 
-public class MokebDto : EntityDto<Guid>
+public class MokebDto : AuditedEntityDto<Guid>
 {
     public string Name { get; set; }
     public Gender Gender { get; set; }
