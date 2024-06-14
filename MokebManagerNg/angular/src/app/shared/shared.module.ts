@@ -14,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PaginatorModule } from 'primeng/paginator';
+import { AccordionModule } from 'primeng/accordion';
 
 const primeNgModules = [
   TableModule,
@@ -27,6 +28,7 @@ const primeNgModules = [
   CardModule,
   ConfirmDialogModule,
   PaginatorModule,
+  AccordionModule
 ];
 
 @NgModule({

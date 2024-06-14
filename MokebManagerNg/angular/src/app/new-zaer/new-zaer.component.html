@@ -1,1 +1,66 @@
-<p>new-zaer works!</p>
+<div class="p-fluid">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="p-field">
+            <label for="passportNo">Passport No</label>
+            <input id="passportNo" type="text" pInputText formControlName="passportNo">
+        </div>
+
+        <div class="p-field">
+            <label for="gender">Gender</label>
+            <p-dropdown [options]="genders" formControlName="gender" placeholder="Select a Gender"></p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label for="image">Image</label>
+            <p-fileUpload name="image" accept="image/*" customUpload (onSelect)="onFileSelect($event)"
+                auto></p-fileUpload>
+        </div>
+
+        <div class="p-field">
+            <label for="mokebId">Mokeb ID</label>
+            <input id="mokebId" type="text" pInputText formControlName="mokebId">
+        </div>
+
+        <div class="card flex justify-content-center">
+            <p-accordion>
+                <p-accordionTab header="اطلاعات اضافی">
+
+                    <div class="p-field">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" pInputText formControlName="name">
+                    </div>
+
+                    <div class="p-field">
+                        <label for="family">Family</label>
+                        <input id="family" type="text" pInputText formControlName="family">
+                    </div>
+
+                    <div class="p-field">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input id="phoneNumber" type="number" pInputText formControlName="phoneNumber">
+                    </div>
+
+                    <div class="p-field">
+                        <label for="state">State</label>
+                        <input id="state" type="text" pInputText formControlName="state">
+                    </div>
+
+                    <div class="p-field">
+                        <label for="city">City</label>
+                        <input id="city" type="text" pInputText formControlName="city">
+                    </div>
+
+                    <div class="p-field">
+                        <label for="address">Address</label>
+                        <input id="address" type="text" pInputText formControlName="address">
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+
+
+
+        <button type=" submit" pButton label="Submit" [disabled]="form.invalid"></button>
+    </form>
+</div>
