@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NewZaerComponent } from './new-zaer/new-zaer.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,10 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
+  },
+  {
+    path: 'new-zaer',
+    component: NewZaerComponent,
   },
   {
     path: 'account',
