@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Gender, MokebService } from '@proxy';
-import { CreateUpdateMokebDto } from '@proxy/domain/create-update-dtos';
-import { zip } from 'rxjs';
+import { CreateUpdateMokebDto } from '@proxy/domain/create-update-dtos'; 
 
 @Component({
   selector: 'app-create-update-mokeb',

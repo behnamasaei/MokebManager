@@ -168,6 +168,7 @@ public class MokebManagerNgHttpApiHostModule : AbpModule
                         .ToArray() ?? Array.Empty<string>())
                     .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
+                    .SetIsOriginAllowed(origin => true) 
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

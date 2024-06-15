@@ -86,6 +86,7 @@ public class MokebManagerNgDbContext :
             b.ToTable(MokebManagerNgConsts.DbTablePrefix + "Mokeb", MokebManagerNgConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasMany(x => x.Zaers).WithOne(x => x.Mokeb).HasForeignKey(x => x.MokebId);
+             
             //...
         });
 

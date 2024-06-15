@@ -10,16 +10,16 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44355/',
+    issuer: 'https://192.168.1.103:44355/',
     redirectUri: baseUrl,
     clientId: 'MokebManagerNg_App',
     responseType: 'code',
     scope: 'offline_access MokebManagerNg',
-    requireHttps: true
+    requireHttps: true,
   },
   apis: {
     default: {
-      url: 'https://localhost:44355',
+      url: 'https://192.168.1.103:44355',
       rootNamespace: 'MokebManagerNg',
     },
   },
