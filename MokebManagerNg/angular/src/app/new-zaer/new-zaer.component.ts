@@ -82,6 +82,16 @@ export class NewZaerComponent {
     }, 1000); // Update every second
   }
 
+  changeGender(event: any) {
+    const genderValue = event.value;
+    const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
+
+    this.mokebsDropDown = selectedItems.map(item => ({
+      label: item.name,
+      value: item.id,
+    }));
+  }
+
   onFileSelect(event: any) {
     const file = event.files[0];
     this.form.patchValue({ image: file });
