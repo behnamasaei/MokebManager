@@ -86,7 +86,11 @@ public class MokebManagerNgDbContext :
             b.ToTable(MokebManagerNgConsts.DbTablePrefix + "Mokeb", MokebManagerNgConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasMany(x => x.Zaers).WithOne(x => x.Mokeb).HasForeignKey(x => x.MokebId);
-             
+            b.Property(x => x.Name).IsRequired();
+            b.HasIndex(x => x.Name).IsUnique();
+            b.Property(x => x.Capacity).IsRequired() // If you want to ensure Capacity is always provided
+                    .HasAnnotation("MinValue", 0)
+                    .HasAnnotation("MaxValue", 5000);
             //...
         });
 
@@ -96,6 +100,10 @@ public class MokebManagerNgDbContext :
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasOne(x => x.Mokeb).WithMany(x => x.Zaers).HasForeignKey(x => x.MokebId);
             b.HasMany(x => x.EntryExitZaerDates).WithOne(x => x.Zaer).HasForeignKey(x => x.ZaerId);
+
+            b.Property(x => x.PassportNo).IsRequired();
+            b.HasIndex(x => x.PassportNo).IsUnique(); 
+            b.HasIndex(x => x.PhoneNumber).IsUnique();
         });
 
         builder.Entity<EntryExitZaer>(b =>
