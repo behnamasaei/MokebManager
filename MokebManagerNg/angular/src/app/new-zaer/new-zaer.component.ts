@@ -37,7 +37,7 @@ export class NewZaerComponent {
     private entryExitZaerService: EntryExitZaerService,
     private zaerService: ZaerService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.entryExitOptions = [
@@ -109,6 +109,8 @@ export class NewZaerComponent {
         exitDate: exitDate,
       };
       this.entryExitZaerService.create(entryExitDate).subscribe(x => {
+        this.form.reset();
+        this.form.patchValue({ entryExitDate: this.entryExitOptions[0] })
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
