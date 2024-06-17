@@ -109,6 +109,8 @@ export class NewZaerComponent {
         exitDate: exitDate,
       };
       this.entryExitZaerService.create(entryExitDate).subscribe(x => {
+        this.form.reset();
+        this.form.patchValue({ entryExitDate: this.entryExitOptions[0] })
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
