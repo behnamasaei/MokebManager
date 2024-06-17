@@ -3,6 +3,7 @@ using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Caching;
 using Volo.Abp.Domain.Repositories;
 
 namespace MokebManagerNg;
@@ -11,7 +12,15 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
                         CreateUpdateEntryExitZaerDto, CreateUpdateEntryExitZaerDto>,
     IEntryExitZaerDate
 {
-    public EntryExitZaerAppService(IRepository<EntryExitZaer, Guid> repository) : base(repository)
+
+    private readonly IDistributedCache<PagedResultDto<EntryExitZaerDto>> _entryExitListCache;
+
+    public EntryExitZaerAppService(IRepository<EntryExitZaer, Guid> repository,
+    IDistributedCache<PagedResultDto<EntryExitZaerDto>> entryExitListCache) : base(repository)
     {
+        _entryExitListCache = entryExitListCache;
     }
+
+    
+
 }

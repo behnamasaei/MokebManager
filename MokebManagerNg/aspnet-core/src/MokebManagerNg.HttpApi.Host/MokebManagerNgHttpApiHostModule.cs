@@ -29,6 +29,10 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.Caching;
+using Volo.Abp.Domain.Entities.Caching;
+using MokebManagerNg.Domain.Dtos;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace MokebManagerNg;
 
@@ -43,6 +47,7 @@ namespace MokebManagerNg;
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
 )]
+[DependsOn(typeof(AbpCachingModule))]
 public class MokebManagerNgHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -70,6 +75,24 @@ public class MokebManagerNgHttpApiHostModule : AbpModule
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
+        ConfigureCache(context);
+    }
+
+    private void ConfigureCache(ServiceConfigurationContext context)
+    {
+        context.Services.AddEntityCache<Mokeb, MokebDto, Guid>(
+            new DistributedCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromDays(365)
+            });
+        context.Services.AddEntityCache<EntryExitZaer, EntryExitZaerDto, Guid>(
+            new DistributedCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromDays(1)
+            }
+        );
+
+
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -168,7 +191,7 @@ public class MokebManagerNgHttpApiHostModule : AbpModule
                         .ToArray() ?? Array.Empty<string>())
                     .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
-                    .SetIsOriginAllowed(origin => true) 
+                    .SetIsOriginAllowed(origin => true)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
