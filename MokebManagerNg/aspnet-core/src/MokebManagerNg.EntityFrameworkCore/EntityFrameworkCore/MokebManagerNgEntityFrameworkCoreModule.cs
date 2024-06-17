@@ -47,7 +47,7 @@ public class MokebManagerNgEntityFrameworkCoreModule : AbpModule
         {
                 /* The main point to change your DBMS.
                  * See also MokebManagerNgMigrationsDbContextFactory for EF Core tooling. */
-            options.UseSqlite();
+            options.UseSqlite(); 
         });
 
         Configure<AbpUnitOfWorkDefaultOptions>(options =>

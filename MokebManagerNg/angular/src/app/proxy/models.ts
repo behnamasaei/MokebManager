@@ -6,6 +6,7 @@ export interface EntryExitZaer extends AggregateRoot<string> {
   zaer: Zaer;
   entryDate?: string;
   exitDate?: string;
+  mokebId?: string;
 }
 
 export interface Mokeb extends AggregateRoot<string> {
@@ -13,6 +14,7 @@ export interface Mokeb extends AggregateRoot<string> {
   gender: Gender;
   capacity: number;
   zaers: Zaer[];
+  entryExitZaers: EntryExitZaer[];
 }
 
 export interface Zaer extends AggregateRoot<string> {

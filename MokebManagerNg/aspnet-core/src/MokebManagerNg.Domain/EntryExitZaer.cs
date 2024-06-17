@@ -10,4 +10,5 @@ public class EntryExitZaer : AggregateRoot<Guid>
     public virtual Zaer Zaer { get; set; }
     public DateTime EntryDate { get; set; }
     public DateTime ExitDate { get; set; }
+    public Guid MokebId { get; set; }
 }

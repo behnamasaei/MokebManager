@@ -86,6 +86,7 @@ public class MokebManagerNgDbContext :
             b.ToTable(MokebManagerNgConsts.DbTablePrefix + "Mokeb", MokebManagerNgConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasMany(x => x.Zaers).WithOne(x => x.Mokeb).HasForeignKey(x => x.MokebId);
+            b.HasMany(x => x.EntryExitZaers).WithOne().HasForeignKey(x => x.MokebId);
             b.Property(x => x.Name).IsRequired();
             b.HasIndex(x => x.Name).IsUnique();
             b.Property(x => x.Capacity).IsRequired() // If you want to ensure Capacity is always provided

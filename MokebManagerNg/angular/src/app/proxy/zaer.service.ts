@@ -20,6 +20,15 @@ export class ZaerService {
     { apiName: this.apiName,...config });
   
 
+  createNew = (input: CreateUpdateZaerDto, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ZaerDto>({
+      method: 'POST',
+      url: '/api/app/zaer/new',
+      body: input.image,
+    },
+    { apiName: this.apiName,...config });
+  
+
   delete = (id: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'DELETE',
@@ -41,6 +50,14 @@ export class ZaerService {
       method: 'GET',
       url: '/api/app/zaer',
       params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getWithDetail = (id: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ZaerDto>({
+      method: 'GET',
+      url: `/api/app/zaer/${id}/with-detail`,
     },
     { apiName: this.apiName,...config });
   
