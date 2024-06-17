@@ -1,9 +1,9 @@
 <!-- clock-example.component.html -->
 <p-toast />
 <div>
-    <p>{{ currentTime }}</p>
-  </div>
-  
+  <p>{{ currentTime }}</p>
+</div>
+
 <div class="p-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-field">
@@ -39,13 +39,14 @@
 
     <div class="p-field">
       <label for="image">Image</label>
-      <p-fileUpload
+      <!-- <p-fileUpload
         name="image"
         accept="image/*"
         customUpload
         (onSelect)="onFileSelect($event)"
         auto
-      ></p-fileUpload>
+      ></p-fileUpload> -->
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" capture />
     </div>
 
     <div class="p-field">

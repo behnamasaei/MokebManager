@@ -54,7 +54,12 @@
         {{ mokeb.name }}
       </td>
       <td>
-        {{ mokeb.gender }}
+        <div *ngIf="mokeb.gender == 0">
+          {{ '::Male' | abpLocalization }}
+        </div>
+        <div *ngIf="mokeb.gender == 1">
+          {{ '::Female' | abpLocalization }}
+        </div>
       </td>
       <td>
         {{ mokeb.capacity }}
@@ -86,5 +91,5 @@
   (onPageChange)="onPageChange($event)"
   [first]="paged.skipCount"
   [rows]="paged.maxResultCount"
-  [totalRecords]="mokeb.totalCount" 
+  [totalRecords]="mokeb.totalCount"
 />

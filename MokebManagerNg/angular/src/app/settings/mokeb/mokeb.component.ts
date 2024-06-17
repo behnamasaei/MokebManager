@@ -2,6 +2,7 @@ import { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MokebDto } from '@proxy/domain/dtos';
+import { Gender } from '@proxy/gender.enum';
 import { MokebService } from '@proxy/mokeb.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PageEvent } from 'src/app/shared/shared.model';

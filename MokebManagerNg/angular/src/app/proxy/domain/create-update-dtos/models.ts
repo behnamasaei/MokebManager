@@ -1,5 +1,4 @@
 import type { Gender } from '../../gender.enum';
-import type { Gender } from '../../models';
 import type { IFormFile } from '../../microsoft/asp-net-core/http/models';
 
 export interface CreateUpdateEntryExitZaerDto {

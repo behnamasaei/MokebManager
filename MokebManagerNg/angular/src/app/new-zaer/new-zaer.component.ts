@@ -69,7 +69,7 @@ export class NewZaerComponent {
       });
     });
 
-    this.mokebService.getList({ skipCount: 0, maxResultCount: 1000 }).subscribe(x => {
+    this.mokebService.getAllList().subscribe(x => {
       this.mokebs = x.items;
       this.mokebsDropDown = x.items.map(item => ({
         label: item.name,
@@ -92,9 +92,11 @@ export class NewZaerComponent {
     }));
   }
 
-  onFileSelect(event: any) {
-    const file = event.files[0];
-    this.form.patchValue({ image: file });
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form.patchValue({ image: file });
+    }
   }
 
   onSubmit() {
@@ -102,6 +104,7 @@ export class NewZaerComponent {
 
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
+
     this.zaerService.create(formValue).subscribe(x => {
       const entryExitDate: CreateUpdateEntryExitZaerDto = {
         zaerId: x.id,
@@ -110,7 +113,7 @@ export class NewZaerComponent {
       };
       this.entryExitZaerService.create(entryExitDate).subscribe(x => {
         this.form.reset();
-        this.form.patchValue({ entryExitDate: this.entryExitOptions[0] })
+        this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
         this.messageService.add({
           severity: 'success',
           summary: 'Success',

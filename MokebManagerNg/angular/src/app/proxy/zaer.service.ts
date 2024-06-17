@@ -24,7 +24,7 @@ export class ZaerService {
     this.restService.request<any, ZaerDto>({
       method: 'POST',
       url: '/api/app/zaer/new',
-      body: input.image,
+      body: input,
     },
     { apiName: this.apiName,...config });
   

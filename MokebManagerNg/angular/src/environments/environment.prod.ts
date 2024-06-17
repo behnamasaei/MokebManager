@@ -2,7 +2,8 @@ import { Environment } from '@abp/ng.core';
 
 const baseUrl = 'http://localhost:4200';
 const hostUrl = 'http://192.168.43.65:44355';
-const hostLocalUrl = 'http://localhost:44355';
+const hostLocalUrl = 'https://localhost:44355';
+const pcHomeUrl = 'https://192.168.1.103:44355';
 
 export const environment = {
   production: true,
@@ -12,7 +13,7 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: baseUrl,
+    issuer: hostLocalUrl,
     redirectUri: baseUrl,
     clientId: 'MokebManagerNg_App',
     responseType: 'code',
@@ -21,7 +22,7 @@ export const environment = {
   },
   apis: {
     default: {
-      url: baseUrl,
+      url: hostLocalUrl,
       rootNamespace: 'MokebManagerNg',
     },
   },

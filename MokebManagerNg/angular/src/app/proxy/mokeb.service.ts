@@ -36,6 +36,14 @@ export class MokebService {
     { apiName: this.apiName,...config });
   
 
+  getAllList = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, PagedResultDto<MokebDto>>({
+      method: 'GET',
+      url: '/api/app/mokeb/list',
+    },
+    { apiName: this.apiName,...config });
+  
+
   getList = (input: PagedAndSortedResultRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<MokebDto>>({
       method: 'GET',

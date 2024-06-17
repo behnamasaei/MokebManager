@@ -1,5 +1,5 @@
 import type { AuditedEntityDto } from '@abp/ng.core';
-import type { EntryExitZaer, Gender, Mokeb, Zaer } from '../../models';
+import type { EntryExitZaer, Mokeb, Zaer } from '../../models';
 import type { Gender } from '../../gender.enum';
 
 export interface EntryExitZaerDto extends AuditedEntityDto<string> {
