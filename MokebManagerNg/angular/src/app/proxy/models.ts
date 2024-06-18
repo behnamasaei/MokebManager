@@ -1,5 +1,6 @@
 import type { AggregateRoot } from './volo/abp/domain/entities/models';
 import type { Gender } from './gender.enum';
+import type { IFormFile } from './microsoft/asp-net-core/http/models';
 
 export interface EntryExitZaer extends AggregateRoot<string> {
   zaerId?: string;
@@ -22,7 +23,7 @@ export interface Zaer extends AggregateRoot<string> {
   family?: string;
   gender: Gender;
   entryExitZaerDates: EntryExitZaer[];
-  imageAddress?: string;
+  imageFileName?: string;
   passportNo?: string;
   mokebId?: string;
   mokeb: Mokeb;
@@ -30,4 +31,23 @@ export interface Zaer extends AggregateRoot<string> {
   state?: string;
   city?: string;
   address?: string;
+}
+
+export interface BlobDto {
+  content: number[];
+  name?: string;
+}
+
+export interface GetBlobRequestDto {
+  name: string;
+}
+
+export interface SaveBlobInputDto {
+  content: number[];
+  name: string;
+}
+
+export interface UploadFileDto {
+  file: IFormFile;
+  name: string;
 }

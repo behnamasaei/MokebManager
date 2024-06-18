@@ -23,7 +23,7 @@ export interface ZaerDto extends AuditedEntityDto<string> {
   family?: string;
   gender: Gender;
   entryExitZaerDates: EntryExitZaerDto[];
-  imageAddress?: string;
+  imageFileName?: string;
   passportNo?: string;
   mokebId?: string;
   mokeb: Mokeb;

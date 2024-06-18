@@ -3,7 +3,13 @@ import { SharedModule } from '../shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalizationService } from '@abp/ng.core';
 import { Gender } from '@proxy/gender.enum';
-import { EntryExitZaerService, MokebService, ZaerService } from '@proxy';
+import {
+  EntryExitZaerService,
+  FileService,
+  MokebService,
+  UploadFileDto,
+  ZaerService,
+} from '@proxy';
 import { MokebDto } from '@proxy/domain/dtos';
 import {
   CreateUpdateEntryExitZaerDto,
@@ -23,6 +29,7 @@ import { MessageService } from 'primeng/api';
 })
 export class NewZaerComponent {
   form: FormGroup;
+  formData: FormData;
   formEntryExitGroup: FormGroup;
   genders: any[] = [];
   mokebsDropDown: any[] = [];
@@ -36,7 +43,8 @@ export class NewZaerComponent {
     private mokebService: MokebService,
     private entryExitZaerService: EntryExitZaerService,
     private zaerService: ZaerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private fileService: FileService
   ) {}
 
   ngOnInit() {
@@ -47,17 +55,17 @@ export class NewZaerComponent {
     ];
 
     this.form = this.fb.group({
-      name: [''],
-      family: [''],
+      name: [null],
+      family: [null],
       gender: [null, Validators.required],
       image: [null],
-      passportNo: ['', Validators.required],
+      passportNo: [null, Validators.required],
       mokebId: [null, Validators.required],
       entryExitDate: [this.entryExitOptions[0], Validators.required],
       phoneNumber: [null],
-      state: [''],
-      city: [''],
-      address: [''],
+      state: [null],
+      city: [null],
+      address: [null],
     });
 
     this.localizationService.get('::Female').subscribe(female => {
@@ -92,36 +100,51 @@ export class NewZaerComponent {
     }));
   }
 
-  onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.form.patchValue({ image: file });
+  onFileSelected(event) {
+    if (event.files.length > 0) {
+      const file: File = event.files[0];
+      this.form.get('image').setValue(file);
+      this.formData.append('image', file);
     }
   }
 
   onSubmit() {
-    const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
+    // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
+    const formValue: CreateUpdateZaerDto | any = { ...this.form.value };
+
+    // formData.append('image', formValue.image);
+
+    const uploadFileDto: UploadFileDto = { file: formValue.image, name: formValue.image.name };
+
+    const formData = new FormData();
+    formData.append('File', formValue.image, formValue.image.name);
+    formData.append('Name', formValue.image.name); // Example of adding additional form data
 
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
 
-    this.zaerService.create(formValue).subscribe(x => {
-      const entryExitDate: CreateUpdateEntryExitZaerDto = {
-        zaerId: x.id,
-        entryDate: entryDate,
-        exitDate: exitDate,
-      };
-      this.entryExitZaerService.create(entryExitDate).subscribe(x => {
-        this.form.reset();
-        this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Success',
-          life: 1000,
+    if (formData.get('File') != null)
+      this.fileService.saveBlobStream(formData).subscribe(file => {
+        formValue.imageFileName = file;
+        this.zaerService.createNew(formValue).subscribe(x => {
+          const entryExitDate: CreateUpdateEntryExitZaerDto = {
+            zaerId: x.id,
+            entryDate: entryDate,
+            exitDate: exitDate,
+            mokebId: x.mokebId,
+          };
+          this.entryExitZaerService.create(entryExitDate).subscribe(x => {
+            this.form.reset();
+            this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Success',
+              life: 1000,
+            });
+          });
         });
       });
-    });
   }
 
   getEntryDate(): string {
