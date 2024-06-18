@@ -15,7 +15,7 @@ public class ZaerDto : AuditedEntityDto<Guid>
     public string ImageFileName { get; set; }
     public string PassportNo { get; set; }
     public Guid MokebId { get; set; }
-    public virtual Mokeb Mokeb { get; set; }
+    public virtual MokebDto Mokeb { get; set; }
     public long? PhoneNumber { get; set; }
     public string? State { get; set; }
     public string? City { get; set; }

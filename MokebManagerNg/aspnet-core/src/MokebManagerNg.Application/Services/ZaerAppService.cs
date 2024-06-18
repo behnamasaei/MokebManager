@@ -43,7 +43,7 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         // await _repository.EnsureCollectionLoadedAsync(student, x => x.EntryExitZaerDates);
         // //student.Groups is filled now
 
-        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates);
+        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates, e => e.Mokeb);
         var query = queryable.Where(x => x.Id == id);
         var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
 
