@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalizationService } from '@abp/ng.core';
@@ -18,6 +18,7 @@ import {
 import * as moment from 'moment';
 import 'moment/locale/fa';
 import { MessageService } from 'primeng/api';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-new-zaer',
@@ -36,6 +37,7 @@ export class NewZaerComponent {
   mokebs: MokebDto[] = [];
   entryExitOptions: any[] = [];
   currentTime: string;
+  @ViewChild('fileUpload') fileUpload: FileUpload;
 
   constructor(
     private fb: FormBuilder,
@@ -123,7 +125,7 @@ export class NewZaerComponent {
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
 
-    if (formData.get('File') != null)
+    if (formData.get('File') != null) {
       this.fileService.saveBlobStream(formData).subscribe(file => {
         formValue.imageFileName = file;
         this.zaerService.createNew(formValue).subscribe(x => {
@@ -135,6 +137,7 @@ export class NewZaerComponent {
           };
           this.entryExitZaerService.create(entryExitDate).subscribe(x => {
             this.form.reset();
+            this.fileUpload.clear();
             this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
             this.messageService.add({
               severity: 'success',
@@ -145,8 +148,30 @@ export class NewZaerComponent {
           });
         });
       });
+    } else {
+      this.zaerService.createNew(formValue).subscribe(x => {
+        const entryExitDate: CreateUpdateEntryExitZaerDto = {
+          zaerId: x.id,
+          entryDate: entryDate,
+          exitDate: exitDate,
+          mokebId: x.mokebId,
+        };
+        this.entryExitZaerService.create(entryExitDate).subscribe(x => {
+          this.form.reset();
+          this.fileUpload.clear();
+          this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Success',
+            life: 1000,
+          });
+        });
+      });
+    }
   }
 
+  
   getEntryDate(): string {
     const now = new Date();
     now.setHours(12, 0, 0, 0);

@@ -7,6 +7,7 @@ using MokebManagerNg.Domain.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.BlobStoring;
 using System.Net.Http;
@@ -37,8 +38,16 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
 
     public async Task<ZaerDto> GetWithDetailAsync(Guid id)
     {
-        var zaer = await _repository.GetAsync(id, includeDetails: true);
-        return ObjectMapper.Map<Zaer, ZaerDto>(zaer);
+        // var student = await _repository.GetAsync(id, includeDetails: false);
+        // //student.Groups is empty on this stage
+        // await _repository.EnsureCollectionLoadedAsync(student, x => x.EntryExitZaerDates);
+        // //student.Groups is filled now
+
+        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates);
+        var query = queryable.Where(x => x.Id == id);
+        var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
+
+        return ObjectMapper.Map<Zaer, ZaerDto>(dataWithDetail);
     }
 
     public async Task<ZaerDto> CreateNewAsync(CreateUpdateZaerDto input)

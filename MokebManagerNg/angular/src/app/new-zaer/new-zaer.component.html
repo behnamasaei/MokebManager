@@ -40,13 +40,14 @@
     <div class="p-field">
       <label for="image">Image</label>
       <p-fileUpload
+        #fileUpload
         name="image"
         accept="image/*"
         customUpload
+        formControlName="image"
         (onSelect)="onFileSelected($event)"
         auto
       ></p-fileUpload>
-      <!-- <input type="file" accept="image/*" (change)="onFileSelected($event)" capture /> -->
     </div>
 
     <div class="p-field">
