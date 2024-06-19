@@ -200,11 +200,11 @@ export class NewZaerComponent {
     // const isoString = entryDate.toISOString();
     // return isoString.replace('Z', '.0000000Z');
     // 2024-06-19T09:00:02.190Z
-    return moment.utc().format('YYYY-MM-DDT11:00:00.000[Z]');
+    return moment.utc().format('YYYY-MM-DDT12:00:00.000[Z]');
   }
 
   getExitDate(exitDate: number): string {
-    const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT10:00:00.000[Z]'); // Two days after current UTC date
+    const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000[Z]'); // Two days after current UTC date
 
     return exitDaysAfter;
   }
