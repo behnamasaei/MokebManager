@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
@@ -14,34 +16,16 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
                         CreateUpdateMokebDto, CreateUpdateMokebDto>,
     IMokebAppService
 {
-
-    private readonly IDistributedCache<MokebDto> _mokebCache;
     private readonly IDistributedCache<PagedResultDto<MokebDto>> _mokebListCache;
+    private readonly EntryExitZaerAppService _entryExitZaerDate;
 
-
-    public MokebAppService(IRepository<Mokeb, Guid> repository, IDistributedCache<MokebDto> mokebCache,
-    IDistributedCache<PagedResultDto<MokebDto>> mokebListCache) : base(repository)
+    public MokebAppService(IRepository<Mokeb, Guid> repository,
+    IDistributedCache<PagedResultDto<MokebDto>> mokebListCache,
+    EntryExitZaerAppService entryExitZaerDate) : base(repository)
     {
-        _mokebCache = mokebCache;
         _mokebListCache = mokebListCache;
+        _entryExitZaerDate = entryExitZaerDate;
     }
-
-    // public override async Task<MokebDto> GetAsync(Guid id)
-    // {
-    //     // Try to get data from the cache
-    //     var cachedData = await _mokebCache.GetAsync(id.ToString());
-    //     if (cachedData != null)
-    //     {
-    //         return cachedData;
-    //     }
-
-    //     // If cache is empty, retrieve data from the source 
-    //     var data = await base.GetAsync(id);
-
-    //     await _mokebCache.SetAsync(id.ToString(), data);
-
-    //     return data;
-    // }
 
     public async Task<PagedResultDto<MokebDto>> GetAllListAsync()
     {
@@ -72,5 +56,28 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         string cacheKey = "MokebDtoList_cache";
         await _mokebListCache.RemoveAsync(cacheKey);
         return await base.UpdateAsync(id, input);
+    }
+
+    public async Task<List<MokebCapacityDto>> GetMokebCapacityToNight()
+    {
+        var mokebs = await GetAllListAsync();
+        var reservations = await _entryExitZaerDate.GetAllEntryExitAsync();
+        List<MokebCapacityDto> mokebCapacityToNight = new();
+        // Get the current date and time
+        DateTime now = DateTime.Now;
+        // Set the specific date and time
+        DateTime entryDate = new DateTime(now.Year, now.Month, now.Day, 11, 0, 0, 0, DateTimeKind.Utc);
+
+        foreach (var mokeb in mokebs.Items)
+        {
+            mokebCapacityToNight.Add(new MokebCapacityDto
+            {
+                Mokeb = mokeb,
+                MokebId = mokeb.Id,
+                FreeCapacityToNight = mokeb.Capacity - reservations.Count(x => x.MokebId == mokeb.Id && x.EntryDate == entryDate)
+            });
+        }
+
+        return mokebCapacityToNight;
     }
 }

@@ -36,6 +36,14 @@ export class EntryExitZaerService {
     { apiName: this.apiName,...config });
   
 
+  getAllEntryExit = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, EntryExitZaerDto[]>({
+      method: 'GET',
+      url: '/api/app/entry-exit-zaer/entry-exit',
+    },
+    { apiName: this.apiName,...config });
+  
+
   getList = (input: PagedAndSortedResultRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<EntryExitZaerDto>>({
       method: 'GET',

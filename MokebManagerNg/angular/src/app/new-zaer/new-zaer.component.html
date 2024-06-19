@@ -3,15 +3,18 @@
 <div>
   <p>{{ currentTime }}</p>
 </div>
+<h1>{{ getEntryDate() }}</h1>
+
+<h1>{{ getExitDate(15) }}</h1>
 
 <div class="p-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="p-field">
+    <div class="p-field mb-3">
       <label for="passportNo">Passport No</label>
       <input id="passportNo" type="text" pInputText formControlName="passportNo" />
     </div>
 
-    <div class="p-field">
+    <div class="p-field mb-3">
       <label for="gender">Gender</label>
       <p-dropdown
         [options]="genders"
@@ -21,9 +24,20 @@
       ></p-dropdown>
     </div>
 
-    <div class="p-field">
+    <div class="p-field mb-3">
+      <label for="mokebId">Mokeb </label>
+      <p-dropdown
+        [options]="mokebsDropDown"
+        formControlName="mokebId"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Select a Mokeb"
+      />
+    </div>
+
+    <div class="p-field mb-3">
       <label for="gender">مدت اقامت</label>
-      <div class="flex flex-column gap-3">
+      <div class="d-flex gap-5">
         <div *ngFor="let entryExitOption of entryExitOptions" class="field-checkbox">
           <p-radioButton
             [inputId]="entryExitOption.key"
@@ -37,7 +51,7 @@
       </div>
     </div>
 
-    <div class="p-field">
+    <div class="p-field mb-3">
       <label for="image">Image</label>
       <p-fileUpload
         #fileUpload
@@ -50,46 +64,35 @@
       ></p-fileUpload>
     </div>
 
-    <div class="p-field">
-      <label for="mokebId">Mokeb </label>
-      <p-dropdown
-        [options]="mokebsDropDown"
-        formControlName="mokebId"
-        optionLabel="label"
-        optionValue="value"
-        placeholder="Select a Mokeb"
-      />
-    </div>
-
     <div class="card flex justify-content-center mt-3">
       <p-accordion>
         <p-accordionTab header="اطلاعات اضافی">
-          <div class="p-field">
+          <div class="p-field mb-3">
             <label for="name">Name</label>
             <input id="name" type="text" pInputText formControlName="name" />
           </div>
 
-          <div class="p-field">
+          <div class="p-field mb-3">
             <label for="family">Family</label>
             <input id="family" type="text" pInputText formControlName="family" />
           </div>
 
-          <div class="p-field">
+          <div class="p-field mb-3">
             <label for="phoneNumber">Phone Number</label>
             <input id="phoneNumber" type="number" pInputText formControlName="phoneNumber" />
           </div>
 
-          <div class="p-field">
+          <div class="p-field mb-3">
             <label for="state">State</label>
             <input id="state" type="text" pInputText formControlName="state" />
           </div>
 
-          <div class="p-field">
+          <div class="p-field mb-3">
             <label for="city">City</label>
             <input id="city" type="text" pInputText formControlName="city" />
           </div>
 
-          <div class="p-field">
+          <div class="p-field mb-3">
             <label for="address">Address</label>
             <input id="address" type="text" pInputText formControlName="address" />
           </div>

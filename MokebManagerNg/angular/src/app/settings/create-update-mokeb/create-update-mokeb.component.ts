@@ -1,9 +1,9 @@
 import { LocalizationService } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Gender, MokebService } from '@proxy';
-import { CreateUpdateMokebDto } from '@proxy/domain/create-update-dtos'; 
+import { CreateUpdateMokebDto } from '@proxy/domain/create-update-dtos';
 
 @Component({
   selector: 'app-create-update-mokeb',
@@ -16,7 +16,8 @@ export class CreateUpdateMokebComponent {
   genders: any[] = [];
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private mokebService: MokebService,
     private localizationService: LocalizationService
@@ -29,7 +30,7 @@ export class CreateUpdateMokebComponent {
   }
 
   ngOnInit(): void {
-    this.mokebId = this.route.snapshot.paramMap.get('id');
+    this.mokebId = this.activatedRoute.snapshot.paramMap.get('id');
     this.localizationService.get('::Female').subscribe(female => {
       this.localizationService.get('::Male').subscribe(male => {
         this.genders = [
@@ -56,10 +57,14 @@ export class CreateUpdateMokebComponent {
     const formValue: CreateUpdateMokebDto = this.mokebForm.value as CreateUpdateMokebDto;
 
     if (this.mokebId === null) {
-      this.mokebService.create(formValue).subscribe(x => console.log(x.id));
+      this.mokebService
+        .create(formValue)
+        .subscribe(x => this.router.navigate(['/', 'settings', 'mokeb']));
     }
     if (this.mokebId !== null) {
-      this.mokebService.update(this.mokebId, formValue).subscribe(x => console.log(x.id));
+      this.mokebService
+        .update(this.mokebId, formValue)
+        .subscribe(x => this.router.navigate(['/', 'settings', 'mokeb']));
     }
   }
 }

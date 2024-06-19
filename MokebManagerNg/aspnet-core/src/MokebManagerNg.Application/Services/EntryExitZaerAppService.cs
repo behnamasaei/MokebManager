@@ -26,7 +26,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         _repository = repository;
     }
 
-    public async Task<IList<EntryExitZaerDto>> GetAllEntryExit()
+    public async Task<IList<EntryExitZaerDto>> GetAllEntryExitAsync()
     {
         string cacheKey = "AllEntryExit_cache";
 

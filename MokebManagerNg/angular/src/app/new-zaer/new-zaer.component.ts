@@ -6,6 +6,7 @@ import { Gender } from '@proxy/gender.enum';
 import {
   EntryExitZaerService,
   FileService,
+  MokebCapacityDto,
   MokebService,
   UploadFileDto,
   ZaerService,
@@ -16,7 +17,6 @@ import {
   CreateUpdateZaerDto,
 } from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
-import 'moment/locale/fa';
 import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 
@@ -36,6 +36,7 @@ export class NewZaerComponent {
   mokebsDropDown: any[] = [];
   mokebs: MokebDto[] = [];
   entryExitOptions: any[] = [];
+  mokebCapacityToNight: MokebCapacityDto[] = [];
   currentTime: string;
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
@@ -79,27 +80,52 @@ export class NewZaerComponent {
       });
     });
 
-    this.mokebService.getAllList().subscribe(x => {
-      this.mokebs = x.items;
-      this.mokebsDropDown = x.items.map(item => ({
-        label: item.name,
-        value: item.id,
-      }));
-    });
+    this.getMokebsInformation();
 
-    setInterval(() => {
-      this.currentTime = moment().format('hh:mm:ss A'); // Format time as 'hh:mm:ss AM/PM'
-    }, 1000); // Update every second
+    // setInterval(() => {
+    //   this.currentTime = moment().format('hh:mm:ss A'); // Format time as 'hh:mm:ss AM/PM'
+    // }, 1000); // Update every second
+  }
+
+  getMokebsInformation() {
+    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
+      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+        this.mokebService.getAllList().subscribe(mokeb => {
+          this.mokebs = mokeb.items;
+          this.mokebsDropDown = mokeb.items.map(item => ({
+            label: `${item.name} - ${localization} : ${
+              mokebCapacity.find(x => x.mokebId === item.id).freeCapacityToNight
+            }`,
+            value: item.id,
+          }));
+        });
+      });
+    });
   }
 
   changeGender(event: any) {
     const genderValue = event.value;
     const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
 
-    this.mokebsDropDown = selectedItems.map(item => ({
-      label: item.name,
-      value: item.id,
-    }));
+    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
+      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+        this.mokebsDropDown = selectedItems
+          .map(item => {
+            const capacity =
+              mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight || 0;
+            return {
+              label: `${item.name} - ${localization}: ${capacity}`,
+              value: item.id,
+              freeCapacityToNight: capacity,
+            };
+          })
+          .filter(item => item.freeCapacityToNight > 0)
+          .map(item => ({
+            label: item.label,
+            value: item.value,
+          }));
+      });
+    });
   }
 
   onFileSelected(event) {
@@ -113,19 +139,14 @@ export class NewZaerComponent {
   onSubmit() {
     // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
     const formValue: CreateUpdateZaerDto | any = { ...this.form.value };
-
-    // formData.append('image', formValue.image);
-
-    const uploadFileDto: UploadFileDto = { file: formValue.image, name: formValue.image.name };
-
-    const formData = new FormData();
-    formData.append('File', formValue.image, formValue.image.name);
-    formData.append('Name', formValue.image.name); // Example of adding additional form data
-
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
 
-    if (formData.get('File') != null) {
+    if (formValue.image != null) {
+      const formData = new FormData();
+      formData.append('File', formValue.image, formValue.image.name);
+      formData.append('Name', formValue.image.name); // Example of adding additional form data
+
       this.fileService.saveBlobStream(formData).subscribe(file => {
         formValue.imageFileName = file;
         this.zaerService.createNew(formValue).subscribe(x => {
@@ -171,17 +192,20 @@ export class NewZaerComponent {
     }
   }
 
-  
   getEntryDate(): string {
-    const now = new Date();
-    now.setHours(12, 0, 0, 0);
-    return now.toISOString();
+    // const now = moment();
+    // // Set the specific date and time
+    // const entryDate = new Date(now.year(), now.month(), now.date(), 12, 0, 0, 0); // Note: Month is 0-based, so June is 5
+    // // Convert to ISO string with seven fractional digits for seconds
+    // const isoString = entryDate.toISOString();
+    // return isoString.replace('Z', '.0000000Z');
+    // 2024-06-19T09:00:02.190Z
+    return moment.utc().format('YYYY-MM-DDT11:00:00.000[Z]');
   }
 
   getExitDate(exitDate: number): string {
-    const now = moment(); // Get the current date and time
-    const futureDate = now.add(exitDate, 'days').toDate();
-    futureDate.setHours(10, 0, 0, 0);
-    return futureDate.toISOString();
+    const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT10:00:00.000[Z]'); // Two days after current UTC date
+
+    return exitDaysAfter;
   }
 }

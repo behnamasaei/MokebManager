@@ -1,6 +1,5 @@
 import * as Domain from './domain';
 import * as Microsoft from './microsoft';
-import * as Volo from './volo';
 export * from './entry-exit-zaer.service';
 export * from './file.service';
 export * from './gender.enum';
@@ -8,4 +7,4 @@ export * from './models';
 export * from './mokeb.service';
 export * from './storage.service';
 export * from './zaer.service';
-export { Domain, Microsoft, Volo };
+export { Domain, Microsoft };
