@@ -17,14 +17,17 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     IMokebAppService
 {
     private readonly IDistributedCache<PagedResultDto<MokebDto>> _mokebListCache;
+    private readonly IDistributedCache<List<EntryExitZaerDto>> _entryExitListCache;
     private readonly EntryExitZaerAppService _entryExitZaerDate;
 
     public MokebAppService(IRepository<Mokeb, Guid> repository,
     IDistributedCache<PagedResultDto<MokebDto>> mokebListCache,
-    EntryExitZaerAppService entryExitZaerDate) : base(repository)
+    EntryExitZaerAppService entryExitZaerDate,
+    IDistributedCache<List<EntryExitZaerDto>> entryExitListCache = null) : base(repository)
     {
         _mokebListCache = mokebListCache;
         _entryExitZaerDate = entryExitZaerDate;
+        _entryExitListCache = entryExitListCache;
     }
 
     public async Task<PagedResultDto<MokebDto>> GetAllListAsync()
@@ -48,6 +51,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     {
         string cacheKey = "MokebDtoList_cache";
         await _mokebListCache.RemoveAsync(cacheKey);
+        await _entryExitListCache.RemoveAsync("AllEntryExit_cache");
         return await base.CreateAsync(input);
     }
 
@@ -55,7 +59,16 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     {
         string cacheKey = "MokebDtoList_cache";
         await _mokebListCache.RemoveAsync(cacheKey);
+        await _entryExitListCache.RemoveAsync("AllEntryExit_cache");
         return await base.UpdateAsync(id, input);
+    }
+
+    public override async Task DeleteAsync(Guid id)
+    {
+        string cacheKey = "MokebDtoList_cache";
+        await _mokebListCache.RemoveAsync(cacheKey);
+        await _entryExitListCache.RemoveAsync("AllEntryExit_cache");
+        await base.DeleteAsync(id);
     }
 
     public async Task<List<MokebCapacityDto>> GetMokebCapacityToNight()
@@ -63,15 +76,16 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         var mokebs = await GetAllListAsync();
         var reservations = await _entryExitZaerDate.GetAllEntryExitAsync();
         List<MokebCapacityDto> mokebCapacityToNight = new();
+
         // Get the current date and time
         DateTime now = DateTime.UtcNow;
-        now.AddDays(1);
+        // now = now.AddDays(2);
 
         // Set the specific date and time
         DateTime nowDate = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0, 0, DateTimeKind.Utc);
 
         Console.WriteLine(nowDate.ToString());
-        
+
         foreach (var mokeb in mokebs.Items)
         {
             mokebCapacityToNight.Add(new MokebCapacityDto
@@ -79,7 +93,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
                 Mokeb = mokeb,
                 MokebId = mokeb.Id,
                 FreeCapacityToNight = mokeb.Capacity - reservations.Count(x => x.MokebId == mokeb.Id &&
-                 nowDate < x.ExitDate)  
+                 nowDate < x.ExitDate)
             });
         }
 
