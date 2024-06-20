@@ -1638,21 +1638,6 @@
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MokebManagerNg.Domain.Dtos.MokebDto,System.Guid,MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateMokebDto>"
             },
-            "GetMokebCapacityToNight": {
-              "uniqueName": "GetMokebCapacityToNight",
-              "name": "GetMokebCapacityToNight",
-              "httpMethod": "GET",
-              "url": "api/app/mokeb/mokeb-capacity-to-night",
-              "supportedVersions": [],
-              "parametersOnMethod": [],
-              "parameters": [],
-              "returnValue": {
-                "type": "System.Collections.Generic.List<MokebManagerNg.MokebCapacityDto>",
-                "typeSimple": "[MokebManagerNg.MokebCapacityDto]"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "MokebManagerNg.MokebAppService"
-            },
             "DeleteAsyncById": {
               "uniqueName": "DeleteAsyncById",
               "name": "DeleteAsync",
@@ -1689,6 +1674,21 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
+            },
+            "GetMokebCapacityToNight": {
+              "uniqueName": "GetMokebCapacityToNight",
+              "name": "GetMokebCapacityToNight",
+              "httpMethod": "GET",
+              "url": "api/app/mokeb/mokeb-capacity-to-night",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<MokebManagerNg.MokebCapacityDto>",
+                "typeSimple": "[MokebManagerNg.MokebCapacityDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.MokebAppService"
             },
             "GetAsyncById": {
               "uniqueName": "GetAsyncById",
@@ -2058,42 +2058,42 @@
               "allowAnonymous": null,
               "implementFrom": "MokebManagerNg.ZaerAppService"
             },
-            "CreateNewAsyncByInput": {
-              "uniqueName": "CreateNewAsyncByInput",
-              "name": "CreateNewAsync",
-              "httpMethod": "POST",
-              "url": "api/app/zaer/new",
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/app/zaer/{id}",
               "supportedVersions": [],
               "parametersOnMethod": [
                 {
-                  "name": "input",
-                  "typeAsString": "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateZaerDto, MokebManagerNg.Domain",
-                  "type": "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateZaerDto",
-                  "typeSimple": "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateZaerDto",
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
                   "isOptional": false,
                   "defaultValue": null
                 }
               ],
               "parameters": [
                 {
-                  "nameOnMethod": "input",
-                  "name": "input",
+                  "nameOnMethod": "id",
+                  "name": "id",
                   "jsonName": null,
-                  "type": "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateZaerDto",
-                  "typeSimple": "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateZaerDto",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
                   "isOptional": false,
                   "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
                   "descriptorName": ""
                 }
               ],
               "returnValue": {
-                "type": "MokebManagerNg.Domain.Dtos.ZaerDto",
-                "typeSimple": "MokebManagerNg.Domain.Dtos.ZaerDto"
+                "type": "System.Void",
+                "typeSimple": "System.Void"
               },
               "allowAnonymous": null,
-              "implementFrom": "MokebManagerNg.ZaerAppService"
+              "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
             },
             "UpdateAsyncByIdAndInput": {
               "uniqueName": "UpdateAsyncByIdAndInput",
@@ -2151,43 +2151,6 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MokebManagerNg.Domain.Dtos.ZaerDto,System.Guid,MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateZaerDto>"
-            },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
-              "name": "DeleteAsync",
-              "httpMethod": "DELETE",
-              "url": "api/app/zaer/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
             },
             "GetAsyncById": {
               "uniqueName": "GetAsyncById",
