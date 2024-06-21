@@ -12,7 +12,7 @@ public class MokebDto : AuditedEntityDto<Guid>
     public Gender Gender { get; set; }
     public int Capacity { get; set; }
 
-    public virtual ICollection<Zaer>? Zaers { get; set; }
-    public virtual ICollection<EntryExitZaer>? EntryExitZaers { get; set; }
+    // public virtual ICollection<Zaer>? Zaers { get; set; }
+    // public virtual ICollection<EntryExitZaer>? EntryExitZaers { get; set; }
 
 }

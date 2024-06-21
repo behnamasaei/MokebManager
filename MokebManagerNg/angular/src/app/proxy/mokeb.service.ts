@@ -1,5 +1,6 @@
 import type { CreateUpdateMokebDto } from './domain/create-update-dtos/models';
 import type { MokebDto } from './domain/dtos/models';
+import type { MokebCapacityDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -49,6 +50,14 @@ export class MokebService {
       method: 'GET',
       url: '/api/app/mokeb',
       params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getMokebCapacityToNight = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, MokebCapacityDto[]>({
+      method: 'GET',
+      url: '/api/app/mokeb/mokeb-capacity-to-night',
     },
     { apiName: this.apiName,...config });
   

@@ -10,8 +10,8 @@ public class Zaer : AggregateRoot<Guid>
     public string? Name { get; set; }
     public string? Family { get; set; }
     public Gender Gender { get; set; }
-    public virtual ICollection<EntryExitZaer>? EntryExitZaerDates { get; set; }
-    public string? ImageAddress { get; set; }
+    public virtual ICollection<EntryExitZaer> EntryExitZaerDates { get; set; }
+    public string? ImageFileName { get; set; }
     public string PassportNo { get; set; }
     public Guid MokebId { get; set; }
     public virtual Mokeb? Mokeb { get; set; }

@@ -1,5 +1,4 @@
 import type { Gender } from '../../gender.enum';
-import type { IFormFile } from '../../microsoft/asp-net-core/http/models';
 
 export interface CreateUpdateEntryExitZaerDto {
   zaerId?: string;
@@ -18,10 +17,9 @@ export interface CreateUpdateZaerDto {
   name?: string;
   family?: string;
   gender: Gender;
-  passportNo?: string;
-  mokebId?: string;
-  image: IFormFile;
-  imageAddress?: string;
+  passportNo: string;
+  mokebId: string;
+  imageFileName?: string;
   phoneNumber?: number;
   state?: string;
   city?: string;

@@ -982,6 +982,21 @@
             }
           ],
           "actions": {
+            "GetAllEntryExitAsync": {
+              "uniqueName": "GetAllEntryExitAsync",
+              "name": "GetAllEntryExitAsync",
+              "httpMethod": "GET",
+              "url": "api/app/entry-exit-zaer/entry-exit",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.IList<MokebManagerNg.Domain.Dtos.EntryExitZaerDto>",
+                "typeSimple": "[MokebManagerNg.Domain.Dtos.EntryExitZaerDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.EntryExitZaerAppService"
+            },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
               "name": "CreateAsync",
@@ -1018,6 +1033,43 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<MokebManagerNg.Domain.Dtos.EntryExitZaerDto,MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateEntryExitZaerDto>"
+            },
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/app/entry-exit-zaer/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
             },
             "UpdateAsyncByIdAndInput": {
               "uniqueName": "UpdateAsyncByIdAndInput",
@@ -1075,43 +1127,6 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MokebManagerNg.Domain.Dtos.EntryExitZaerDto,System.Guid,MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateEntryExitZaerDto>"
-            },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
-              "name": "DeleteAsync",
-              "httpMethod": "DELETE",
-              "url": "api/app/entry-exit-zaer/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
             },
             "GetAsyncById": {
               "uniqueName": "GetAsyncById",
@@ -1210,6 +1225,198 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MokebManagerNg.Domain.Dtos.EntryExitZaerDto,MokebManagerNg.Domain.Dtos.EntryExitZaerDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            }
+          }
+        },
+        "MokebManagerNg.FileAppService": {
+          "controllerName": "File",
+          "controllerGroupName": "File",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "MokebManagerNg.FileAppService",
+          "interfaces": [
+            {
+              "type": "MokebManagerNg.IFileAppService",
+              "name": "IFileAppService",
+              "methods": [
+                {
+                  "name": "SaveBlobAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "MokebManagerNg.SaveBlobInputDto, MokebManagerNg.Domain",
+                      "type": "MokebManagerNg.SaveBlobInputDto",
+                      "typeSimple": "MokebManagerNg.SaveBlobInputDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "SaveBlobStreamAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "MokebManagerNg.UploadFileDto, MokebManagerNg.Domain",
+                      "type": "MokebManagerNg.UploadFileDto",
+                      "typeSimple": "MokebManagerNg.UploadFileDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.String",
+                    "typeSimple": "string"
+                  }
+                },
+                {
+                  "name": "GetBlobAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "MokebManagerNg.GetBlobRequestDto, MokebManagerNg.Domain",
+                      "type": "MokebManagerNg.GetBlobRequestDto",
+                      "typeSimple": "MokebManagerNg.GetBlobRequestDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "MokebManagerNg.BlobDto",
+                    "typeSimple": "MokebManagerNg.BlobDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "SaveBlobAsyncByInput": {
+              "uniqueName": "SaveBlobAsyncByInput",
+              "name": "SaveBlobAsync",
+              "httpMethod": "POST",
+              "url": "api/app/file/save-blob",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "MokebManagerNg.SaveBlobInputDto, MokebManagerNg.Domain",
+                  "type": "MokebManagerNg.SaveBlobInputDto",
+                  "typeSimple": "MokebManagerNg.SaveBlobInputDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "MokebManagerNg.SaveBlobInputDto",
+                  "typeSimple": "MokebManagerNg.SaveBlobInputDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.IFileAppService"
+            },
+            "GetBlobAsyncByInput": {
+              "uniqueName": "GetBlobAsyncByInput",
+              "name": "GetBlobAsync",
+              "httpMethod": "GET",
+              "url": "api/app/file/blob",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "MokebManagerNg.GetBlobRequestDto, MokebManagerNg.Domain",
+                  "type": "MokebManagerNg.GetBlobRequestDto",
+                  "typeSimple": "MokebManagerNg.GetBlobRequestDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "Name",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "MokebManagerNg.BlobDto",
+                "typeSimple": "MokebManagerNg.BlobDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.IFileAppService"
+            },
+            "SaveBlobStreamAsyncByInput": {
+              "uniqueName": "SaveBlobStreamAsyncByInput",
+              "name": "SaveBlobStreamAsync",
+              "httpMethod": "POST",
+              "url": "api/app/file/save-blob-stream",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "MokebManagerNg.UploadFileDto, MokebManagerNg.Domain",
+                  "type": "MokebManagerNg.UploadFileDto",
+                  "typeSimple": "MokebManagerNg.UploadFileDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "File",
+                  "jsonName": null,
+                  "type": "Microsoft.AspNetCore.Http.IFormFile",
+                  "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Name",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Form",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.IFileAppService"
             }
           }
         },
@@ -1431,6 +1638,21 @@
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<MokebManagerNg.Domain.Dtos.MokebDto,System.Guid,MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateMokebDto>"
             },
+            "GetMokebCapacityToNight": {
+              "uniqueName": "GetMokebCapacityToNight",
+              "name": "GetMokebCapacityToNight",
+              "httpMethod": "GET",
+              "url": "api/app/mokeb/mokeb-capacity-to-night",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<MokebManagerNg.MokebCapacityDto>",
+                "typeSimple": "[MokebManagerNg.MokebCapacityDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.MokebAppService"
+            },
             "DeleteAsyncById": {
               "uniqueName": "DeleteAsyncById",
               "name": "DeleteAsync",
@@ -1565,6 +1787,91 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<MokebManagerNg.Domain.Dtos.MokebDto,MokebManagerNg.Domain.Dtos.MokebDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            }
+          }
+        },
+        "MokebManagerNg.StorageAppService": {
+          "controllerName": "Storage",
+          "controllerGroupName": "Storage",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "MokebManagerNg.StorageAppService",
+          "interfaces": [],
+          "actions": {
+            "UploadFileAsyncByFile": {
+              "uniqueName": "UploadFileAsyncByFile",
+              "name": "UploadFileAsync",
+              "httpMethod": "POST",
+              "url": "api/app/storage/upload-file",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "file",
+                  "typeAsString": "Volo.Abp.Content.IRemoteStreamContent, Volo.Abp.Core",
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "file",
+                  "name": "file",
+                  "jsonName": null,
+                  "type": "Volo.Abp.Content.IRemoteStreamContent",
+                  "typeSimple": "Volo.Abp.Content.IRemoteStreamContent",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "FormFile",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.String",
+                "typeSimple": "string"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.StorageAppService"
+            },
+            "DownloadFileByFileName": {
+              "uniqueName": "DownloadFileByFileName",
+              "name": "DownloadFile",
+              "httpMethod": "POST",
+              "url": "api/app/storage/download-file",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "FileName",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "FileName",
+                  "name": "FileName",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Content.IRemoteStreamContent",
+                "typeSimple": "Volo.Abp.Content.IRemoteStreamContent"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.StorageAppService"
             }
           }
         },
@@ -4672,6 +4979,39 @@
         }
       ]
     },
+    "MokebManagerNg.BlobDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Content",
+          "jsonName": null,
+          "type": "[System.Byte]",
+          "typeSimple": "[number]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "MokebManagerNg.Domain.CreateUpdateDtos.CreateUpdateEntryExitZaerDto": {
       "baseType": null,
       "isEnum": false,
@@ -4810,7 +5150,7 @@
           "jsonName": null,
           "type": "MokebManagerNg.Gender",
           "typeSimple": "MokebManagerNg.Gender",
-          "isRequired": false,
+          "isRequired": true,
           "minLength": null,
           "maxLength": null,
           "minimum": null,
@@ -4822,7 +5162,7 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
-          "isRequired": false,
+          "isRequired": true,
           "minLength": null,
           "maxLength": null,
           "minimum": null,
@@ -4834,7 +5174,7 @@
           "jsonName": null,
           "type": "System.Guid",
           "typeSimple": "string",
-          "isRequired": false,
+          "isRequired": true,
           "minLength": null,
           "maxLength": null,
           "minimum": null,
@@ -4842,19 +5182,7 @@
           "regex": null
         },
         {
-          "name": "Image",
-          "jsonName": null,
-          "type": "Microsoft.AspNetCore.Http.IFormFile",
-          "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ImageAddress",
+          "name": "ImageFileName",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -4927,18 +5255,6 @@
           "jsonName": null,
           "type": "System.Guid",
           "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Zaer",
-          "jsonName": null,
-          "type": "MokebManagerNg.Zaer",
-          "typeSimple": "MokebManagerNg.Zaer",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -5026,30 +5342,6 @@
           "minimum": null,
           "maximum": null,
           "regex": null
-        },
-        {
-          "name": "Zaers",
-          "jsonName": null,
-          "type": "[MokebManagerNg.Zaer]",
-          "typeSimple": "[MokebManagerNg.Zaer]",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "EntryExitZaers",
-          "jsonName": null,
-          "type": "[MokebManagerNg.EntryExitZaer]",
-          "typeSimple": "[MokebManagerNg.EntryExitZaer]",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
         }
       ]
     },
@@ -5109,7 +5401,7 @@
           "regex": null
         },
         {
-          "name": "ImageAddress",
+          "name": "ImageFileName",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -5147,8 +5439,8 @@
         {
           "name": "Mokeb",
           "jsonName": null,
-          "type": "MokebManagerNg.Mokeb",
-          "typeSimple": "MokebManagerNg.Mokeb",
+          "type": "MokebManagerNg.Domain.Dtos.MokebDto",
+          "typeSimple": "MokebManagerNg.Domain.Dtos.MokebDto",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -5196,75 +5488,6 @@
           "name": "Address",
           "jsonName": null,
           "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "MokebManagerNg.EntryExitZaer": {
-      "baseType": "Volo.Abp.Domain.Entities.AggregateRoot<System.Guid>",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "ZaerId",
-          "jsonName": null,
-          "type": "System.Guid",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Zaer",
-          "jsonName": null,
-          "type": "MokebManagerNg.Zaer",
-          "typeSimple": "MokebManagerNg.Zaer",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "EntryDate",
-          "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ExitDate",
-          "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "MokebId",
-          "jsonName": null,
-          "type": "System.Guid",
           "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
@@ -5289,8 +5512,8 @@
       "genericArguments": null,
       "properties": null
     },
-    "MokebManagerNg.Mokeb": {
-      "baseType": "Volo.Abp.Domain.Entities.AggregateRoot<System.Guid>",
+    "MokebManagerNg.GetBlobRequestDto": {
+      "baseType": null,
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
@@ -5301,55 +5524,7 @@
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Gender",
-          "jsonName": null,
-          "type": "MokebManagerNg.Gender",
-          "typeSimple": "MokebManagerNg.Gender",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Capacity",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Zaers",
-          "jsonName": null,
-          "type": "[MokebManagerNg.Zaer]",
-          "typeSimple": "[MokebManagerNg.Zaer]",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "EntryExitZaers",
-          "jsonName": null,
-          "type": "[MokebManagerNg.EntryExitZaer]",
-          "typeSimple": "[MokebManagerNg.EntryExitZaer]",
-          "isRequired": false,
+          "isRequired": true,
           "minLength": null,
           "maxLength": null,
           "minimum": null,
@@ -5358,85 +5533,13 @@
         }
       ]
     },
-    "MokebManagerNg.Zaer": {
-      "baseType": "Volo.Abp.Domain.Entities.AggregateRoot<System.Guid>",
+    "MokebManagerNg.MokebCapacityDto": {
+      "baseType": null,
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
       "genericArguments": null,
       "properties": [
-        {
-          "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Family",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Gender",
-          "jsonName": null,
-          "type": "MokebManagerNg.Gender",
-          "typeSimple": "MokebManagerNg.Gender",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "EntryExitZaerDates",
-          "jsonName": null,
-          "type": "[MokebManagerNg.EntryExitZaer]",
-          "typeSimple": "[MokebManagerNg.EntryExitZaer]",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ImageAddress",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "PassportNo",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
         {
           "name": "MokebId",
           "jsonName": null,
@@ -5452,8 +5555,8 @@
         {
           "name": "Mokeb",
           "jsonName": null,
-          "type": "MokebManagerNg.Mokeb",
-          "typeSimple": "MokebManagerNg.Mokeb",
+          "type": "MokebManagerNg.Domain.Dtos.MokebDto",
+          "typeSimple": "MokebManagerNg.Domain.Dtos.MokebDto",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -5462,22 +5565,31 @@
           "regex": null
         },
         {
-          "name": "PhoneNumber",
+          "name": "FreeCapacityToNight",
           "jsonName": null,
-          "type": "System.Int64?",
-          "typeSimple": "number?",
+          "type": "System.Int32",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
           "minimum": null,
           "maximum": null,
           "regex": null
-        },
+        }
+      ]
+    },
+    "MokebManagerNg.SaveBlobInputDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
         {
-          "name": "State",
+          "name": "Content",
           "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
+          "type": "[System.Byte]",
+          "typeSimple": "[number]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -5486,23 +5598,44 @@
           "regex": null
         },
         {
-          "name": "City",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Address",
+          "name": "Name",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
-          "isRequired": false,
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "MokebManagerNg.UploadFileDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "File",
+          "jsonName": null,
+          "type": "Microsoft.AspNetCore.Http.IFormFile",
+          "typeSimple": "Microsoft.AspNetCore.Http.IFormFile",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
           "minLength": null,
           "maxLength": null,
           "minimum": null,
@@ -8095,29 +8228,15 @@
         }
       ]
     },
-    "Volo.Abp.Domain.Entities.AggregateRoot<T0>": {
-      "baseType": "Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>",
+    "Volo.Abp.Content.IRemoteStreamContent": {
+      "baseType": null,
       "isEnum": false,
       "enumNames": null,
       "enumValues": null,
-      "genericArguments": [
-        "TKey"
-      ],
+      "genericArguments": null,
       "properties": [
         {
-          "name": "ExtraProperties",
-          "jsonName": null,
-          "type": "{System.String:System.Object}",
-          "typeSimple": "{string:object}",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ConcurrencyStamp",
+          "name": "FileName",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -8127,41 +8246,24 @@
           "minimum": null,
           "maximum": null,
           "regex": null
-        }
-      ]
-    },
-    "Volo.Abp.Domain.Entities.BasicAggregateRoot<T0>": {
-      "baseType": "Volo.Abp.Domain.Entities.Entity<TKey>",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": [
-        "TKey"
-      ],
-      "properties": []
-    },
-    "Volo.Abp.Domain.Entities.Entity": {
-      "baseType": null,
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": []
-    },
-    "Volo.Abp.Domain.Entities.Entity<T0>": {
-      "baseType": "Volo.Abp.Domain.Entities.Entity",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": [
-        "TKey"
-      ],
-      "properties": [
+        },
         {
-          "name": "Id",
+          "name": "ContentType",
           "jsonName": null,
-          "type": "TKey",
-          "typeSimple": "TKey",
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ContentLength",
+          "jsonName": null,
+          "type": "System.Int64?",
+          "typeSimple": "number?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

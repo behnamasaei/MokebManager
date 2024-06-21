@@ -76,6 +76,15 @@ public class MokebManagerNgHttpApiHostModule : AbpModule
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
         ConfigureCache(context);
+        ConfigureMokebManager(context);
+    }
+
+    private void ConfigureMokebManager(ServiceConfigurationContext context)
+    {
+        context.Services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        );
     }
 
     private void ConfigureCache(ServiceConfigurationContext context)

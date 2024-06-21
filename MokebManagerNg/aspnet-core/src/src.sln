@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
+<<<<<<< HEAD
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Application", "MokebManagerNg.Application\MokebManagerNg.Application.csproj", "{CF98C935-F298-497F-B02E-64E85775DC2E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Application.Contracts", "MokebManagerNg.Application.Contracts\MokebManagerNg.Application.Contracts.csproj", "{64301BD0-BEC8-4880-9374-9B2CE31974D5}"
@@ -20,6 +21,25 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi.Client", "MokebManagerNg.HttpApi.Client\MokebManagerNg.HttpApi.Client.csproj", "{DF856924-301F-4A57-B907-80A85E9D8984}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi.Host", "MokebManagerNg.HttpApi.Host\MokebManagerNg.HttpApi.Host.csproj", "{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}"
+=======
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Application", "MokebManagerNg.Application\MokebManagerNg.Application.csproj", "{61922052-D8A6-4B6B-B2F2-C6F5ED331D0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Application.Contracts", "MokebManagerNg.Application.Contracts\MokebManagerNg.Application.Contracts.csproj", "{0AE0F011-BFB3-4B68-9B37-787FD0C0A243}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.DbMigrator", "MokebManagerNg.DbMigrator\MokebManagerNg.DbMigrator.csproj", "{47C26C97-11CE-4088-99AB-320A46676544}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Domain", "MokebManagerNg.Domain\MokebManagerNg.Domain.csproj", "{4CC97D93-B176-418B-9502-A169AC9A66B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Domain.Shared", "MokebManagerNg.Domain.Shared\MokebManagerNg.Domain.Shared.csproj", "{BD868E9D-5431-43A4-8BEB-2BE372EAFD78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.EntityFrameworkCore", "MokebManagerNg.EntityFrameworkCore\MokebManagerNg.EntityFrameworkCore.csproj", "{9567149A-42E8-4DFE-AE14-C4A6FA014A0D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi", "MokebManagerNg.HttpApi\MokebManagerNg.HttpApi.csproj", "{C09D86DF-9EC4-4886-9A80-E79D1F517E9D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi.Client", "MokebManagerNg.HttpApi.Client\MokebManagerNg.HttpApi.Client.csproj", "{DB6C3C05-1F76-4430-9365-5820C75F96F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi.Host", "MokebManagerNg.HttpApi.Host\MokebManagerNg.HttpApi.Host.csproj", "{3AD513F7-9D1C-4C46-9361-8F3640D2FCF7}"
+>>>>>>> 651fd5eb48d64acc742f684473205b25ec717cdb
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +47,7 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<<<<<<< HEAD
 		{CF98C935-F298-497F-B02E-64E85775DC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF98C935-F298-497F-B02E-64E85775DC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF98C935-F298-497F-B02E-64E85775DC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,11 +84,53 @@ Global
 		{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{61922052-D8A6-4B6B-B2F2-C6F5ED331D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61922052-D8A6-4B6B-B2F2-C6F5ED331D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61922052-D8A6-4B6B-B2F2-C6F5ED331D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61922052-D8A6-4B6B-B2F2-C6F5ED331D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AE0F011-BFB3-4B68-9B37-787FD0C0A243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE0F011-BFB3-4B68-9B37-787FD0C0A243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE0F011-BFB3-4B68-9B37-787FD0C0A243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE0F011-BFB3-4B68-9B37-787FD0C0A243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C26C97-11CE-4088-99AB-320A46676544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C26C97-11CE-4088-99AB-320A46676544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C26C97-11CE-4088-99AB-320A46676544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C26C97-11CE-4088-99AB-320A46676544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CC97D93-B176-418B-9502-A169AC9A66B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CC97D93-B176-418B-9502-A169AC9A66B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CC97D93-B176-418B-9502-A169AC9A66B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CC97D93-B176-418B-9502-A169AC9A66B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD868E9D-5431-43A4-8BEB-2BE372EAFD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD868E9D-5431-43A4-8BEB-2BE372EAFD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD868E9D-5431-43A4-8BEB-2BE372EAFD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD868E9D-5431-43A4-8BEB-2BE372EAFD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9567149A-42E8-4DFE-AE14-C4A6FA014A0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9567149A-42E8-4DFE-AE14-C4A6FA014A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9567149A-42E8-4DFE-AE14-C4A6FA014A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9567149A-42E8-4DFE-AE14-C4A6FA014A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C09D86DF-9EC4-4886-9A80-E79D1F517E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C09D86DF-9EC4-4886-9A80-E79D1F517E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C09D86DF-9EC4-4886-9A80-E79D1F517E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C09D86DF-9EC4-4886-9A80-E79D1F517E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6C3C05-1F76-4430-9365-5820C75F96F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6C3C05-1F76-4430-9365-5820C75F96F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6C3C05-1F76-4430-9365-5820C75F96F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6C3C05-1F76-4430-9365-5820C75F96F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AD513F7-9D1C-4C46-9361-8F3640D2FCF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD513F7-9D1C-4C46-9361-8F3640D2FCF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD513F7-9D1C-4C46-9361-8F3640D2FCF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD513F7-9D1C-4C46-9361-8F3640D2FCF7}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> 651fd5eb48d64acc742f684473205b25ec717cdb
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+<<<<<<< HEAD
 		SolutionGuid = {6A8145E0-FB90-42EA-9451-9D8CBD208557}
+=======
+		SolutionGuid = {CCFF3271-5697-4208-8F1B-FA5C10678368}
+>>>>>>> 651fd5eb48d64acc742f684473205b25ec717cdb
 	EndGlobalSection
 EndGlobal
