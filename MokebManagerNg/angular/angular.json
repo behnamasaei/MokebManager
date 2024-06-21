@@ -110,8 +110,6 @@
                 "inject": true,
                 "bundleName": "ngx-datatable-material"
               },
-              "node_modules/stimulsoft-viewer-angular//Scripts/stimulsoft.viewer.css",
-              "node_modules/stimulsoft-viewer-angular/Scripts/stimulsoft.designer.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",

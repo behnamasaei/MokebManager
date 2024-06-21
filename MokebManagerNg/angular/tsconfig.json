@@ -16,6 +16,7 @@
       "es2018",
       "dom"
     ],
+    "types": ["node"],
     "paths": {
       "@proxy": [
         "src/app/proxy/index.ts"

@@ -17,6 +17,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { AccordionModule } from 'primeng/accordion';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 
 const primeNgModules = [
   TableModule,
@@ -32,7 +33,7 @@ const primeNgModules = [
   PaginatorModule,
   AccordionModule,
   FileUploadModule,
-  RadioButtonModule
+  RadioButtonModule,
 ];
 
 @NgModule({
@@ -42,6 +43,7 @@ const primeNgModules = [
     ThemeSharedModule,
     NgbDropdownModule,
     NgxValidateCoreModule,
+    BarcodeScannerLivestreamModule,
     ...primeNgModules,
   ],
   exports: [
@@ -49,6 +51,7 @@ const primeNgModules = [
     ThemeSharedModule,
     NgbDropdownModule,
     NgxValidateCoreModule,
+    BarcodeScannerLivestreamModule,
     ...primeNgModules,
   ],
   providers: [],
