@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Application", "MokebManagerNg.Application\MokebManagerNg.Application.csproj", "{CF98C935-F298-497F-B02E-64E85775DC2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Application.Contracts", "MokebManagerNg.Application.Contracts\MokebManagerNg.Application.Contracts.csproj", "{64301BD0-BEC8-4880-9374-9B2CE31974D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.DbMigrator", "MokebManagerNg.DbMigrator\MokebManagerNg.DbMigrator.csproj", "{611F1267-081D-474A-BB0F-24DEF64F4B62}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Domain", "MokebManagerNg.Domain\MokebManagerNg.Domain.csproj", "{3583E370-F684-4D8A-8611-32078D58E2B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.Domain.Shared", "MokebManagerNg.Domain.Shared\MokebManagerNg.Domain.Shared.csproj", "{286C6D22-E88A-49B8-B86D-A36CBDFFE7A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.EntityFrameworkCore", "MokebManagerNg.EntityFrameworkCore\MokebManagerNg.EntityFrameworkCore.csproj", "{6ED6B477-CA8C-4193-8CF6-123E14672D94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi", "MokebManagerNg.HttpApi\MokebManagerNg.HttpApi.csproj", "{1A5DFDC5-7CF6-4C67-92D8-89E1E9448AE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi.Client", "MokebManagerNg.HttpApi.Client\MokebManagerNg.HttpApi.Client.csproj", "{DF856924-301F-4A57-B907-80A85E9D8984}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MokebManagerNg.HttpApi.Host", "MokebManagerNg.HttpApi.Host\MokebManagerNg.HttpApi.Host.csproj", "{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF98C935-F298-497F-B02E-64E85775DC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF98C935-F298-497F-B02E-64E85775DC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF98C935-F298-497F-B02E-64E85775DC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF98C935-F298-497F-B02E-64E85775DC2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64301BD0-BEC8-4880-9374-9B2CE31974D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64301BD0-BEC8-4880-9374-9B2CE31974D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64301BD0-BEC8-4880-9374-9B2CE31974D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64301BD0-BEC8-4880-9374-9B2CE31974D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{611F1267-081D-474A-BB0F-24DEF64F4B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{611F1267-081D-474A-BB0F-24DEF64F4B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{611F1267-081D-474A-BB0F-24DEF64F4B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{611F1267-081D-474A-BB0F-24DEF64F4B62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3583E370-F684-4D8A-8611-32078D58E2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3583E370-F684-4D8A-8611-32078D58E2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3583E370-F684-4D8A-8611-32078D58E2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3583E370-F684-4D8A-8611-32078D58E2B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{286C6D22-E88A-49B8-B86D-A36CBDFFE7A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286C6D22-E88A-49B8-B86D-A36CBDFFE7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286C6D22-E88A-49B8-B86D-A36CBDFFE7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286C6D22-E88A-49B8-B86D-A36CBDFFE7A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ED6B477-CA8C-4193-8CF6-123E14672D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED6B477-CA8C-4193-8CF6-123E14672D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED6B477-CA8C-4193-8CF6-123E14672D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED6B477-CA8C-4193-8CF6-123E14672D94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5DFDC5-7CF6-4C67-92D8-89E1E9448AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5DFDC5-7CF6-4C67-92D8-89E1E9448AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5DFDC5-7CF6-4C67-92D8-89E1E9448AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5DFDC5-7CF6-4C67-92D8-89E1E9448AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF856924-301F-4A57-B907-80A85E9D8984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF856924-301F-4A57-B907-80A85E9D8984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF856924-301F-4A57-B907-80A85E9D8984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF856924-301F-4A57-B907-80A85E9D8984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E934A8A-1A9B-4DB1-B0DB-BE6CB4C184ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A8145E0-FB90-42EA-9451-9D8CBD208557}
+	EndGlobalSection
+EndGlobal
