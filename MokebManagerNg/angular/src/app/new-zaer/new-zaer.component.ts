@@ -189,7 +189,7 @@ export class NewZaerComponent {
   }
 
   getEntryDate(): string {
-    return moment.utc().format('YYYY-MM-DDT12:00:00.000[Z]');
+    return moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
   }
 
   getExitDate(exitDate: number): string {
