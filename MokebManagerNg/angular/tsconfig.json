@@ -11,12 +11,16 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "es2020",
+    "module": "es2020", 
+    
     "lib": [
-      "es2018",
+      "es2020",
       "dom"
     ],
     "types": ["node"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "paths": {
       "@proxy": [
         "src/app/proxy/index.ts"

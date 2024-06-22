@@ -1,9 +1,10 @@
 <p>barcode-scanner works!</p>
-<barcode-scanner-livestream
-  type="code_128"
-  (valueChanges)="onValueChanges($event)"
-  (started)="(onStarted)"
-></barcode-scanner-livestream>
-<div [hidden]="!barcodeValue">
-  {{ barcodeValue }}
-</div>
+
+<zxing-scanner
+  [ngStyle]="styleScanner"
+  (scanSuccess)="handleScanSuccess($event)"
+  [device]="selectedDevice"
+  [formats]="['QR_CODE']"
+  [torch]="true"
+></zxing-scanner>
+<p *ngIf="scanResult">Scanned Result: {{ scanResult }}</p>

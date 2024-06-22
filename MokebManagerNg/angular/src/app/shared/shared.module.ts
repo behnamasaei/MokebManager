@@ -18,6 +18,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 const primeNgModules = [
   TableModule,
@@ -52,6 +53,7 @@ const primeNgModules = [
     NgbDropdownModule,
     NgxValidateCoreModule,
     BarcodeScannerLivestreamModule,
+    ZXingScannerModule,
     ...primeNgModules,
   ],
   providers: [],
