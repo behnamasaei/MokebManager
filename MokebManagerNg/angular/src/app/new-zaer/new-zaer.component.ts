@@ -81,10 +81,6 @@ export class NewZaerComponent {
     });
 
     this.getMokebsInformation();
-
-    // setInterval(() => {
-    //   this.currentTime = moment().format('hh:mm:ss A'); // Format time as 'hh:mm:ss AM/PM'
-    // }, 1000); // Update every second
   }
 
   getMokebsInformation() {
@@ -149,7 +145,7 @@ export class NewZaerComponent {
 
       this.fileService.saveBlobStream(formData).subscribe(file => {
         formValue.imageFileName = file;
-        this.zaerService.createNew(formValue).subscribe(x => {
+        this.zaerService.create(formValue).subscribe(x => {
           const entryExitDate: CreateUpdateEntryExitZaerDto = {
             zaerId: x.id,
             entryDate: entryDate,
@@ -170,7 +166,7 @@ export class NewZaerComponent {
         });
       });
     } else {
-      this.zaerService.createNew(formValue).subscribe(x => {
+      this.zaerService.create(formValue).subscribe(x => {
         const entryExitDate: CreateUpdateEntryExitZaerDto = {
           zaerId: x.id,
           entryDate: entryDate,
@@ -193,14 +189,7 @@ export class NewZaerComponent {
   }
 
   getEntryDate(): string {
-    // const now = moment();
-    // // Set the specific date and time
-    // const entryDate = new Date(now.year(), now.month(), now.date(), 12, 0, 0, 0); // Note: Month is 0-based, so June is 5
-    // // Convert to ISO string with seven fractional digits for seconds
-    // const isoString = entryDate.toISOString();
-    // return isoString.replace('Z', '.0000000Z');
-    // 2024-06-19T09:00:02.190Z
-    return moment.utc().format('YYYY-MM-DDT12:00:00.000[Z]');
+    return moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
   }
 
   getExitDate(exitDate: number): string {

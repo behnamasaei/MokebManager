@@ -152,6 +152,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "sslKey": "./localhost.key",
+            "sslCert": "./localhost.crt"
+          },
           "configurations": {
             "production": {
               "buildTarget": "MokebManagerNg:build:production"
