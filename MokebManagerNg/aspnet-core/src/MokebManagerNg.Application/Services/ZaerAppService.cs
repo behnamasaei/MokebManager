@@ -58,4 +58,10 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         await _entryExitListCache.RemoveAsync("AllEntryExit_cache");
         await base.DeleteAsync(id);
     }
+
+    public async Task<List<ZaerDto>> GetSearchAsync(string text)
+    {
+        var zaers = await _repository.GetListAsync(x => x.PassportNo.Contains(text));
+        return ObjectMapper.Map<List<Zaer>, List<ZaerDto>>(zaers);
+    }
 }

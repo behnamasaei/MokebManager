@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
@@ -17,4 +18,6 @@ public interface IZaerAppService :
         UpdateZaerDto>
 {
     public Task<ZaerDto> CreateNewWithIdAsync(CreateZaerDto input);
+    public Task<List<ZaerDto>> GetSearchAsync(string text);
+
 }

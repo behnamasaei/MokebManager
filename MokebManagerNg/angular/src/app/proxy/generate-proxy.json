@@ -2271,6 +2271,23 @@
                   }
                 },
                 {
+                  "name": "GetSearchAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "text",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<MokebManagerNg.Domain.Dtos.ZaerDto>",
+                    "typeSimple": "[MokebManagerNg.Domain.Dtos.ZaerDto]"
+                  }
+                },
+                {
                   "name": "GetAsync",
                   "parametersOnMethod": [
                     {
@@ -2477,6 +2494,43 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
+            },
+            "GetSearchAsyncByText": {
+              "uniqueName": "GetSearchAsyncByText",
+              "name": "GetSearchAsync",
+              "httpMethod": "GET",
+              "url": "api/app/zaer/search",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "text",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "text",
+                  "name": "text",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<MokebManagerNg.Domain.Dtos.ZaerDto>",
+                "typeSimple": "[MokebManagerNg.Domain.Dtos.ZaerDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.IZaerAppService"
             },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",

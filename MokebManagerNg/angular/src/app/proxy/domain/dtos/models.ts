@@ -1,6 +1,6 @@
 import type { AuditedEntityDto } from '@abp/ng.core';
 import type { Gender } from '../../gender.enum';
-import { ClockEntryExitDto } from '@proxy/models';
+import type { ClockEntryExitDto } from '../../models';
 
 export interface MokebDto extends AuditedEntityDto<string> {
   name?: string;
