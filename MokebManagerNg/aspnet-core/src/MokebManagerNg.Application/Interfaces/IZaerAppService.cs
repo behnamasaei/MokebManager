@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
 using Volo.Abp.Application.Dtos;
@@ -12,8 +13,8 @@ public interface IZaerAppService :
         ZaerDto,
         Guid,
         PagedAndSortedResultRequestDto,
-        CreateUpdateZaerDto,
-        CreateUpdateZaerDto>
+        CreateZaerDto,
+        UpdateZaerDto>
 {
-
+    public Task<ZaerDto> CreateNewWithIdAsync(CreateZaerDto input);
 }

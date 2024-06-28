@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NewZaerComponent } from './new-zaer/new-zaer.component';
 import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
+import { NewZaerWithIdComponent } from './new-zaer-with-id/new-zaer-with-id.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'new-zaer',
     component: NewZaerComponent,
+  },
+  {
+    path: 'new-zaer-id',
+    component: NewZaerWithIdComponent,
   },
   {
     path: 'barcode-scanner',

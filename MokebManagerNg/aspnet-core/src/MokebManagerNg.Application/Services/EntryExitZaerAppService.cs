@@ -13,7 +13,7 @@ namespace MokebManagerNg;
 
 public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZaerDto, Guid, PagedAndSortedResultRequestDto,
                         CreateUpdateEntryExitZaerDto, CreateUpdateEntryExitZaerDto>,
-    IEntryExitZaerDate
+    IEntryExitZaerDateAppService
 {
 
     private readonly IDistributedCache<List<EntryExitZaerDto>> _entryExitListCache;

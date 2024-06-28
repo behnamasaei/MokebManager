@@ -30,8 +30,15 @@ function configureRoutes(routesService: RoutesService) {
         layout: eLayoutType.application,
       },
       {
+        path: '/new-zaer-id',
+        name: 'زائر جدید با شناسه',
+        iconClass: 'fas fa-cogs',
+        order: 2,
+        layout: eLayoutType.application,
+      },
+      {
         path: '/barcode-scanner',
-        name: 'barcode scanner',
+        name: 'اسکنر',
         iconClass: 'fas fa-cogs',
         order: 2,
         layout: eLayoutType.application,

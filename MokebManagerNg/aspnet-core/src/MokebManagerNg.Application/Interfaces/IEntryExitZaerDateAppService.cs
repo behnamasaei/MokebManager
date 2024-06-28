@@ -7,7 +7,7 @@ using Volo.Abp.Application.Services;
 
 namespace MokebManagerNg;
 
-public interface IEntryExitZaerDate :
+public interface IEntryExitZaerDateAppService :
     ICrudAppService<
         EntryExitZaerDto,
         Guid,

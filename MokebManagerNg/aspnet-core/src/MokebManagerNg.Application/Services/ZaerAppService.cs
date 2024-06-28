@@ -18,7 +18,7 @@ using System.Collections.Generic;
 namespace MokebManagerNg;
 
 public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSortedResultRequestDto,
-                        CreateUpdateZaerDto, CreateUpdateZaerDto>,
+                        CreateZaerDto, UpdateZaerDto>,
     IZaerAppService
 {
     IRepository<Zaer, Guid> _repository;
@@ -36,9 +36,11 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         _entryExitListCache = entryExitListCache;
     }
 
-    public override Task<ZaerDto> CreateAsync(CreateUpdateZaerDto input)
+    public async Task<ZaerDto> CreateNewWithIdAsync(CreateZaerDto input)
     {
-        return base.CreateAsync(input);
+        var entity = ObjectMapper.Map<CreateZaerDto, Zaer>(input);
+        var response = await _repository.InsertAsync(entity, autoSave: true);
+        return ObjectMapper.Map<Zaer, ZaerDto>(response);
     }
 
     public async Task<ZaerDto> GetWithDetailAsync(Guid id)
