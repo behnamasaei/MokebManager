@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalizationService } from '@abp/ng.core';
 import { Gender } from '@proxy/gender.enum';
 import {
+  CreateZaerDto,
   EntryExitZaerService,
   FileService,
   MokebCapacityDto,
@@ -12,10 +13,7 @@ import {
   ZaerService,
 } from '@proxy';
 import { MokebDto } from '@proxy/domain/dtos';
-import {
-  CreateUpdateEntryExitZaerDto,
-  CreateUpdateZaerDto,
-} from '@proxy/domain/create-update-dtos';
+import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
@@ -134,7 +132,7 @@ export class NewZaerComponent {
 
   onSubmit() {
     // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
-    const formValue: CreateUpdateZaerDto | any = { ...this.form.value };
+    const formValue: CreateZaerDto | any = { ...this.form.value };
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
 
