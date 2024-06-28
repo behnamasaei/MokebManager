@@ -43,6 +43,13 @@ function configureRoutes(routesService: RoutesService) {
         order: 2,
         layout: eLayoutType.application,
       },
+      {
+        path: '/clock-entry-exit',
+        name: 'ثبت ساعت عبور',
+        iconClass: 'fas fa-cogs',
+        order: 2,
+        layout: eLayoutType.application,
+      },
     ]);
   };
 }

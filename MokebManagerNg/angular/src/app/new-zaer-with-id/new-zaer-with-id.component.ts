@@ -39,6 +39,8 @@ export class NewZaerWithIdComponent {
   entryExitOptions: any[] = [];
   mokebCapacityToNight: MokebCapacityDto[] = [];
   currentTime: string;
+  scanResult: string | null = null;
+  scanShow: boolean = false;
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
   constructor(
@@ -156,6 +158,8 @@ export class NewZaerWithIdComponent {
           this.entryExitZaerService.create(entryExitDate).subscribe(x => {
             this.form.reset();
             this.fileUpload.clear();
+            this.scanShow = false;
+            this.scanResult = null;
             this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
             this.messageService.add({
               severity: 'success',
@@ -177,6 +181,9 @@ export class NewZaerWithIdComponent {
         this.entryExitZaerService.create(entryExitDate).subscribe(x => {
           this.form.reset();
           this.fileUpload.clear();
+          this.scanShow = false;
+          this.scanResult = null;
+
           this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
           this.messageService.add({
             severity: 'success',
@@ -197,5 +204,17 @@ export class NewZaerWithIdComponent {
     const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000[Z]'); // Two days after current UTC date
 
     return exitDaysAfter;
+  }
+
+  handleScanSuccess(result: string): void {
+    if (this.isValidGuid(result)) {
+      this.scanResult = result;
+      this.scanShow = false;
+    }
+  }
+
+  isValidGuid(guid: string): boolean {
+    const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return guidRegex.test(guid);
   }
 }

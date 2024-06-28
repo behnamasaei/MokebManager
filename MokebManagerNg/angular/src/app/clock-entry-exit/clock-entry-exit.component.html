@@ -1,0 +1,22 @@
+<p>clock-entry-exit works!</p>
+
+<p-toast />
+
+<zxing-scanner
+  style="width: 60%; align-self: center"
+  (scanSuccess)="handleScanSuccess($event)"
+  [device]="selectedDevice"
+  [formats]="['QR_CODE']"
+  [torch]="true"
+></zxing-scanner>
+
+<p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+
+<button
+  *ngIf="scanResult !== null"
+  type="button"
+  (click)="save()"
+  pButton
+  label="ثبت"
+  class="mb-3"
+></button>
