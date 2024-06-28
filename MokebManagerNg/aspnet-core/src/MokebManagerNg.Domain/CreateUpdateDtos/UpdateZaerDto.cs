@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Entities.Auditing;
+using System.ComponentModel.DataAnnotations;
 
 namespace MokebManagerNg;
 
-public class Zaer : AggregateRoot<Guid>
+public class UpdateZaerDto
 {
     public string? Name { get; set; }
     public string? Family { get; set; }
+    [Required]
     public Gender Gender { get; set; }
-    public virtual ICollection<EntryExitZaer> EntryExitZaerDates { get; set; }
-    public virtual ICollection<ClockEntryExit> ClockEntryExits { get; set; }
-
-    public string? ImageFileName { get; set; }
+    [Required]
     public string PassportNo { get; set; }
+    [Required]
     public Guid MokebId { get; set; }
-    public virtual Mokeb? Mokeb { get; set; }
+    public string? ImageFileName { get; set; }
     public long? PhoneNumber { get; set; }
     public string? State { get; set; }
     public string? City { get; set; }

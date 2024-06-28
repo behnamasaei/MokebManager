@@ -57,6 +57,8 @@ public class MokebManagerNgDbContext :
     public DbSet<Mokeb> Mokebs { get; set; }
     public DbSet<Zaer> Zaers { get; set; }
     public DbSet<EntryExitZaer> EntryExitDates { get; set; }
+    public DbSet<ClockEntryExit> clockEntryExits { get; set; }
+
 
     public MokebManagerNgDbContext(DbContextOptions<MokebManagerNgDbContext> options)
         : base(options)
@@ -101,6 +103,7 @@ public class MokebManagerNgDbContext :
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasOne(x => x.Mokeb).WithMany(x => x.Zaers).HasForeignKey(x => x.MokebId);
             b.HasMany(x => x.EntryExitZaerDates).WithOne(x => x.Zaer).HasForeignKey(x => x.ZaerId).OnDelete(DeleteBehavior.Restrict);
+            b.HasMany(x => x.ClockEntryExits).WithOne(x => x.Zaer).HasForeignKey(x => x.ZaerId).OnDelete(DeleteBehavior.Restrict);
 
             b.Property(x => x.PassportNo).IsRequired();
             b.HasIndex(x => x.PassportNo).IsUnique();
@@ -112,6 +115,13 @@ public class MokebManagerNgDbContext :
             b.ToTable(MokebManagerNgConsts.DbTablePrefix + "EntryExitZaer", MokebManagerNgConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasOne(x => x.Zaer).WithMany(x => x.EntryExitZaerDates).HasForeignKey(x => x.ZaerId);
+        });
+
+        builder.Entity<ClockEntryExit>(b =>
+        {
+            b.ToTable(MokebManagerNgConsts.DbTablePrefix + "ClockEntryExit", MokebManagerNgConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.HasOne(x => x.Zaer).WithMany(x => x.ClockEntryExits).HasForeignKey(x => x.ZaerId);
         });
     }
 }

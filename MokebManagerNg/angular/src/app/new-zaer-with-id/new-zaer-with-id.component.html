@@ -1,6 +1,20 @@
 <!-- clock-example.component.html -->
 <p-toast />
 
+<zxing-scanner
+  style="width: 60%; align-self: center"
+  *ngIf="scanShow"
+  [ngStyle]="styleScanner"
+  (scanSuccess)="handleScanSuccess($event)"
+  [device]="selectedDevice"
+  [formats]="['QR_CODE']"
+  [torch]="true"
+></zxing-scanner>
+
+<button type="button" (click)="scanShow = true" pButton label="Scan QR_CODE" class="mb-3"></button>
+
+<p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+
 <div class="p-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-field mb-3">

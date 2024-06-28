@@ -13,20 +13,23 @@ import {
   ZaerService,
 } from '@proxy';
 import { MokebDto } from '@proxy/domain/dtos';
-import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
+import {
+  CreateUpdateEntryExitZaerDto,
+  CreateUpdateMokebDto,
+} from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 
 @Component({
-  selector: 'app-new-zaer',
+  selector: 'app-new-zaer-with-id',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './new-zaer.component.html',
-  styleUrl: './new-zaer.component.scss',
+  templateUrl: './new-zaer-with-id.component.html',
+  styleUrl: './new-zaer-with-id.component.scss',
   providers: [MessageService],
 })
-export class NewZaerComponent {
+export class NewZaerWithIdComponent {
   form: FormGroup;
   formData: FormData;
   formEntryExitGroup: FormGroup;
@@ -36,6 +39,8 @@ export class NewZaerComponent {
   entryExitOptions: any[] = [];
   mokebCapacityToNight: MokebCapacityDto[] = [];
   currentTime: string;
+  scanResult: string | null = null;
+  scanShow: boolean = false;
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
   constructor(
@@ -153,6 +158,8 @@ export class NewZaerComponent {
           this.entryExitZaerService.create(entryExitDate).subscribe(x => {
             this.form.reset();
             this.fileUpload.clear();
+            this.scanShow = false;
+            this.scanResult = null;
             this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
             this.messageService.add({
               severity: 'success',
@@ -174,6 +181,9 @@ export class NewZaerComponent {
         this.entryExitZaerService.create(entryExitDate).subscribe(x => {
           this.form.reset();
           this.fileUpload.clear();
+          this.scanShow = false;
+          this.scanResult = null;
+
           this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
           this.messageService.add({
             severity: 'success',
@@ -194,5 +204,17 @@ export class NewZaerComponent {
     const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000[Z]'); // Two days after current UTC date
 
     return exitDaysAfter;
+  }
+
+  handleScanSuccess(result: string): void {
+    if (this.isValidGuid(result)) {
+      this.scanResult = result;
+      this.scanShow = false;
+    }
+  }
+
+  isValidGuid(guid: string): boolean {
+    const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return guidRegex.test(guid);
   }
 }

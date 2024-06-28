@@ -1,5 +1,5 @@
-import type { CreateUpdateZaerDto } from './domain/create-update-dtos/models';
 import type { ZaerDto } from './domain/dtos/models';
+import type { CreateZaerDto, UpdateZaerDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -11,10 +11,19 @@ export class ZaerService {
   apiName = 'Default';
   
 
-  create = (input: CreateUpdateZaerDto, config?: Partial<Rest.Config>) =>
+  create = (input: CreateZaerDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ZaerDto>({
       method: 'POST',
       url: '/api/app/zaer',
+      body: input,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  createNewWithId = (input: CreateZaerDto, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ZaerDto>({
+      method: 'POST',
+      url: '/api/app/zaer/new-with-id',
       body: input,
     },
     { apiName: this.apiName,...config });
@@ -53,7 +62,7 @@ export class ZaerService {
     { apiName: this.apiName,...config });
   
 
-  update = (id: string, input: CreateUpdateZaerDto, config?: Partial<Rest.Config>) =>
+  update = (id: string, input: UpdateZaerDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ZaerDto>({
       method: 'PUT',
       url: `/api/app/zaer/${id}`,
