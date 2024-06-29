@@ -27,7 +27,8 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     private readonly IFileAppService _fileAppService;
     private readonly IDistributedCache<List<EntryExitZaerDto>> _entryExitListCache;
 
-    public ZaerAppService(IRepository<Zaer, Guid> repository, IBlobContainer blobContainer, StorageAppService storageAppService, IFileAppService fileAppService, IDistributedCache<List<EntryExitZaerDto>> entryExitListCache) : base(repository)
+    public ZaerAppService(IRepository<Zaer, Guid> repository, IBlobContainer blobContainer, StorageAppService storageAppService, IFileAppService fileAppService,
+    IDistributedCache<List<EntryExitZaerDto>> entryExitListCache) : base(repository)
     {
         _repository = repository;
         _blobContainer = blobContainer;
@@ -38,8 +39,11 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
 
     public async Task<ZaerDto> CreateNewWithIdAsync(CreateZaerDto input)
     {
+        string cacheKey = "AllEntryExit_cache";
+        await _entryExitListCache.RemoveAsync(cacheKey);
         var entity = ObjectMapper.Map<CreateZaerDto, Zaer>(input);
         var response = await _repository.InsertAsync(entity, autoSave: true);
+
         return ObjectMapper.Map<Zaer, ZaerDto>(response);
     }
 

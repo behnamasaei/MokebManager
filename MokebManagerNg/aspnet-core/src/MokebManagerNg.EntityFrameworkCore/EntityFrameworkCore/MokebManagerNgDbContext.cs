@@ -106,6 +106,7 @@ public class MokebManagerNgDbContext :
             b.HasMany(x => x.ClockEntryExits).WithOne(x => x.Zaer).HasForeignKey(x => x.ZaerId).OnDelete(DeleteBehavior.Restrict);
 
             b.Property(x => x.PassportNo).IsRequired();
+            b.HasIndex(x => x.Id).IsUnique();
             b.HasIndex(x => x.PassportNo).IsUnique();
             b.HasIndex(x => x.PhoneNumber).IsUnique();
         });

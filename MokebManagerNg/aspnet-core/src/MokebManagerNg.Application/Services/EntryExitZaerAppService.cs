@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
@@ -42,6 +43,13 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         var entryExitListDto = ObjectMapper.Map<List<EntryExitZaer>, List<EntryExitZaerDto>>(listEntryExit);
         await _entryExitListCache.SetAsync(cacheKey, entryExitListDto);
         return entryExitListDto;
+    }
+
+    public override async Task<EntryExitZaerDto> GetAsync(Guid id)
+    {
+        var entryExits = await GetAllEntryExitAsync();
+        var zaer = entryExits.OrderByDescending(x => x.LastModificationTime).ThenBy(x => x.CreationTime).FirstOrDefault(x => x.ZaerId == id);
+        return zaer;
     }
 
     public override async Task<EntryExitZaerDto> CreateAsync(CreateUpdateEntryExitZaerDto input)

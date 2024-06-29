@@ -2,21 +2,47 @@
 
 <p-toast />
 
-<zxing-scanner
-  style="width: 60%; align-self: center"
-  (scanSuccess)="handleScanSuccess($event)"
-  [device]="selectedDevice"
-  [formats]="['QR_CODE']"
-  [torch]="true"
-></zxing-scanner>
+<div
+  class="row d-flex justify-content-center"
+  style="border: 1px solid"
+  [ngStyle]="{ 'background-color': styleScanner }"
+>
+  <zxing-scanner
+    style="width: 70%; align-self: center"
+    [formats]="['QR_CODE']"
+    #scanner
+    [device]="selectedDevice"
+    [torch]="torchEnabled"
+    [timeBetweenScans]="timeBetweenScansMillis"
+    (camerasFound)="onCamerasFound($event)"
+    (scanSuccess)="onCodeResult($event)"
+    (permissionResponse)="onHasPermission($event)"
+    (torchCompatible)="onTorchCompatible($event)"
+  ></zxing-scanner>
 
-<p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+  <button (click)="toggleTorch()">Toggle Torch</button>
 
-<button
-  *ngIf="scanResult !== null"
-  type="button"
-  (click)="save()"
-  pButton
-  label="ثبت"
-  class="mb-3"
-></button>
+  <p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+
+  <button
+    *ngIf="scanResult !== null"
+    type="button"
+    (click)="save()"
+    pButton
+    label="بررسی و ثبت"
+    class="mb-3"
+  ></button>
+</div>
+
+<audio #audioPlayerError>
+  <source src="assets/voice/error-126627.mp3" type="audio/mp3" />
+  Your browser does not support the audio element.
+</audio>
+
+<audio #audioPlayerSuccess>
+  <source
+    src="assets/voice/short-success-sound-glockenspiel-treasure-video-game-6346.mp3"
+    type="audio/mp3"
+  />
+  Your browser does not support the audio element.
+</audio>

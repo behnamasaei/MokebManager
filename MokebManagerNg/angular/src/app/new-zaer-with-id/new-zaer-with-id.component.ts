@@ -138,6 +138,7 @@ export class NewZaerWithIdComponent {
   onSubmit() {
     // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
     const formValue: CreateZaerDto | any = { ...this.form.value };
+    formValue.id = this.scanResult;
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
 
@@ -148,7 +149,7 @@ export class NewZaerWithIdComponent {
 
       this.fileService.saveBlobStream(formData).subscribe(file => {
         formValue.imageFileName = file;
-        this.zaerService.create(formValue).subscribe(x => {
+        this.zaerService.createNewWithId(formValue).subscribe(x => {
           const entryExitDate: CreateUpdateEntryExitZaerDto = {
             zaerId: x.id,
             entryDate: entryDate,
@@ -171,7 +172,7 @@ export class NewZaerWithIdComponent {
         });
       });
     } else {
-      this.zaerService.create(formValue).subscribe(x => {
+      this.zaerService.createNewWithId(formValue).subscribe(x => {
         const entryExitDate: CreateUpdateEntryExitZaerDto = {
           zaerId: x.id,
           entryDate: entryDate,

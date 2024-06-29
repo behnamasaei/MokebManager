@@ -25,5 +25,7 @@ public class MokebManagerNgApplicationAutoMapperProfile : Profile
         CreateMap<EntryExitZaer, EntryExitZaerDto>().ReverseMap();
         CreateMap<EntryExitZaer, CreateUpdateEntryExitZaerDto>().ReverseMap();
 
+        CreateMap<ClockEntryExit, ClockEntryExitDto>().ReverseMap();
+        CreateMap<ClockEntryExit, CreateUpdateClockEntryExitDto>().ReverseMap();
     }
 }
