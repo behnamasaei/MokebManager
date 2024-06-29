@@ -13,8 +13,8 @@ public class GenerateQrcodeIron
         int qrPerRow = 4; // تعداد QR کدها در هر سطر
         int qrPerCol = 6; // تعداد QR کدها در هر ستون
         int totalQrCodes = qrPerRow * qrPerCol;
-        int qrCodeSize = 130; // اندازه هر QR کد
-        int margin = 10; // فاصله بین QR کدها
+        int qrCodeSize = 100; // اندازه هر QR کد
+        int margin = 20; // فاصله بین QR کدها
 
         // ایجاد سند PDF
         PdfDocument document = new PdfDocument();
@@ -31,8 +31,8 @@ public class GenerateQrcodeIron
             string guid = Guid.NewGuid().ToString();
             Bitmap qrCodeImage = GenerateQrCode(guid);
 
-            int xPosition = (i % qrPerRow) * (qrCodeSize + margin);
-            int yPosition = (i / qrPerRow) * (qrCodeSize + margin);
+            int xPosition = (i % qrPerRow) * (qrCodeSize + margin) + 30;
+            int yPosition = (i / qrPerRow) * (qrCodeSize + margin) + 30;
 
             using (MemoryStream stream = new MemoryStream())
             {
