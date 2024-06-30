@@ -19,6 +19,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { PanelModule } from 'primeng/panel';
 
 const primeNgModules = [
   TableModule,
@@ -35,6 +36,7 @@ const primeNgModules = [
   AccordionModule,
   FileUploadModule,
   RadioButtonModule,
+  PanelModule
 ];
 
 @NgModule({

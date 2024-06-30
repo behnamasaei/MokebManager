@@ -4,6 +4,7 @@ import { ZaerDto } from '@proxy/domain/dtos';
 import { ZaerService } from '@proxy';
 import { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { PageEvent } from 'src/app/shared/shared.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-zaers',
@@ -23,7 +24,7 @@ export class ZaersComponent {
   /**
    *
    */
-  constructor(private zaerService: ZaerService) {}
+  constructor(private zaerService: ZaerService,private router: Router,) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -47,5 +48,9 @@ export class ZaersComponent {
       this.zaers.items = x.items;
       this.zaers.totalCount = x.totalCount;
     });
+  }
+
+  showInformation(id:string){
+    this.router.navigate(['zaers',id])
   }
 }

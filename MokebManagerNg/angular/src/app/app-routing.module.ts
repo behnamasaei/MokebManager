@@ -5,6 +5,7 @@ import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.compo
 import { NewZaerWithIdComponent } from './new-zaer-with-id/new-zaer-with-id.component';
 import { ClockEntryExitComponent } from './clock-entry-exit/clock-entry-exit.component';
 import { ZaersComponent } from './zaers/zaers.component';
+import { ZaerComponent } from './zaer/zaer.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'zaers',
     component: ZaersComponent,
+  },
+  {
+    path: 'zaers/:id',
+    component: ZaerComponent,
   },
   {
     path: 'account',

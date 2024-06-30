@@ -1,0 +1,59 @@
+<div class="card flex justify-content-center">
+    <p-card header="">
+        <p-panel header="مشخصات زائر">
+            <div class="row">
+                <div class="col-6">gender</div>
+                <div class="col-6">
+                    <span *ngIf="zaer.gender == 0">
+                        {{ '::Male' | abpLocalization }}
+                    </span>
+                    <span *ngIf="zaer.gender == 1">
+                        {{ '::Female' | abpLocalization }}
+                    </span>
+                </div>
+
+                <div class="col-6">passportNo</div>
+                <div class="col-6">{{zaer.passportNo}}</div>
+
+                <div class="col-6">mokeb</div>
+                <div class="col-6">{{zaer.mokeb.name}}</div>
+
+                <div class="col-6">name</div>
+                <div class="col-6">{{zaer.name}}</div>
+
+                <div class="col-6">family</div>
+                <div class="col-6">{{zaer.family}}</div>
+
+
+
+                <div class="col-6">phoneNumber</div>
+                <div class="col-6">{{zaer.phoneNumber}}</div>
+
+                <div class="col-6">state</div>
+                <div class="col-6">{{zaer.state}}</div>
+
+                <div class="col-6">city</div>
+                <div class="col-6">{{zaer.city}}</div>
+
+                <div class="col-6">address</div>
+                <div class="col-6">{{zaer.address}}</div>
+            </div>
+        </p-panel>
+
+
+        <p-panel header="تاریخ های رزرو">
+            <div class="row">
+                <ng-template *ngFor="let entryExitZaerDate in zaer.entryExitZaerDates">
+                    <div class="col-6">
+                        {{entryExitZaerDate.entryDate}}
+                    </div>
+                    <div class="col-6">
+                        {{entryExitZaerDate.exitDate}}
+                    </div>
+                </ng-template>
+
+
+            </div>
+        </p-panel>
+    </p-card>
+</div>
