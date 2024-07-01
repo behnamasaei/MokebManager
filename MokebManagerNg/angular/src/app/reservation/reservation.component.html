@@ -1,0 +1,40 @@
+<p-toast />
+
+<zxing-scanner
+  style="width: 60%; align-self: center"
+  *ngIf="scanShow"
+  [ngStyle]="styleScanner"
+  (scanSuccess)="handleScanSuccess($event)"
+  [device]="selectedDevice"
+  [formats]="['QR_CODE']"
+  [torch]="true"
+></zxing-scanner>
+
+<button type="button" (click)="scanShow = true" pButton label="Scan QR_CODE" class="mb-3"></button>
+
+<p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+
+<div class="p-fluid">
+  <div class="p-field mb-3">
+    <label for="passportNo">Passport No</label>
+    <input id="passportNo" type="text" pInputText [(ngModel)]="scanResult" />
+  </div>
+</div>
+
+<div class="p-field mb-3">
+  <label for="gender">مدت اقامت</label>
+  <div class="d-flex gap-5">
+    <div *ngFor="let entryExitOption of entryExitOptions" class="field-checkbox">
+      <p-radioButton
+        [inputId]="entryExitOption.key"
+        [value]="entryExitOption"
+        [(ngModel)]="selectedEntryExit"
+      />
+      <label [for]="entryExitOption.key" class="ml-2">
+        {{ entryExitOption.name }}
+      </label>
+    </div>
+  </div>
+</div>
+
+<button type="submit" pButton label="ثبت" (click)="save()"></button>

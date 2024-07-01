@@ -6,6 +6,7 @@ import { NewZaerWithIdComponent } from './new-zaer-with-id/new-zaer-with-id.comp
 import { ClockEntryExitComponent } from './clock-entry-exit/clock-entry-exit.component';
 import { ZaersComponent } from './zaers/zaers.component';
 import { ZaerComponent } from './zaer/zaer.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'new-zaer-id',
     component: NewZaerWithIdComponent,
+  },
+  {
+    path: 'reservation',
+    component: ReservationComponent,
   },
   {
     path: 'barcode-scanner',

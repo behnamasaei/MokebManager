@@ -37,6 +37,13 @@ function configureRoutes(routesService: RoutesService) {
         layout: eLayoutType.application,
       },
       {
+        path: '/reservation',
+        name: 'تمدید رزرو',
+        iconClass: 'fas fa-cogs',
+        order: 2,
+        layout: eLayoutType.application,
+      },
+      {
         path: '/barcode-scanner',
         name: 'اسکنر',
         iconClass: 'fas fa-cogs',

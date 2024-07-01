@@ -112,9 +112,7 @@ export class ClockEntryExitComponent {
 
   onCodeResult(resultString: string) {
     this.styleScanner = 'gainsboro';
-    if (this.isValidGuid(resultString)) {
-      this.scanResult = resultString;
-    }
+    this.scanResult = resultString;
   }
 
   isValidGuid(guid: string): boolean {
