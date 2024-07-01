@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="p-5 text-center">
     <div class="d-inline-block bg-success text-white p-1 h5 rounded mb-4" role="alert">
       <h5 class="m-1">
@@ -15,4 +15,31 @@
       {{ 'AbpAccount::Login' | abpLocalization }}</a
     >
   </div>
+</div> -->
+<p-toast />
+<div class="card">
+  <div style="height: 350px; position: relative" class="speeddial-tooltip-demo">
+    <p-toast />
+    <p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up" />
+    <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up" />
+  </div>
 </div>
+
+<!-- <div class="container-fluid d-flex justify-content-center">
+  <div class="row">
+    <button
+      pButton
+      label="زائر جدید با شناسه"
+      [routerLink]="['./new-zaer-id']"
+      class="p-3 mb-3"
+    ></button>
+  </div>
+
+  <div class="row">
+    <button pButton label="زائر جدید" [routerLink]="['./new-zaer']" class="p-3 mb-3"></button>
+  </div>
+
+  <div class="row">
+    <button pButton label="تمدید رزرو" [routerLink]="['./reservation']" class="p-3 mb-3"></button>
+  </div>
+</div> -->

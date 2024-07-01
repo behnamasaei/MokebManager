@@ -20,6 +20,12 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { PanelModule } from 'primeng/panel';
+import { SpeedDialModule } from 'primeng/speeddial';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 const primeNgModules = [
   TableModule,
@@ -36,7 +42,8 @@ const primeNgModules = [
   AccordionModule,
   FileUploadModule,
   RadioButtonModule,
-  PanelModule
+  PanelModule,
+  SpeedDialModule,
 ];
 
 @NgModule({
