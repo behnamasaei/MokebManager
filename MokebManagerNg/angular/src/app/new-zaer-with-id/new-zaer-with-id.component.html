@@ -91,13 +91,48 @@
           </div>
 
           <div class="p-field mb-3">
-            <label for="state">State</label>
-            <input id="state" type="text" pInputText formControlName="state" />
+            <p-dropdown
+              [options]="allProvinces"
+              formControlName="state"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              placeholder="انتخاب استان"
+              (onChange)="getCitiesOfProvice($event)"
+            >
+              <ng-template pTemplate="selectedItem" let-selectedOption>
+                <div class="flex align-items-center gap-2">
+                  <div>{{ selectedOption.name }}</div>
+                </div>
+              </ng-template>
+              <ng-template let-provinces pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                  <div>{{ provinces.name }}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
           </div>
 
           <div class="p-field mb-3">
-            <label for="city">City</label>
-            <input id="city" type="text" pInputText formControlName="city" />
+            <p-dropdown
+              [options]="citiesOfProvince"
+              formControlName="city"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              placeholder="انتخاب شهر"
+            >
+              <ng-template pTemplate="selectedItem" let-selectedOption>
+                <div class="flex align-items-center gap-2">
+                  <div>{{ selectedOption.name }}</div>
+                </div>
+              </ng-template>
+              <ng-template let-citiesOfProvince pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                  <div>{{ citiesOfProvince.name }}</div>
+                </div>
+              </ng-template>
+            </p-dropdown>
           </div>
 
           <div class="p-field mb-3">

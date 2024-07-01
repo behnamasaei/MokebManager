@@ -41,6 +41,8 @@ export class NewZaerWithIdComponent {
   currentTime: string;
   scanResult: string | null = null;
   scanShow: boolean = false;
+  allProvinces: any[];
+  citiesOfProvince: any[];
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
   constructor(
@@ -82,6 +84,9 @@ export class NewZaerWithIdComponent {
         ];
       });
     });
+
+    let iranCity = require('iran-city');
+    this.allProvinces = iranCity.allProvinces();
 
     this.getMokebsInformation();
   }
@@ -138,6 +143,8 @@ export class NewZaerWithIdComponent {
   onSubmit() {
     // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
     const formValue: CreateZaerDto | any = { ...this.form.value };
+    formValue.city = formValue.city.name;
+    formValue.state = formValue.state.name;
     formValue.id = this.scanResult;
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
@@ -217,5 +224,10 @@ export class NewZaerWithIdComponent {
   isValidGuid(guid: string): boolean {
     const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     return guidRegex.test(guid);
+  }
+
+  getCitiesOfProvice(event) {
+    let iranCity = require('iran-city');
+    this.citiesOfProvince = iranCity.citiesOfProvince(event.value.id);
   }
 }

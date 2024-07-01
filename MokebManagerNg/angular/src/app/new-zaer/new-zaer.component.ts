@@ -36,6 +36,8 @@ export class NewZaerComponent {
   entryExitOptions: any[] = [];
   mokebCapacityToNight: MokebCapacityDto[] = [];
   currentTime: string;
+  allProvinces: any[];
+  citiesOfProvince: any[];
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
   constructor(
@@ -77,6 +79,9 @@ export class NewZaerComponent {
         ];
       });
     });
+
+    let iranCity = require('iran-city');
+    this.allProvinces = iranCity.allProvinces();
 
     this.getMokebsInformation();
   }
@@ -133,9 +138,10 @@ export class NewZaerComponent {
   onSubmit() {
     // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
     const formValue: CreateZaerDto | any = { ...this.form.value };
+    formValue.city = formValue.city.name;
+    formValue.state = formValue.state.name;
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
-
     if (formValue.image != null) {
       const formData = new FormData();
       formData.append('File', formValue.image, formValue.image.name);
@@ -194,5 +200,10 @@ export class NewZaerComponent {
     const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000[Z]'); // Two days after current UTC date
 
     return exitDaysAfter;
+  }
+
+  getCitiesOfProvice(event) {
+    let iranCity = require('iran-city');
+    this.citiesOfProvince = iranCity.citiesOfProvince(event.value.id);
   }
 }
