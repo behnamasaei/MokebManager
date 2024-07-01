@@ -49,7 +49,7 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
 
     public async Task<ZaerDto> GetWithDetailAsync(Guid id)
     {
-        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates, e.ClockEntryExits  ,e => e.Mokeb);
+        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates, e => e.ClockEntryExits, e => e.Mokeb);
         var query = queryable.Where(x => x.Id == id);
         var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
 

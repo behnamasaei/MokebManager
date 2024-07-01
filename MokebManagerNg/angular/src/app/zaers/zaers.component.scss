@@ -1,0 +1,13 @@
+// Define breakpoints
+$mobile-max: 767px;
+
+// Hide element on mobile screens
+@media (max-width: $mobile-max) {
+  #genderTable {
+    display: none;
+  }
+
+  #passportHeader {
+    width: 100% !important;
+  }
+}
