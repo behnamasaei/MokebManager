@@ -57,6 +57,14 @@ function configureRoutes(routesService: RoutesService) {
         order: 2,
         layout: eLayoutType.application,
       },
+
+      {
+        path: '/reporting',
+        name: 'reporting',
+        iconClass: 'fas fa-cogs',
+        order: 2,
+        layout: eLayoutType.application,
+      },
     ]);
   };
 }

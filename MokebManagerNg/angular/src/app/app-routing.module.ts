@@ -7,6 +7,7 @@ import { ClockEntryExitComponent } from './clock-entry-exit/clock-entry-exit.com
 import { ZaersComponent } from './zaers/zaers.component';
 import { ZaerComponent } from './zaer/zaer.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { ReportingComponent } from './reporting/reporting.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'zaers/:id',
     component: ZaerComponent,
+  },
+  {
+    path: 'reporting',
+    component: ReportingComponent,
   },
   {
     path: 'account',

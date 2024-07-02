@@ -33,6 +33,7 @@ import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { CommonModule } from '@angular/common';
+import { ChartModule } from 'primeng/chart';
 
 const primeNgModules = [
   TableModule,
@@ -58,6 +59,7 @@ const primeNgModules = [
   RippleModule,
   AvatarModule,
   PanelMenuModule,
+  ChartModule,
 ];
 
 @NgModule({
