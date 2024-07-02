@@ -1,6 +1,9 @@
-import { AuthService } from '@abp/ng.core';
+import { AuthService, LocalizationService, LocalizationWithDefault } from '@abp/ng.core';
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import Tesseract from 'tesseract.js';
+import { OcrService } from '../services/ocr.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,92 +12,69 @@ import { MenuItem, MessageService } from 'primeng/api';
   providers: [MessageService],
 })
 export class HomeComponent {
+  ocrResult: string | null = null;
   tooltipItems: MenuItem[] | undefined;
-
-  leftTooltipItems: MenuItem[] | undefined;
+  TooltipItems: MenuItem[] | undefined;
+  items: MenuItem[] | undefined;
+  localizations: string;
 
   /**
    *
    */
-  constructor(private authService: AuthService, private messageService: MessageService) {}
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private ocrService: OcrService,
+    private localizationService: LocalizationService,
+    private router: Router
+  ) {}
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.ocrService.recognize(file).then(({ data: { text } }) => {
+        this.ocrResult = text;
+      });
+    }
+  }
 
   ngOnInit() {
-    this.tooltipItems = [
+    this.items = [
       {
-        tooltipOptions: {
-          tooltipLabel: 'Add',
-        },
-        icon: 'pi pi-pencil',
-        command: () => {},
+        label: this.localizationService.instant('::NewZaer'),
+        icon: 'pi pi-plus',
+        command: () => this.router.navigate(['./new-zaer']),
+        style: { margin: '10px 0px' },
       },
       {
-        tooltipOptions: {
-          tooltipLabel: 'Update',
-        },
-        icon: 'pi pi-refresh',
-        command: () => {},
+        label: this.localizationService.instant('::NewZaerWithId'),
+        icon: 'pi pi-barcode',
+        command: () => this.router.navigate(['./new-zaer-id']),
+        style: { margin: '10px 0px' },
       },
       {
-        tooltipOptions: {
-          tooltipLabel: 'Delete',
-        },
-        icon: 'pi pi-trash',
-        command: () => {},
+        label: this.localizationService.instant('::SaveEntryExitClock'),
+        icon: 'pi pi-clock',
+        command: () => this.router.navigate(['./clock-entry-exit']),
+        style: { margin: '10px 0px' },
       },
       {
-        tooltipOptions: {
-          tooltipLabel: 'Upload',
-        },
-        icon: 'pi pi-upload',
+        label: this.localizationService.instant('::ExtensionOfReservation'),
+        icon: 'pi pi-sync',
+        command: () => this.router.navigate(['./reservation']),
+        style: { margin: '10px 0px' },
       },
       {
-        tooltipOptions: {
-          tooltipLabel: 'Angular Website',
-        },
-        icon: 'pi pi-external-link',
-        url: 'http://angular.io',
-      },
-    ];
-
-    this.leftTooltipItems = [
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Add',
-          tooltipPosition: 'left',
-        },
-        icon: 'pi pi-pencil',
-        command: () => {},
+        label: this.localizationService.instant('::MokebSettings'),
+        icon: 'pi pi-cog',
+        command: () => this.router.navigate(['./settings/mokeb']),
+        style: { margin: '10px 0px' },
       },
       {
-        tooltipOptions: {
-          tooltipLabel: 'Update',
-          tooltipPosition: 'left',
-        },
-        icon: 'pi pi-refresh',
-        command: () => {},
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Delete',
-          tooltipPosition: 'left',
-        },
-        icon: 'pi pi-trash',
-        command: () => {},
-      },
-      {
-        icon: 'pi pi-upload',
-        tooltipOptions: {
-          tooltipLabel: 'Upload',
-          tooltipPosition: 'left',
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Angular Website',
-          tooltipPosition: 'left',
-        },
-        icon: 'pi pi-external-link',
-        url: 'http://angular.io',
+        label: this.localizationService.instant('::Zaers'),
+        icon: 'pi pi-users',
+        command: () => this.router.navigate(['./zaers']),
+        style: { margin: '10px 0px' },
       },
     ];
   }

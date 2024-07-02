@@ -26,6 +26,13 @@ import {
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { DockModule } from 'primeng/dock';
+import { TooltipModule } from 'primeng/tooltip';
+import { MenuModule } from 'primeng/menu';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { CommonModule } from '@angular/common';
 
 const primeNgModules = [
   TableModule,
@@ -44,6 +51,13 @@ const primeNgModules = [
   RadioButtonModule,
   PanelModule,
   SpeedDialModule,
+  DockModule,
+  TooltipModule,
+  MenuModule,
+  BadgeModule,
+  RippleModule,
+  AvatarModule,
+  PanelMenuModule,
 ];
 
 @NgModule({
@@ -57,6 +71,7 @@ const primeNgModules = [
     ...primeNgModules,
   ],
   exports: [
+    CommonModule,
     CoreModule,
     ThemeSharedModule,
     NgbDropdownModule,

@@ -10,6 +10,10 @@ body,
   font-family: Vazirmatn, sans-serif !important;
 }
 
+a {
+  text-decoration: none;
+}
+
 @keyframes donut-spin {
   0% {
     transform: rotate(0deg);

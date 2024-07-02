@@ -16,13 +16,13 @@
 
 <div class="p-fluid">
   <div class="p-field mb-3">
-    <label for="passportNo">Passport No</label>
+    <label for="passportNo">{{ '::PassportNo' | abpLocalization }}</label>
     <input id="passportNo" type="text" pInputText [(ngModel)]="scanResult" />
   </div>
 </div>
 
 <div class="p-field mb-3">
-  <label for="gender">مدت اقامت</label>
+  <label for="gender">{{ '::StayingTime' | abpLocalization }}</label>
   <div class="d-flex gap-5">
     <div *ngFor="let entryExitOption of entryExitOptions" class="field-checkbox">
       <p-radioButton
@@ -37,4 +37,4 @@
   </div>
 </div>
 
-<button type="submit" pButton label="ثبت" (click)="save()"></button>
+<button type="submit" pButton label="{{ '::Submit' | abpLocalization }}" (click)="save()"></button>

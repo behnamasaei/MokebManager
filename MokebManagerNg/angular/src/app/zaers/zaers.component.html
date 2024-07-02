@@ -2,9 +2,9 @@
   <p-table #dt [value]="zaers.items" dataKey="id" [rowHover]="true" [filterDelay]="0">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 25%" id="passportHeader">شماره پاسپورت</th>
-        <th style="width: 25%" id="genderTable">جنسیت</th>
-        <th style="width: 25%">جزئیات</th>
+        <th style="width: 25%" id="passportHeader">{{ '::PassportNo' | abpLocalization }}</th>
+        <th style="width: 25%" id="genderTable">{{ '::Gender' | abpLocalization }}</th>
+        <th style="width: 25%">c</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-zaer>
@@ -23,7 +23,7 @@
             type="button"
             (click)="showInformation(zaer.id)"
             pButton
-            label="جزئیات"
+            label="{{ '::Gender' | abpLocalization }}"
             class="mb-3"
           ></button>
         </td>
