@@ -8,6 +8,8 @@ import { ZaersComponent } from './zaers/zaers.component';
 import { ZaerComponent } from './zaer/zaer.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { ReportingComponent } from './reporting/reporting.component';
+import { UpdateZaerComponent } from './zaer/update-zaer/update-zaer.component';
+import { permissionGuard } from '@abp/ng.core';
 
 const routes: Routes = [
   {
@@ -42,10 +44,18 @@ const routes: Routes = [
   {
     path: 'zaers',
     component: ZaersComponent,
+    canActivate: [permissionGuard],
+    data: {
+      requiredPolicy: 'YourProjectName.YourComponent', // policy key for your component
+    },
   },
   {
     path: 'zaers/:id',
     component: ZaerComponent,
+  },
+  {
+    path: 'update-zaers/:id',
+    component: UpdateZaerComponent,
   },
   {
     path: 'reporting',

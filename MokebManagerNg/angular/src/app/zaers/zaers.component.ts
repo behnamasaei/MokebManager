@@ -61,6 +61,10 @@ export class ZaersComponent {
     this.router.navigate(['zaers', id]);
   }
 
+  editZaer(zaer) {
+    this.router.navigate(['update-zaers', zaer.id]);
+  }
+
   deleteZaer(zaer: ZaerDto) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,

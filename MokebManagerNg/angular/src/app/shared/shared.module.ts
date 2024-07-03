@@ -35,6 +35,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { CalendarModule } from 'primeng/calendar';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 const primeNgModules = [
   TableModule,
@@ -62,6 +63,7 @@ const primeNgModules = [
   PanelMenuModule,
   ChartModule,
   CalendarModule,
+  BreadcrumbModule,
 ];
 
 @NgModule({
