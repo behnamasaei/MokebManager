@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MokebComponent } from './mokeb/mokeb.component';
 import { SettingsComponent } from './settings.component';
 import { CreateUpdateMokebComponent } from './create-update-mokeb/create-update-mokeb.component';
+import { permissionGuard } from '@abp/ng.core';
 
 const routes: Routes = [
   {
@@ -17,15 +18,26 @@ const routes: Routes = [
       {
         path: 'mokeb',
         component: MokebComponent,
-        
+        canActivate: [permissionGuard],
+        data: {
+          requiredPolicy: 'MokebManagerNg.MokebRead', // policy key for your component
+        },
       },
       {
         path: 'create-update-mokeb/:id',
         component: CreateUpdateMokebComponent,
+        canActivate: [permissionGuard],
+        data: {
+          requiredPolicy: 'MokebManagerNg.MokebRead', // policy key for your component
+        },
       },
       {
         path: 'create-update-mokeb',
         component: CreateUpdateMokebComponent,
+        canActivate: [permissionGuard],
+        data: {
+          requiredPolicy: 'MokebManagerNg.MokebCreate', // policy key for your component
+        },
       },
     ],
   },

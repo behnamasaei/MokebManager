@@ -1,6 +1,21 @@
 {
     "culture": "fa",
+
     "texts": {
+        "Permission:ZaerDelete": "حذف زائر",
+        "Permission:Permission": "دسترسی ها",
+        "Permission:Reporting": "گزارشگیری",
+        "Permission:Reservation": "تمدید رزرو",
+        "Permission:Mokeb": "دسترسی های موکب",
+        "Permission:MokebCreate": "افزودن موکب",
+        "Permission:MokebUpdate": "ویرایش موکب",
+        "Permission:MokebRead": "خواندن اطلاعات موکب",
+        "Permission:MokebDelete": "حذف موکب",
+        "Permission:ClockEntryExit": "ثبت ساعت عبور",
+        "Permission:Zaer": "دسترسی ها به زائرین",
+        "Permission:ZaerCreate": "افزودن زائر",
+        "Permission:ZaerUpdate": "ویرایش زائر",
+        "Permission:ZaerRead": "خواندن اطلاعات زائر",
         "AdditionalInformation": "اطلاعات اضافی",
         "Address": "آدرس",
         "Capacity": "ظرفیت",

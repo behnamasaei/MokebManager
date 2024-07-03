@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
 using Volo.Abp.Application.Dtos;
@@ -12,6 +13,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace MokebManagerNg;
 
+[Authorize("Permission:Mokeb")]
 public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSortedResultRequestDto,
                         CreateUpdateMokebDto, CreateUpdateMokebDto>,
     IMokebAppService
@@ -30,6 +32,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         _entryExitListCache = entryExitListCache;
     }
 
+    [Authorize("Permission:MokebRead")]
     public async Task<PagedResultDto<MokebDto>> GetAllListAsync()
     {
         string cacheKey = "MokebDtoList_cache";
@@ -45,6 +48,12 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         var data = await base.GetListAsync(new PagedAndSortedResultRequestDto { SkipCount = 0, MaxResultCount = 1000 });
         await _mokebListCache.SetAsync(cacheKey, data);
         return data;
+    }
+
+    [Authorize("Permission:MokebRead")]
+    public override Task<MokebDto> GetAsync(Guid id)
+    {
+        return base.GetAsync(id);
     }
 
     public override async Task<MokebDto> CreateAsync(CreateUpdateMokebDto input)
@@ -71,6 +80,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         await base.DeleteAsync(id);
     }
 
+    [Authorize("Permission:MokebRead")]
     public async Task<List<MokebCapacityDto>> GetMokebCapacityToNight()
     {
         var mokebs = await GetAllListAsync();

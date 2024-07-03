@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
 using Volo.Abp.Application.Dtos;
@@ -12,6 +13,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace MokebManagerNg;
 
+[Authorize("MokebManagerNg.Reservation")]
 public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZaerDto, Guid, PagedAndSortedResultRequestDto,
                         CreateUpdateEntryExitZaerDto, CreateUpdateEntryExitZaerDto>,
     IEntryExitZaerDateAppService
@@ -27,6 +29,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         _repository = repository;
     }
 
+    [Authorize("MokebManagerNg.Reservation")]
     public async Task<IList<EntryExitZaerDto>> GetAllEntryExitAsync()
     {
         string cacheKey = "AllEntryExit_cache";
@@ -45,6 +48,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         return entryExitListDto;
     }
 
+    [Authorize("MokebManagerNg.Reservation")]
     public override async Task<EntryExitZaerDto> GetAsync(Guid id)
     {
         var entryExits = await GetAllEntryExitAsync();
@@ -52,6 +56,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         return zaer;
     }
 
+    [Authorize("MokebManagerNg.Reservation")]
     public override async Task<EntryExitZaerDto> CreateAsync(CreateUpdateEntryExitZaerDto input)
     {
         string cacheKey = "AllEntryExit_cache";
@@ -59,6 +64,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         return await base.CreateAsync(input);
     }
 
+    [Authorize("MokebManagerNg.Reservation")]
     public override async Task DeleteAsync(Guid id)
     {
         string cacheKey = "AllEntryExit_cache";
@@ -66,6 +72,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         await base.DeleteAsync(id);
     }
 
+    [Authorize("MokebManagerNg.Reservation")]
     public override async Task<EntryExitZaerDto> UpdateAsync(Guid id, CreateUpdateEntryExitZaerDto input)
     {
         string cacheKey = "AllEntryExit_cache";
