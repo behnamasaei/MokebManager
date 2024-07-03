@@ -1,7 +1,33 @@
-<div class="card">
-  <p-chart type="bar" [data]="mokebData" [options]="basicOptions" />
-</div>
+<div class="card flex justify-content-center">
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab header="گزارش تعداد رزرو ها به تفکیک موکب">
+      <div class="card flex justify-content-center align-items-center">
+        <p-calendar
+          [(ngModel)]="rangeDates"
+          [showIcon]="true"
+          selectionMode="range"
+          [readonlyInput]="true"
+        />
 
-<div class="card">
-  <p-chart type="bar" [data]="mokebFreeCapacityData" [options]="basicOptions" />
+        <button
+          type="button"
+          (click)="searchInRangeDate()"
+          pButton
+          label="جستجو"
+          class="my-4"
+        ></button>
+
+        <p-chart type="bar" [data]="mokebReserveInRangeData" [options]="basicOptions" />
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="گزارش ظرفیت های موجود موکب ها">
+      <div class="card">
+        <p-chart type="bar" [data]="mokebData" [options]="basicOptions" />
+      </div>
+
+      <div class="card">
+        <p-chart type="bar" [data]="mokebFreeCapacityData" [options]="basicOptions" />
+      </div>
+    </p-accordionTab>
+  </p-accordion>
 </div>
