@@ -5,6 +5,7 @@ import { ZaerService } from '@proxy';
 import { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { PageEvent } from 'src/app/shared/shared.model';
 import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-zaers',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
   imports: [SharedModule],
   templateUrl: './zaers.component.html',
   styleUrl: './zaers.component.scss',
+  providers: [ConfirmationService, MessageService],
 })
 export class ZaersComponent {
   zaers: PagedResultDto<ZaerDto> = {
@@ -24,7 +26,12 @@ export class ZaersComponent {
   /**
    *
    */
-  constructor(private zaerService: ZaerService,private router: Router,) {}
+  constructor(
+    private zaerService: ZaerService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -50,7 +57,36 @@ export class ZaersComponent {
     });
   }
 
-  showInformation(id:string){
-    this.router.navigate(['zaers',id])
+  showInformation(id: string) {
+    this.router.navigate(['zaers', id]);
+  }
+
+  deleteZaer(zaer: ZaerDto) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.zaerService.delete(zaer.id).subscribe(x => {
+          this.deleteItem(zaer.id);
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Confirmed',
+            detail: 'Record deleted',
+          });
+        });
+      },
+      reject: () => {},
+    });
+  }
+
+  deleteItem(id: string): void {
+    this.zaers.items = this.zaers.items.filter(item => item.id !== id);
   }
 }
