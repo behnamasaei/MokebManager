@@ -17,6 +17,43 @@
 با استفاده از **نرم افزار مدیریت موکب**، شما می‌توانید به بهبود و ساماندهی امور موکب‌ها کمک کنید و تجربه‌ای بی‌نظیر از مدیریت زائران داشته باشید. برای اطلاعات بیشتر و دریافت نرم افزار به وبسایت ما مراجعه کنید.
 
 
+
+
+##### مشاهده اطلاعات هر زائر و بررسی تاریخ رزرو و رصد رفت آمد ها
+![](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-30-21.png?raw=true)
+
+
+##### مدیریت زائران ثبت شده
+![](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-30-04.png?raw=true)
+
+
+##### ثبت زائر جدید
+![](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-29-51.png?raw=true)
+
+##### مدیریت موکب ها
+![](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-29-35.png?raw=true)
+
+
+##### گزارشگیری تعداد اسکان زائرین در یک بازه زمانی مشخص به تفکبک هر موکب
+![](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-30-38.png)
+
+
+##### امنیت برنامه از طریق سیستم احراز هویت انجام میشود.
+![احراز هویت کاربر](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-24-50.png?raw=true)
+
+
+##### ایجاد نقش های مختلف و تعیین سطح دسترسی هر نقش به قسمت های مختلف برنامه
+
+![نقش کاربران](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-25-05.png?raw=true)
+
+##### مدیریت کاربران سیستم و تعیین نقش برای هر کاربر
+![مدیریت کاربران](https://github.com/behnamasaei/MokebManager/blob/main/MokebManagerNg/angular/src/assets/image_application/image_2024-07-04_23-25-23.png?raw=true)
+
+
+
+
+
+
 # MokebManager
 
 ## About this solution
