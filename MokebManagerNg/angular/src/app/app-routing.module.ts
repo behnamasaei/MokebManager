@@ -62,7 +62,7 @@ const routes: Routes = [
     component: ZaersComponent,
     canActivate: [permissionGuard],
     data: {
-      requiredPolicy: 'MokebManagerNg.Zaer', // policy key for your component
+      requiredPolicy: 'MokebManagerNg.ZaerRead', // policy key for your component
     },
   },
   {

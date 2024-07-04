@@ -28,7 +28,7 @@ const routes: Routes = [
         component: CreateUpdateMokebComponent,
         canActivate: [permissionGuard],
         data: {
-          requiredPolicy: 'MokebManagerNg.MokebRead', // policy key for your component
+          requiredPolicy: 'MokebManagerNg.MokebUpdate', // policy key for your component
         },
       },
       {
