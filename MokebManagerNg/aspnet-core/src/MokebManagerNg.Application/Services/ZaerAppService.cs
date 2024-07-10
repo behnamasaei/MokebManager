@@ -54,7 +54,8 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     [Authorize(MokebManagerNgPermissions.ZaerRead)]
     public async Task<ZaerDto> GetWithDetailAsync(Guid id)
     {
-        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates, e => e.ClockEntryExits, e => e.Mokeb);
+        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates,
+            e => e.ClockEntryExits, e => e.Mokeb, e => e.MokebState);
         var query = queryable.Where(x => x.Id == id);
         var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
 

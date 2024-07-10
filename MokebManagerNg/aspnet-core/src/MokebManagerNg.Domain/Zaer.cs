@@ -12,7 +12,7 @@ public class Zaer : AggregateRoot<Guid>
     public Gender Gender { get; set; }
     public virtual ICollection<EntryExitZaer>? EntryExitZaerDates { get; set; }
     public virtual ICollection<ClockEntryExit>? ClockEntryExits { get; set; }
-
+    public virtual MokebState? MokebState { get; set; }
     public string? ImageFileName { get; set; }
     public string PassportNo { get; set; }
     public Guid MokebId { get; set; }
