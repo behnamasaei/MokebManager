@@ -143,8 +143,8 @@ export class NewZaerWithIdComponent {
   onSubmit() {
     // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
     const formValue: CreateZaerDto | any = { ...this.form.value };
-    formValue.city = formValue.city.name;
-    formValue.state = formValue.state.name;
+    formValue.city = formValue.city?.name ?? '';
+    formValue.state = formValue.state?.name ?? '';
     formValue.id = this.scanResult;
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);

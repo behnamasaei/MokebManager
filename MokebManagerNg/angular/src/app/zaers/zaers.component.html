@@ -1,10 +1,12 @@
+<p-toast /> <p-confirmDialog />
+
 <div class="card">
   <p-table #dt [value]="zaers.items" dataKey="id" [rowHover]="true" [filterDelay]="0">
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 25%" id="passportHeader">{{ '::PassportNo' | abpLocalization }}</th>
         <th style="width: 25%" id="genderTable">{{ '::Gender' | abpLocalization }}</th>
-        <th style="width: 25%">c</th>
+        <th style="width: 50%">{{ '::Detail' | abpLocalization }}</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-zaer>
@@ -19,13 +21,31 @@
           </span>
         </td>
         <td>
-          <button
-            type="button"
+          <p-button
+            pRipple
+            icon="pi pi-eye"
+            class="mr-2"
+            [rounded]="true"
+            [outlined]="true"
             (click)="showInformation(zaer.id)"
-            pButton
-            label="{{ '::Gender' | abpLocalization }}"
-            class="mb-3"
-          ></button>
+          />
+          <p-button
+            pRipple
+            icon="pi pi-pencil"
+            class="mx-1"
+            [rounded]="true"
+            [outlined]="true"
+            severity="success"
+            (click)="editZaer(zaer)"
+          />
+          <p-button
+            pRipple
+            icon="pi pi-trash"
+            severity="danger"
+            [rounded]="true"
+            [outlined]="true"
+            (click)="deleteZaer(zaer)"
+          />
         </td>
       </tr>
     </ng-template>

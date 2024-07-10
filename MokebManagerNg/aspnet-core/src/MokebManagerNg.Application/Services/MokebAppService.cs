@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using MokebManagerNg.Domain.CreateUpdateDtos;
 using MokebManagerNg.Domain.Dtos;
+using MokebManagerNg.Permissions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Caching;
@@ -12,6 +14,8 @@ using Volo.Abp.Domain.Repositories;
 
 namespace MokebManagerNg;
 
+
+[Authorize(MokebManagerNgPermissions.Mokeb)]
 public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSortedResultRequestDto,
                         CreateUpdateMokebDto, CreateUpdateMokebDto>,
     IMokebAppService
@@ -30,6 +34,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         _entryExitListCache = entryExitListCache;
     }
 
+    [Authorize(MokebManagerNgPermissions.MokebRead)]
     public async Task<PagedResultDto<MokebDto>> GetAllListAsync()
     {
         string cacheKey = "MokebDtoList_cache";
@@ -47,6 +52,14 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         return data;
     }
 
+    [Authorize(MokebManagerNgPermissions.MokebRead)]
+    public override Task<MokebDto> GetAsync(Guid id)
+    {
+        return base.GetAsync(id);
+    }
+
+
+    [Authorize(MokebManagerNgPermissions.MokebCreate)]
     public override async Task<MokebDto> CreateAsync(CreateUpdateMokebDto input)
     {
         string cacheKey = "MokebDtoList_cache";
@@ -55,6 +68,8 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         return await base.CreateAsync(input);
     }
 
+
+    [Authorize(MokebManagerNgPermissions.MokebUpdate)]
     public override async Task<MokebDto> UpdateAsync(Guid id, CreateUpdateMokebDto input)
     {
         string cacheKey = "MokebDtoList_cache";
@@ -63,6 +78,8 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         return await base.UpdateAsync(id, input);
     }
 
+
+    [Authorize(MokebManagerNgPermissions.MokebDelete)]
     public override async Task DeleteAsync(Guid id)
     {
         string cacheKey = "MokebDtoList_cache";
@@ -71,6 +88,8 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         await base.DeleteAsync(id);
     }
 
+
+    [Authorize(MokebManagerNgPermissions.MokebRead)]
     public async Task<List<MokebCapacityDto>> GetMokebCapacityToNight()
     {
         var mokebs = await GetAllListAsync();

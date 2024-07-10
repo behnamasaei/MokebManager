@@ -58,6 +58,7 @@ public class MokebManagerNgDbContext :
     public DbSet<Zaer> Zaers { get; set; }
     public DbSet<EntryExitZaer> EntryExitDates { get; set; }
     public DbSet<ClockEntryExit> clockEntryExits { get; set; }
+    public DbSet<MokebState> MokebStates { get; set; }
 
 
     public MokebManagerNgDbContext(DbContextOptions<MokebManagerNgDbContext> options)
@@ -93,7 +94,7 @@ public class MokebManagerNgDbContext :
             b.HasIndex(x => x.Name).IsUnique();
             b.Property(x => x.Capacity).IsRequired() // If you want to ensure Capacity is always provided
                     .HasAnnotation("MinValue", 0)
-                    .HasAnnotation("MaxValue", 5000);
+                    .HasAnnotation("MaxValue", 10000);
             //...
         });
 
@@ -123,6 +124,14 @@ public class MokebManagerNgDbContext :
             b.ToTable(MokebManagerNgConsts.DbTablePrefix + "ClockEntryExit", MokebManagerNgConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             b.HasOne(x => x.Zaer).WithMany(x => x.ClockEntryExits).HasForeignKey(x => x.ZaerId);
+        });
+
+        builder.Entity<MokebState>(b =>
+        {
+            b.ToTable(MokebManagerNgConsts.DbTablePrefix + "MokebState", MokebManagerNgConsts.DbSchema);
+            b.ConfigureByConvention(); // auto configure for the base class props
+            b.HasOne(x => x.Zaer).WithOne(x => x.MokebState).HasForeignKey<MokebState>(x => x.ZaerId);
+            b.HasOne(x => x.Mokeb).WithMany(x => x.MokebStates).HasForeignKey(x => x.MokebId);
         });
     }
 }

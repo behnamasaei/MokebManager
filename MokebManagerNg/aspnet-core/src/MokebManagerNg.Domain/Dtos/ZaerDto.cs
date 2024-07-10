@@ -13,6 +13,8 @@ public class ZaerDto : AuditedEntityDto<Guid>
     public Gender Gender { get; set; }
     public virtual ICollection<EntryExitZaerDto> EntryExitZaerDates { get; set; }
     public virtual ICollection<ClockEntryExitDto> ClockEntryExits { get; set; }
+    public virtual MokebStateDto? MokebState { get; set; }
+
     public string ImageFileName { get; set; }
     public string PassportNo { get; set; }
     public Guid MokebId { get; set; }

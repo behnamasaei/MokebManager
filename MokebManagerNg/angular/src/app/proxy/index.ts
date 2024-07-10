@@ -6,6 +6,7 @@ export * from './entry-exit-zaer.service';
 export * from './file.service';
 export * from './gender.enum';
 export * from './models';
+export * from './mokeb-state.service';
 export * from './mokeb.service';
 export * from './report.service';
 export * from './storage.service';

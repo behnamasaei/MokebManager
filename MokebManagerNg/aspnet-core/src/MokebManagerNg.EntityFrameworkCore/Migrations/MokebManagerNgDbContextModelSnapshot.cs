@@ -95,7 +95,7 @@ namespace MokebManagerNg.Migrations
 
                     b.Property<int>("Capacity")
                         .HasColumnType("INTEGER")
-                        .HasAnnotation("MaxValue", 5000)
+                        .HasAnnotation("MaxValue", 10000)
                         .HasAnnotation("MinValue", 0);
 
                     b.Property<string>("ConcurrencyStamp")
@@ -123,6 +123,42 @@ namespace MokebManagerNg.Migrations
                         .IsUnique();
 
                     b.ToTable("AppMokeb", (string)null);
+                });
+
+            modelBuilder.Entity("MokebManagerNg.MokebState", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<string>("ExtraProperties")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<Guid>("MokebId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("ZaerId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MokebId");
+
+                    b.HasIndex("ZaerId")
+                        .IsUnique();
+
+                    b.ToTable("AppMokebState", (string)null);
                 });
 
             modelBuilder.Entity("MokebManagerNg.Zaer", b =>
@@ -174,6 +210,9 @@ namespace MokebManagerNg.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("MokebId");
 
@@ -1955,6 +1994,25 @@ namespace MokebManagerNg.Migrations
                     b.Navigation("Zaer");
                 });
 
+            modelBuilder.Entity("MokebManagerNg.MokebState", b =>
+                {
+                    b.HasOne("MokebManagerNg.Mokeb", "Mokeb")
+                        .WithMany("MokebStates")
+                        .HasForeignKey("MokebId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MokebManagerNg.Zaer", "Zaer")
+                        .WithOne("MokebState")
+                        .HasForeignKey("MokebManagerNg.MokebState", "ZaerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mokeb");
+
+                    b.Navigation("Zaer");
+                });
+
             modelBuilder.Entity("MokebManagerNg.Zaer", b =>
                 {
                     b.HasOne("MokebManagerNg.Mokeb", "Mokeb")
@@ -2112,6 +2170,8 @@ namespace MokebManagerNg.Migrations
                 {
                     b.Navigation("EntryExitZaers");
 
+                    b.Navigation("MokebStates");
+
                     b.Navigation("Zaers");
                 });
 
@@ -2120,6 +2180,8 @@ namespace MokebManagerNg.Migrations
                     b.Navigation("ClockEntryExits");
 
                     b.Navigation("EntryExitZaerDates");
+
+                    b.Navigation("MokebState");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

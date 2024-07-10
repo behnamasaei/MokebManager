@@ -1,12 +1,6 @@
 import type { AuditedEntityDto } from '@abp/ng.core';
 import type { Gender } from '../../gender.enum';
-import type { ClockEntryExitDto } from '../../models';
-
-export interface MokebDto extends AuditedEntityDto<string> {
-  name?: string;
-  gender: Gender;
-  capacity: number;
-}
+import type { ClockEntryExitDto, MokebStateDto } from '../../models';
 
 export interface EntryExitZaerDto extends AuditedEntityDto<string> {
   zaerId?: string;
@@ -15,12 +9,22 @@ export interface EntryExitZaerDto extends AuditedEntityDto<string> {
   mokebId?: string;
 }
 
+export interface MokebDto extends AuditedEntityDto<string> {
+  name?: string;
+  gender: Gender;
+  capacity: number;
+  zaers: ZaerDto[];
+  entryExitZaers: EntryExitZaerDto[];
+  mokebStates: MokebStateDto[];
+}
+
 export interface ZaerDto extends AuditedEntityDto<string> {
   name?: string;
   family?: string;
   gender: Gender;
   entryExitZaerDates: EntryExitZaerDto[];
   clockEntryExits: ClockEntryExitDto[];
+  mokebState: MokebStateDto;
   imageFileName?: string;
   passportNo?: string;
   mokebId?: string;

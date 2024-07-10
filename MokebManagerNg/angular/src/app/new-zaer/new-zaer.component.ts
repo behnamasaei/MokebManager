@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalizationService } from '@abp/ng.core';
 import { Gender } from '@proxy/gender.enum';
 import {
+  CreateUpdateMokebStateDto,
   CreateZaerDto,
   EntryExitZaerService,
   FileService,
   MokebCapacityDto,
   MokebService,
+  MokebStateService,
   UploadFileDto,
   ZaerService,
 } from '@proxy';
@@ -47,10 +49,23 @@ export class NewZaerComponent {
     private entryExitZaerService: EntryExitZaerService,
     private zaerService: ZaerService,
     private messageService: MessageService,
-    private fileService: FileService
+    private fileService: FileService,
+    private mokebStateService: MokebStateService
   ) {}
 
   ngOnInit() {
+    this.zaerService.getWithDetail('2727caba-b2a4-b1ec-d6cc-3a13add8b2d7').subscribe(x => {
+      console.log(x);
+    });
+
+    this.zaerService.getWithDetail('c9e82235-a3ea-ce69-f52f-3a13addbf463').subscribe(x => {
+      console.log(x);
+    });
+
+    this.zaerService.getWithDetail('d3d0daba-389b-5b21-81ed-3a13addf3b1d').subscribe(x => {
+      console.log(x);
+    });
+
     this.entryExitOptions = [
       { name: '1 شب', key: '1' },
       { name: '2 شب', key: '2' },
@@ -138,8 +153,8 @@ export class NewZaerComponent {
   onSubmit() {
     // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
     const formValue: CreateZaerDto | any = { ...this.form.value };
-    formValue.city = formValue.city.name;
-    formValue.state = formValue.state.name;
+    formValue.city = formValue.city?.name ?? '';
+    formValue.state = formValue.state?.name ?? '';
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
     if (formValue.image != null) {
@@ -171,21 +186,29 @@ export class NewZaerComponent {
       });
     } else {
       this.zaerService.create(formValue).subscribe(x => {
-        const entryExitDate: CreateUpdateEntryExitZaerDto = {
+        const mokebStateInput: CreateUpdateMokebStateDto = {
           zaerId: x.id,
-          entryDate: entryDate,
-          exitDate: exitDate,
           mokebId: x.mokebId,
+          state: 1,
         };
-        this.entryExitZaerService.create(entryExitDate).subscribe(x => {
-          this.form.reset();
-          this.fileUpload.clear();
-          this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Success',
-            life: 1000,
+
+        this.mokebStateService.create(mokebStateInput).subscribe(xs => {
+          const entryExitDate: CreateUpdateEntryExitZaerDto = {
+            zaerId: x.id,
+            entryDate: entryDate,
+            exitDate: exitDate,
+            mokebId: x.mokebId,
+          };
+          this.entryExitZaerService.create(entryExitDate).subscribe(x => {
+            this.form.reset();
+            this.fileUpload.clear();
+            this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Success',
+              life: 1000,
+            });
           });
         });
       });
