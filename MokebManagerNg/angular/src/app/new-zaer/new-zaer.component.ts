@@ -54,18 +54,6 @@ export class NewZaerComponent {
   ) {}
 
   ngOnInit() {
-    this.zaerService.getWithDetail('2727caba-b2a4-b1ec-d6cc-3a13add8b2d7').subscribe(x => {
-      console.log(x);
-    });
-
-    this.zaerService.getWithDetail('c9e82235-a3ea-ce69-f52f-3a13addbf463').subscribe(x => {
-      console.log(x);
-    });
-
-    this.zaerService.getWithDetail('d3d0daba-389b-5b21-81ed-3a13addf3b1d').subscribe(x => {
-      console.log(x);
-    });
-
     this.entryExitOptions = [
       { name: '1 شب', key: '1' },
       { name: '2 شب', key: '2' },
@@ -157,62 +145,67 @@ export class NewZaerComponent {
     formValue.state = formValue.state?.name ?? '';
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
-    if (formValue.image != null) {
-      const formData = new FormData();
-      formData.append('File', formValue.image, formValue.image.name);
-      formData.append('Name', formValue.image.name); // Example of adding additional form data
 
-      this.fileService.saveBlobStream(formData).subscribe(file => {
-        formValue.imageFileName = file;
-        this.zaerService.create(formValue).subscribe(x => {
-          const entryExitDate: CreateUpdateEntryExitZaerDto = {
-            zaerId: x.id,
-            entryDate: entryDate,
-            exitDate: exitDate,
-            mokebId: x.mokebId,
-          };
-          this.entryExitZaerService.create(entryExitDate).subscribe(x => {
-            this.form.reset();
-            this.fileUpload.clear();
-            this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Success',
-              life: 1000,
+    this.mokebService.getMokebCapacityToNight().subscribe(x => {
+      if (x.filter(e => e.mokebId === formValue.mokebId)[0].freeCapacityToNight > 1) {
+        if (formValue.image != null) {
+          const formData = new FormData();
+          formData.append('File', formValue.image, formValue.image.name);
+          formData.append('Name', formValue.image.name); // Example of adding additional form data
+
+          this.fileService.saveBlobStream(formData).subscribe(file => {
+            formValue.imageFileName = file;
+            this.zaerService.create(formValue).subscribe(x => {
+              const entryExitDate: CreateUpdateEntryExitZaerDto = {
+                zaerId: x.id,
+                entryDate: entryDate,
+                exitDate: exitDate,
+                mokebId: x.mokebId,
+              };
+              this.entryExitZaerService.create(entryExitDate).subscribe(x => {
+                this.form.reset();
+                this.fileUpload.clear();
+                this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                  detail: 'Success',
+                  life: 1000,
+                });
+              });
             });
           });
-        });
-      });
-    } else {
-      this.zaerService.create(formValue).subscribe(x => {
-        const mokebStateInput: CreateUpdateMokebStateDto = {
-          zaerId: x.id,
-          mokebId: x.mokebId,
-          state: 1,
-        };
+        } else {
+          this.zaerService.create(formValue).subscribe(x => {
+            const mokebStateInput: CreateUpdateMokebStateDto = {
+              zaerId: x.id,
+              mokebId: x.mokebId,
+              state: 1,
+            };
 
-        this.mokebStateService.create(mokebStateInput).subscribe(xs => {
-          const entryExitDate: CreateUpdateEntryExitZaerDto = {
-            zaerId: x.id,
-            entryDate: entryDate,
-            exitDate: exitDate,
-            mokebId: x.mokebId,
-          };
-          this.entryExitZaerService.create(entryExitDate).subscribe(x => {
-            this.form.reset();
-            this.fileUpload.clear();
-            this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Success',
-              life: 1000,
+            this.mokebStateService.create(mokebStateInput).subscribe(xs => {
+              const entryExitDate: CreateUpdateEntryExitZaerDto = {
+                zaerId: x.id,
+                entryDate: entryDate,
+                exitDate: exitDate,
+                mokebId: x.mokebId,
+              };
+              this.entryExitZaerService.create(entryExitDate).subscribe(x => {
+                this.form.reset();
+                this.fileUpload.clear();
+                this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                  detail: 'Success',
+                  life: 1000,
+                });
+              });
             });
           });
-        });
-      });
-    }
+        }
+      }
+    });
   }
 
   getEntryDate(): string {

@@ -45,11 +45,10 @@ namespace MokebManagerNg
 
             foreach (var mokebState in mokebStates)
             {
-                var entryExitZaerDates = mokebState.Zaer.EntryExitZaerDates;
-                if (entryExitZaerDates != null && entryExitZaerDates.Any())
+                var exitZaerDates = mokebState.Zaer.EntryExitZaerDates.Max(x => x.ExitDate);
+                if (exitZaerDates != null)
                 {
-                    var exitDate = entryExitZaerDates.First().ExitDate;
-                    if (utcNow >= exitDate)
+                    if (utcNow >= exitZaerDates)
                     {
                         await _serviceProvider.DeleteAsync(mokebState.Id);
                     }
