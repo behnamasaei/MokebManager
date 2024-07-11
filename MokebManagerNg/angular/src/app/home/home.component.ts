@@ -39,6 +39,10 @@ export class HomeComponent {
   }
 
   ngOnInit() {
+    if (!this.hasLoggedIn) {
+      this.login();
+    }
+
     this.items = [
       {
         label: this.localizationService.instant('::NewZaer'),

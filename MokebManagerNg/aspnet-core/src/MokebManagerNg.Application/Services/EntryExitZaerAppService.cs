@@ -66,6 +66,24 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
     }
 
     [Authorize(MokebManagerNgPermissions.Reservation)]
+    public async Task<EntryExitZaerDto> SetExitDateAsync(Guid zaerId, DateTime ExitDate)
+    {
+        string cacheKey = "AllEntryExit_cache";
+        await _entryExitListCache.RemoveAsync(cacheKey);
+
+        var entryExits = await GetAsync(zaerId);
+        var updateEntryExit = await UpdateAsync(entryExits.Id, new CreateUpdateEntryExitZaerDto()
+        {
+            ZaerId = zaerId,
+            EntryDate = entryExits.EntryDate,
+            ExitDate = ExitDate,
+            MokebId = entryExits.MokebId
+        });
+
+        return updateEntryExit;
+    }
+
+    [Authorize(MokebManagerNgPermissions.Reservation)]
     public override async Task DeleteAsync(Guid id)
     {
         string cacheKey = "AllEntryExit_cache";

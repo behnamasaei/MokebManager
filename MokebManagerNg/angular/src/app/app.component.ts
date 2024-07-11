@@ -1,3 +1,4 @@
+import { AuthService } from '@abp/ng.core';
 import { Component, HostListener } from '@angular/core';
 
 @Component({
@@ -8,4 +9,19 @@ import { Component, HostListener } from '@angular/core';
     <abp-internet-status></abp-internet-status>
   `,
 })
-export class AppComponent {}
+export class AppComponent {
+  /**
+   *
+   */
+  constructor(private authService: AuthService) {
+    if (!this.hasLoggedIn) this.login();
+  }
+
+  get hasLoggedIn(): boolean {
+    return this.authService.isAuthenticated;
+  }
+
+  login() {
+    this.authService.navigateToLogin();
+  }
+}

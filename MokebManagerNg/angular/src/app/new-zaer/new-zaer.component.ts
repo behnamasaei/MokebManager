@@ -169,6 +169,8 @@ export class NewZaerComponent implements OnInit {
         } else {
           this.saveZaer(formValue, entryDate, exitDate);
         }
+      } else {
+        this.showMessage('error', 'اتمام ظرقیت', 'ظرفیت موکب پر شد.');
       }
     });
   }
