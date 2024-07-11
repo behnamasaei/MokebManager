@@ -40,6 +40,14 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         _entryExitListCache = entryExitListCache;
     }
 
+
+    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    public override Task<PagedResultDto<ZaerDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+    {
+        return base.GetListAsync(input);
+    }
+
+
     [Authorize(MokebManagerNgPermissions.ZaerCreate)]
     public async Task<ZaerDto> CreateNewWithIdAsync(CreateZaerDto input)
     {
@@ -60,6 +68,23 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
 
         return ObjectMapper.Map<Zaer, ZaerDto>(dataWithDetail);
+    }
+
+
+    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    public async Task<PagedResultDto<ZaerDto>> GetListWithDetailAsync(PagedAndSortedResultRequestDto input)
+    {
+        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates,
+            e => e.ClockEntryExits, e => e.Mokeb, e => e.MokebState);
+        var dataWithDetail = await AsyncExecuter.ToListAsync(queryable);
+
+        var response = new PagedResultDto<ZaerDto>()
+        {
+            Items = ObjectMapper.Map<List<Zaer>, List<ZaerDto>>(dataWithDetail.Skip(input.SkipCount).Take(input.MaxResultCount).ToList()),
+            TotalCount = dataWithDetail.Count()
+        };
+
+        return response;
     }
 
 

@@ -51,7 +51,7 @@ export class ZaersComponent {
   }
 
   getZaerData() {
-    this.zaerService.getList(this.paged).subscribe(x => {
+    this.zaerService.getListWithDetail(this.paged).subscribe(x => {
       this.zaers.items = x.items;
       this.zaers.totalCount = x.totalCount;
     });

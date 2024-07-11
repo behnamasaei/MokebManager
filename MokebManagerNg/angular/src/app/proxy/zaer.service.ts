@@ -54,6 +54,15 @@ export class ZaerService {
     { apiName: this.apiName,...config });
   
 
+  getListWithDetail = (input: PagedAndSortedResultRequestDto, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, PagedResultDto<ZaerDto>>({
+      method: 'GET',
+      url: '/api/app/zaer/with-detail',
+      params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+    },
+    { apiName: this.apiName,...config });
+  
+
   getSearch = (text: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ZaerDto[]>({
       method: 'GET',

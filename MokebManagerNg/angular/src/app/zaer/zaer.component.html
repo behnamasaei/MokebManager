@@ -3,8 +3,12 @@
     <div class="mb-3">
       <p-panel header="مشخصات زائر" class="mb-3">
         <div class="row">
-          <div class="col-6">gender</div>
-          <div class="col-6">
+          <div class="col-12">نام: {{ zaer.name }}</div>
+
+          <div class="col-12">نام خانوادگی: {{ zaer.family }}</div>
+
+          <div class="col-12">
+            جنسیت:
             <span *ngIf="zaer.gender == 0">
               {{ '::Male' | abpLocalization }}
             </span>
@@ -13,29 +17,19 @@
             </span>
           </div>
 
-          <div class="col-6">passportNo</div>
-          <div class="col-6">{{ zaer.passportNo }}</div>
+          <div class="col-12">پاسپورت: {{ zaer.passportNo }}</div>
 
-          <div class="col-6">mokeb</div>
-          <div class="col-6">{{ zaer.mokeb.name }}</div>
+          <div class="col-12">موکب: {{ zaer.mokeb.name }}</div>
 
-          <div class="col-6">name</div>
-          <div class="col-6">{{ zaer.name }}</div>
+          <div class="col-12">جایگاه: {{ zaer.mokebState.state }}</div>
 
-          <div class="col-6">family</div>
-          <div class="col-6">{{ zaer.family }}</div>
+          <div class="col-12">شماره تلفن: {{ zaer.phoneNumber }}</div>
 
-          <div class="col-6">phoneNumber</div>
-          <div class="col-6">{{ zaer.phoneNumber }}</div>
+          <div class="col-12">استان: {{ zaer.state }}</div>
 
-          <div class="col-6">state</div>
-          <div class="col-6">{{ zaer.state }}</div>
+          <div class="col-12">شهر: {{ zaer.city }}</div>
 
-          <div class="col-6">city</div>
-          <div class="col-6">{{ zaer.city }}</div>
-
-          <div class="col-6">address</div>
-          <div class="col-6">{{ zaer.address }}</div>
+          <div class="col-12">آدرس: {{ zaer.address }}</div>
         </div>
       </p-panel>
     </div>

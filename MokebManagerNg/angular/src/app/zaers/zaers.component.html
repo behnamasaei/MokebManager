@@ -1,17 +1,39 @@
 <p-toast /> <p-confirmDialog />
 
 <div class="card">
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+      <input pInputText placeholder="جستجو" [(ngModel)]="searchValue" />
+      <p-button
+        pRipple
+        icon="pi pi-search"
+        class="mr-2"
+        [rounded]="true"
+        [outlined]="true"
+        (click)="search()"
+      />
+    </div>
+    <div class="p-toolbar-group-center">
+      <span class="p-input-icon-left"> </span>
+    </div>
+    <div class="p-toolbar-group-end"></div>
+  </p-toolbar>
   <p-table #dt [value]="zaers.items" dataKey="id" [rowHover]="true" [filterDelay]="0">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 25%" id="passportHeader">{{ '::PassportNo' | abpLocalization }}</th>
-        <th style="width: 25%" id="genderTable">{{ '::Gender' | abpLocalization }}</th>
-        <th style="width: 50%">{{ '::Detail' | abpLocalization }}</th>
+        <th style="width: 14%" id="passportHeader">{{ '::PassportNo' | abpLocalization }}</th>
+        <th style="width: 14%" id="genderTable">نام ونام خانوادگی</th>
+        <th style="width: 14%" id="genderTable">{{ '::Gender' | abpLocalization }}</th>
+        <th style="width: 14%" id="genderTable">موکب</th>
+        <th style="width: 14%" id="genderTable">جایگاه</th>
+
+        <th style="width: 30%">{{ '::Detail' | abpLocalization }}</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-zaer>
       <tr>
         <td>{{ zaer.passportNo }}</td>
+        <td id="genderTable">{{ zaer.name }} {{ zaer.family }}</td>
         <td id="genderTable">
           <span *ngIf="zaer.gender == 0">
             {{ '::Male' | abpLocalization }}
@@ -20,6 +42,9 @@
             {{ '::Female' | abpLocalization }}
           </span>
         </td>
+        <td id="genderTable">{{ zaer.mokeb?.name }}</td>
+        <td id="genderTable">{{ zaer.mokebState?.state }}</td>
+
         <td>
           <p-button
             pRipple

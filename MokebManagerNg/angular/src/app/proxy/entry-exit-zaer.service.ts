@@ -53,6 +53,15 @@ export class EntryExitZaerService {
     { apiName: this.apiName,...config });
   
 
+  setExitDate = (zaerId: string, ExitDate: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, EntryExitZaerDto>({
+      method: 'POST',
+      url: `/api/app/entry-exit-zaer/set-exit-date/${zaerId}`,
+      params: { exitDate: ExitDate },
+    },
+    { apiName: this.apiName,...config });
+  
+
   update = (id: string, input: CreateUpdateEntryExitZaerDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, EntryExitZaerDto>({
       method: 'PUT',

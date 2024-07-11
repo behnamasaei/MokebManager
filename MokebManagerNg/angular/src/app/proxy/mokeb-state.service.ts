@@ -60,6 +60,14 @@ export class MokebStateService {
     { apiName: this.apiName,...config });
   
 
+  getListWithDetail = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, MokebStateDto[]>({
+      method: 'GET',
+      url: '/api/app/mokeb-state/with-detail',
+    },
+    { apiName: this.apiName,...config });
+  
+
   update = (id: string, input: CreateUpdateMokebStateDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, MokebStateDto>({
       method: 'PUT',
