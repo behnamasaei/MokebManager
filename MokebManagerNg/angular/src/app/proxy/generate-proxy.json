@@ -3183,6 +3183,43 @@
               "allowAnonymous": false,
               "implementFrom": "MokebManagerNg.IZaerAppService"
             },
+            "GetWithPassportNoAsyncByPassportNo": {
+              "uniqueName": "GetWithPassportNoAsyncByPassportNo",
+              "name": "GetWithPassportNoAsync",
+              "httpMethod": "GET",
+              "url": "api/app/zaer/with-passport-no",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "passportNo",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "passportNo",
+                  "name": "passportNo",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "MokebManagerNg.Domain.Dtos.ZaerDto",
+                "typeSimple": "MokebManagerNg.Domain.Dtos.ZaerDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "MokebManagerNg.ZaerAppService"
+            },
             "CreateAsyncByInput": {
               "uniqueName": "CreateAsyncByInput",
               "name": "CreateAsync",

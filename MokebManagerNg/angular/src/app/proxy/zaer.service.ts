@@ -80,6 +80,15 @@ export class ZaerService {
     { apiName: this.apiName,...config });
   
 
+  getWithPassportNo = (passportNo: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ZaerDto>({
+      method: 'GET',
+      url: '/api/app/zaer/with-passport-no',
+      params: { passportNo },
+    },
+    { apiName: this.apiName,...config });
+  
+
   update = (id: string, input: UpdateZaerDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ZaerDto>({
       method: 'PUT',

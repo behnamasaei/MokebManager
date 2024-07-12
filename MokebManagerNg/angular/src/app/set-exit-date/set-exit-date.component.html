@@ -21,20 +21,4 @@
   </div>
 </div>
 
-<div class="p-field mb-3">
-  <label for="gender">{{ '::StayingTime' | abpLocalization }}</label>
-  <div class="d-flex gap-5">
-    <div *ngFor="let entryExitOption of entryExitOptions" class="field-checkbox">
-      <p-radioButton
-        [inputId]="entryExitOption.key"
-        [value]="entryExitOption"
-        [(ngModel)]="selectedEntryExit"
-      />
-      <label [for]="entryExitOption.key" class="ml-2">
-        {{ entryExitOption.name }}
-      </label>
-    </div>
-  </div>
-</div>
-
 <button type="submit" pButton label="{{ '::Submit' | abpLocalization }}" (click)="save()"></button>

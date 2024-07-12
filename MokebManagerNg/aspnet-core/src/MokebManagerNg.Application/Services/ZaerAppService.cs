@@ -108,4 +108,16 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         || x.Family.Contains(text) || x.PhoneNumber.ToString().Contains(text));
         return ObjectMapper.Map<List<Zaer>, List<ZaerDto>>(zaers);
     }
+
+
+    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    public async Task<ZaerDto> GetWithPassportNoAsync(string passportNo)
+    {
+        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates,
+            e => e.ClockEntryExits, e => e.Mokeb, e => e.MokebState);
+        var query = queryable.Where(x => x.PassportNo == passportNo);
+        var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
+
+        return ObjectMapper.Map<Zaer, ZaerDto>(dataWithDetail);
+    }
 }

@@ -10,6 +10,7 @@ import { ReservationComponent } from './reservation/reservation.component';
 import { ReportingComponent } from './reporting/reporting.component';
 import { UpdateZaerComponent } from './zaer/update-zaer/update-zaer.component';
 import { permissionGuard } from '@abp/ng.core';
+import { SetExitDateComponent } from './set-exit-date/set-exit-date.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
   {
     path: 'barcode-scanner',
     component: BarcodeScannerComponent,
+  },
+  {
+    path: 'exit-date',
+    component: SetExitDateComponent,
   },
   {
     path: 'clock-entry-exit',

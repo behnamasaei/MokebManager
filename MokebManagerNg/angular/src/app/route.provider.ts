@@ -60,7 +60,14 @@ function configureRoutes(routesService: RoutesService) {
 
       {
         path: '/reporting',
-        name: 'reporting',
+        name: 'گزارشگیری',
+        iconClass: 'fas fa-cogs',
+        order: 2,
+        layout: eLayoutType.application,
+      },
+      {
+        path: '/exit-date',
+        name: 'ثبت خروج',
         iconClass: 'fas fa-cogs',
         order: 2,
         layout: eLayoutType.application,

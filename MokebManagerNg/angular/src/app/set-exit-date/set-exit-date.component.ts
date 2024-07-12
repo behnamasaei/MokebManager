@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import {
+  ClockEntryExitService,
+  CreateUpdateClockEntryExitDto,
+  EntryExitZaerService,
+  ZaerService,
+} from '@proxy';
 import { MessageService } from 'primeng/api';
-import { EntryExitZaerService, ZaerService } from '@proxy';
-import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
-  selector: 'app-reservation',
+  selector: 'app-set-exit-date',
   standalone: true,
   imports: [SharedModule],
-  templateUrl: './reservation.component.html',
-  styleUrl: './reservation.component.scss',
-  providers: [MessageService],
+  templateUrl: './set-exit-date.component.html',
+  styleUrl: './set-exit-date.component.scss',
 })
-export class ReservationComponent {
+export class SetExitDateComponent {
   scanResult: string | null = null;
   passportNo: string;
   scanShow: boolean = false;
@@ -32,27 +36,14 @@ export class ReservationComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.entryExitOptions = [
-      { name: '1 شب', key: '1' },
-      { name: '2 شب', key: '2' },
-      { name: '3 شب', key: '3' },
-    ];
-    this.selectedEntryExit = this.entryExitOptions[0];
   }
 
   save() {
-    const entryDate = this.getEntryDate();
-    const exitDate = this.getExitDate(this.selectedEntryExit.key);
+    const exitDate = this.getExitNowDate();
 
     if (this.scanResult !== null) {
       this.zaerService.get(this.scanResult).subscribe(zaer => {
-        const input: CreateUpdateEntryExitZaerDto = {
-          zaerId: zaer.id,
-          entryDate: entryDate,
-          exitDate: exitDate,
-          mokebId: zaer.mokebId,
-        };
-        this.entryExitService.create(input).subscribe(x => {
+        this.entryExitService.setExitDate(zaer.id, exitDate).subscribe(x => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -67,13 +58,7 @@ export class ReservationComponent {
     }
     if (this.passportNo !== null) {
       this.zaerService.getWithPassportNo(this.passportNo).subscribe(zaer => {
-        const input: CreateUpdateEntryExitZaerDto = {
-          zaerId: zaer.id,
-          entryDate: entryDate,
-          exitDate: exitDate,
-          mokebId: zaer.mokebId,
-        };
-        this.entryExitService.create(input).subscribe(x => {
+        this.entryExitService.setExitDate(zaer.id, exitDate).subscribe(x => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -96,10 +81,8 @@ export class ReservationComponent {
     return moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
   }
 
-  getExitDate(exitDate: number): string {
-    const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000[Z]'); // Two days after current UTC date
-
-    return exitDaysAfter;
+  getExitNowDate(): string {
+    return moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
   }
 
   isValidGuid(): boolean {

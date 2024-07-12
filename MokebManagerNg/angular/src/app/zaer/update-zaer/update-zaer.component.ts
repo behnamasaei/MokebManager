@@ -92,7 +92,7 @@ export class UpdateZaerComponent implements OnInit {
     if (this.zaerId) {
       this.zaerService.get(this.zaerId).subscribe(zaer => {
         const province = this.allProvinces.filter(x => x.name === zaer.state)[0];
-        const city = this.citiesOfProvince.filter(x => x.name === zaer.city)[0];
+        const city = this.citiesOfProvince?.filter(x => x.name === zaer.city)[0];
         this.form.patchValue({
           name: zaer.name,
           family: zaer.family,
