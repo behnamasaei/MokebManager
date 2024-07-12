@@ -1,12 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { ZXingScannerComponent } from '@zxing/ngx-scanner';
-import {
-  ClockEntryExitService,
-  CreateUpdateClockEntryExitDto,
-  EntryExitZaerService,
-  ZaerService,
-} from '@proxy';
+import { EntryExitZaerService, ZaerService } from '@proxy';
 import { MessageService } from 'primeng/api';
 import moment from 'moment';
 
@@ -15,18 +9,15 @@ import moment from 'moment';
   standalone: true,
   imports: [SharedModule],
   templateUrl: './set-exit-date.component.html',
-  styleUrl: './set-exit-date.component.scss',
+  styleUrls: ['./set-exit-date.component.scss'],
 })
-export class SetExitDateComponent {
+export class SetExitDateComponent implements OnInit {
   scanResult: string | null = null;
-  passportNo: string;
+  passportNo: string = '';
   scanShow: boolean = false;
   entryExitOptions: any[] = [];
-  selectedEntryExit;
+  selectedEntryExit: any;
 
-  /**
-   *
-   */
   constructor(
     private entryExitService: EntryExitZaerService,
     private zaerService: ZaerService,
@@ -34,51 +25,53 @@ export class SetExitDateComponent {
   ) {}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    // Initialization logic if any
   }
 
-  save() {
+  save(): void {
     const exitDate = this.getExitNowDate();
 
-    if (this.scanResult !== null) {
-      this.zaerService.get(this.scanResult).subscribe(zaer => {
-        this.entryExitService.setExitDate(zaer.id, exitDate).subscribe(x => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Success',
-            life: 1000,
-          });
-
-          this.scanResult = null;
-          this.selectedEntryExit = this.entryExitOptions[0];
-        });
-      });
+    if (this.scanResult) {
+      this.processExitDate(this.scanResult, exitDate);
     }
-    if (this.passportNo !== null) {
-      this.zaerService.getWithPassportNo(this.passportNo).subscribe(zaer => {
-        this.entryExitService.setExitDate(zaer.id, exitDate).subscribe(x => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Success',
-            life: 1000,
-          });
 
-          this.scanResult = null;
-          this.selectedEntryExit = this.entryExitOptions[0];
-        });
-      });
+    if (this.passportNo) {
+      this.processExitDateWithPassport(this.passportNo, exitDate);
     }
+  }
+
+  private processExitDate(scanResult: string, exitDate: string): void {
+    this.zaerService.get(scanResult).subscribe(zaer => {
+      this.setExitDate(zaer.id, exitDate);
+    });
+  }
+
+  private processExitDateWithPassport(passportNo: string, exitDate: string): void {
+    this.zaerService.getWithPassportNo(passportNo).subscribe(zaer => {
+      this.setExitDate(zaer.id, exitDate);
+    });
+  }
+
+  private setExitDate(id: string, exitDate: string): void {
+    this.entryExitService.setExitDate(id, exitDate).subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Success',
+        life: 1000,
+      });
+
+      this.resetForm();
+    });
+  }
+
+  private resetForm(): void {
+    this.scanResult = null;
+    this.selectedEntryExit = this.entryExitOptions[0];
   }
 
   handleScanSuccess(result: string): void {
     this.scanResult = result;
-  }
-
-  getEntryDate(): string {
-    return moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
   }
 
   getExitNowDate(): string {
