@@ -7,6 +7,7 @@ import { Component, HostListener } from '@angular/core';
     <abp-loader-bar></abp-loader-bar>
     <abp-dynamic-layout></abp-dynamic-layout>
     <abp-internet-status></abp-internet-status>
+    <app-footer></app-footer>
   `,
 })
 export class AppComponent {

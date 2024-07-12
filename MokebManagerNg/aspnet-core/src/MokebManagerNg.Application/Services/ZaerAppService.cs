@@ -16,6 +16,7 @@ using Volo.Abp.Caching;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using MokebManagerNg.Permissions;
+using Volo.Abp;
 
 namespace MokebManagerNg;
 
@@ -67,6 +68,9 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         var query = queryable.Where(x => x.Id == id);
         var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
 
+        if (dataWithDetail == null)
+            throw new UserFriendlyException($"زائری یافت نشد.");
+
         return ObjectMapper.Map<Zaer, ZaerDto>(dataWithDetail);
     }
 
@@ -117,6 +121,9 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
             e => e.ClockEntryExits, e => e.Mokeb, e => e.MokebState);
         var query = queryable.Where(x => x.PassportNo == passportNo);
         var dataWithDetail = await AsyncExecuter.FirstOrDefaultAsync(query);
+
+        if (dataWithDetail == null)
+            throw new UserFriendlyException($"زائری با این شماره پاسپورت یافت نشد.");
 
         return ObjectMapper.Map<Zaer, ZaerDto>(dataWithDetail);
     }

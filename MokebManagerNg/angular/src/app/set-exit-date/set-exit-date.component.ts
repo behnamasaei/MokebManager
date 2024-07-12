@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { EntryExitZaerService, ZaerService } from '@proxy';
 import { MessageService } from 'primeng/api';
 import moment from 'moment';
+import { error } from 'console';
 
 @Component({
   selector: 'app-set-exit-date',
@@ -10,6 +11,7 @@ import moment from 'moment';
   imports: [SharedModule],
   templateUrl: './set-exit-date.component.html',
   styleUrls: ['./set-exit-date.component.scss'],
+  providers: [MessageService],
 })
 export class SetExitDateComponent implements OnInit {
   scanResult: string | null = null;
@@ -41,15 +43,35 @@ export class SetExitDateComponent implements OnInit {
   }
 
   private processExitDate(scanResult: string, exitDate: string): void {
-    this.zaerService.get(scanResult).subscribe(zaer => {
-      this.setExitDate(zaer.id, exitDate);
-    });
+    this.zaerService.get(scanResult).subscribe(
+      zaer => {
+        this.setExitDate(zaer.id, exitDate);
+      },
+      error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Success',
+          detail: 'Success',
+          life: 1000,
+        });
+      }
+    );
   }
 
   private processExitDateWithPassport(passportNo: string, exitDate: string): void {
-    this.zaerService.getWithPassportNo(passportNo).subscribe(zaer => {
-      this.setExitDate(zaer.id, exitDate);
-    });
+    this.zaerService.getWithPassportNo(passportNo).subscribe(
+      zaer => {
+        this.setExitDate(zaer.id, exitDate);
+      },
+      error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Success',
+          detail: 'Success',
+          life: 1000,
+        });
+      }
+    );
   }
 
   private setExitDate(id: string, exitDate: string): void {

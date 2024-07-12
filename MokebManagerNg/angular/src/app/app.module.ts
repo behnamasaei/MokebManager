@@ -20,6 +20,7 @@ import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
 import { SharedModule } from './shared/shared.module';
 import { SettingsModule } from './settings/settings.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -31,12 +32,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     }),
     AbpOAuthModule.forRoot(),
     ThemeSharedModule.forRoot(),
-
     AccountConfigModule.forRoot(),
     IdentityConfigModule.forRoot(),
     TenantManagementConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
-
     FeatureManagementModule.forRoot(),
     InternetConnectionStatusComponent,
     ThemeLeptonXModule.forRoot(),
@@ -48,8 +47,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
+    FooterComponent,
   ],
   declarations: [AppComponent],
   providers: [APP_ROUTE_PROVIDER],

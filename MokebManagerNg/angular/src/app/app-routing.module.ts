@@ -53,6 +53,10 @@ const routes: Routes = [
   {
     path: 'exit-date',
     component: SetExitDateComponent,
+    canActivate: [permissionGuard],
+    data: {
+      requiredPolicy: 'MokebManagerNg.ClockEntryExit', // policy key for your component
+    },
   },
   {
     path: 'clock-entry-exit',
