@@ -11,12 +11,13 @@ import {
   MokebCapacityDto,
   MokebService,
   MokebStateService,
+  ReportService,
   ZaerService,
 } from '@proxy';
-import { MokebDto } from '@proxy/domain/dtos';
+import { EntryExitZaerDto, MokebDto, ZaerDto } from '@proxy/domain/dtos';
 import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 
 @Component({
@@ -25,7 +26,7 @@ import { FileUpload } from 'primeng/fileupload';
   imports: [SharedModule],
   templateUrl: './new-zaer.component.html',
   styleUrls: ['./new-zaer.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
 })
 export class NewZaerComponent implements OnInit {
   form: FormGroup;
@@ -47,7 +48,9 @@ export class NewZaerComponent implements OnInit {
     private zaerService: ZaerService,
     private messageService: MessageService,
     private fileService: FileService,
-    private mokebStateService: MokebStateService
+    private mokebStateService: MokebStateService,
+    private confirmationService: ConfirmationService,
+    private reportService: ReportService
   ) {}
 
   ngOnInit() {
@@ -191,8 +194,9 @@ export class NewZaerComponent implements OnInit {
           mokebId: zaer.mokebId,
         };
         this.entryExitZaerService.create(entryExitDate).subscribe(() => {
-          this.resetForm();
           this.showMessage('success', 'Success', 'Success');
+          this.resetForm();
+          this.printZaerCard(zaer.id);
         });
       });
     });
@@ -210,6 +214,36 @@ export class NewZaerComponent implements OnInit {
       summary: summary,
       detail: detail,
       life: 1000,
+    });
+  }
+
+  private printZaerCard(id: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'آیا برای زائر کارت چاپ شود؟',
+      header: 'چاپ کارت',
+      icon: 'pi pi-print',
+      acceptButtonStyleClass: 'p-button-success p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.zaerService.getWithDetail(id).subscribe(zaer => {
+          const zaerCard: string[] = [
+            `${zaer.passportNo} :شماره پاسپورت`,
+            `${zaer.name} ${zaer.family} :نام و نام خانوادگی`,
+            `${zaer.mokeb.name} :موکب`,
+            `${zaer.mokebState.state} :جایگاه`,
+            `${zaer.entryExitZaerDates.pop().exitDate} :خروج`,
+          ];
+
+          this.reportService.generateCardZaer(zaer.id, zaerCard).subscribe(() => {
+            this.showMessage('success', 'Success', 'Success');
+          });
+        });
+      },
+      reject: () => {},
     });
   }
 

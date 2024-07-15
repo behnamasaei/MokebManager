@@ -36,6 +36,7 @@ import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { CalendarModule } from 'primeng/calendar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { PageModule } from '@abp/ng.components/page';
 
 const primeNgModules = [
   TableModule,
@@ -74,6 +75,7 @@ const primeNgModules = [
     NgbDropdownModule,
     NgxValidateCoreModule,
     BarcodeScannerLivestreamModule,
+    PageModule,
     ...primeNgModules,
   ],
   exports: [
@@ -84,6 +86,7 @@ const primeNgModules = [
     NgxValidateCoreModule,
     BarcodeScannerLivestreamModule,
     ZXingScannerModule,
+    PageModule,
     ...primeNgModules,
   ],
   providers: [],

@@ -2625,6 +2625,63 @@
               },
               "allowAnonymous": null,
               "implementFrom": "MokebManagerNg.ReportAppService"
+            },
+            "GenerateCardZaerAsyncByIdAndZaerCard": {
+              "uniqueName": "GenerateCardZaerAsyncByIdAndZaerCard",
+              "name": "GenerateCardZaerAsync",
+              "httpMethod": "POST",
+              "url": "api/app/report/{id}/generate-card-zaer",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "zaerCard",
+                  "typeAsString": "System.String[], System.Private.CoreLib",
+                  "type": "System.String[]",
+                  "typeSimple": "[string]",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "zaerCard",
+                  "name": "zaerCard",
+                  "jsonName": null,
+                  "type": "System.String[]",
+                  "typeSimple": "[string]",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "MokebManagerNg.ReportAppService"
             }
           }
         },
