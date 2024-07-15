@@ -4,6 +4,7 @@ import { EntryExitZaerService, ZaerService } from '@proxy';
 import { MessageService } from 'primeng/api';
 import moment from 'moment';
 import { error } from 'console';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-set-exit-date',
@@ -23,10 +24,12 @@ export class SetExitDateComponent implements OnInit {
   constructor(
     private entryExitService: EntryExitZaerService,
     private zaerService: ZaerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('مدیریت موکب | ثبت خروج');
     // Initialization logic if any
   }
 

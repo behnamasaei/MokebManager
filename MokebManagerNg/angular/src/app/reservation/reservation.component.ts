@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { EntryExitZaerService, ZaerService } from '@proxy';
 import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reservation',
@@ -26,10 +27,12 @@ export class ReservationComponent {
   constructor(
     private entryExitService: EntryExitZaerService,
     private zaerService: ZaerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('مدیریت موکب | تمدید رزرو');
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.entryExitOptions = [

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { EntryExitZaerService, MokebService } from '@proxy';
 import { MokebDto } from '@proxy/domain/dtos';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reporting',
@@ -25,9 +26,14 @@ export class ReportingComponent {
   /**
    *
    */
-  constructor(private mokebService: MokebService, private entryExitService: EntryExitZaerService) {}
+  constructor(
+    private mokebService: MokebService,
+    private entryExitService: EntryExitZaerService,
+    private titleService: Title
+  ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('مدیریت موکب | گزارشگیری');
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');

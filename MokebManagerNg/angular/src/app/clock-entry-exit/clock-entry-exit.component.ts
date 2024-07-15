@@ -5,6 +5,7 @@ import { ClockEntryExitService, CreateUpdateClockEntryExitDto, EntryExitZaerServ
 import * as moment from 'moment';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { error } from 'console';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-clock-entry-exit',
@@ -36,10 +37,12 @@ export class ClockEntryExitComponent {
   constructor(
     private clockEntryExitServie: ClockEntryExitService,
     private entryExitService: EntryExitZaerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('مدیریت موکب | ساعت عبور');
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.styleScanner = 'gainsboro';

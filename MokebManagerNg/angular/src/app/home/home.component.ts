@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import Tesseract from 'tesseract.js';
 import { OcrService } from '../services/ocr.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ export class HomeComponent {
     private messageService: MessageService,
     private ocrService: OcrService,
     private localizationService: LocalizationService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   onFileSelected(event: any): void {
@@ -39,6 +41,8 @@ export class HomeComponent {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('مدیریت موکب | خانه');
+
     if (!this.hasLoggedIn) {
       this.login();
     }

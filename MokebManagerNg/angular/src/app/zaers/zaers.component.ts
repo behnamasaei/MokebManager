@@ -6,6 +6,7 @@ import { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { PageEvent } from 'src/app/shared/shared.model';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-zaers',
@@ -30,10 +31,12 @@ export class ZaersComponent {
     private zaerService: ZaerService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('مدیریت موکب | زائرین');
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.getZaerData();

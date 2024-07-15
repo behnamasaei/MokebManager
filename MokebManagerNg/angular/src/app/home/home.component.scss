@@ -19,9 +19,14 @@
     margin-left: 0.5rem;
   }
 
-  .lpx-content-container .lpx-content {
-    // background-image: url(assets/images/4649495.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+  .homeComponent {
+    img {
+      background-repeat: no-repeat;
+      background-repeat: no-repeat;
+      background-size: cover; // This ensures the image covers the entire element
+      background-position: center; // This centers the image within the element
+      height: 100%; // Ensures the element takes full height
+      width: 100%; // Ensures the element takes full width
+    }
   }
 }

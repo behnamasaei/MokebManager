@@ -1,5 +1,6 @@
 import { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MokebDto } from '@proxy/domain/dtos';
 import { Gender } from '@proxy/gender.enum';
@@ -28,10 +29,12 @@ export class MokebComponent {
     private mokebService: MokebService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('مدیریت موکب | موکب');
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.mokebService.getList(this.paged).subscribe(x => {

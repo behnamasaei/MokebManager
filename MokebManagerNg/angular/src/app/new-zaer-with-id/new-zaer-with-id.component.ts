@@ -20,6 +20,7 @@ import {
 import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-zaer-with-id',
@@ -52,10 +53,12 @@ export class NewZaerWithIdComponent {
     private entryExitZaerService: EntryExitZaerService,
     private zaerService: ZaerService,
     private messageService: MessageService,
-    private fileService: FileService
+    private fileService: FileService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('مدیریت موکب | زائر جدید با شناسه');
     this.entryExitOptions = [
       { name: '1 شب', key: '1' },
       { name: '2 شب', key: '2' },

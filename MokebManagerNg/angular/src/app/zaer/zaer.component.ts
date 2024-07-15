@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ZaerService } from '@proxy';
 import { ZaerDto } from '@proxy/domain/dtos';
 import { SharedModule } from '../shared/shared.module';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-zaer',
@@ -18,9 +19,14 @@ export class ZaerComponent {
   /**
    *
    */
-  constructor(private activatedRoute: ActivatedRoute, private zaerService: ZaerService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private zaerService: ZaerService,
+    private titleService: Title
+  ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('مدیریت موکب | زائر');
     this.zaerId = this.activatedRoute.snapshot.paramMap.get('id');
     this.getZaerData();
   }

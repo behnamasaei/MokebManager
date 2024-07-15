@@ -9,6 +9,7 @@ import { Component, HostListener } from '@angular/core';
     <abp-internet-status></abp-internet-status>
     <app-footer></app-footer>
   `,
+  styleUrl: 'app.component.scss',
 })
 export class AppComponent {
   /**

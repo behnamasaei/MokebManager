@@ -19,6 +19,7 @@ import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-zaer',
@@ -50,10 +51,12 @@ export class NewZaerComponent implements OnInit {
     private fileService: FileService,
     private mokebStateService: MokebStateService,
     private confirmationService: ConfirmationService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('مدیریت موکب | زائر جدید');
     this.initializeForm();
     this.loadEntryExitOptions();
     this.loadGenders();
