@@ -21,6 +21,8 @@ export class ReportingComponent {
   mokebCapacity: number[] = [];
   mokebFreeNightName: string[] = [];
   mokebFreeNightCapacity: number[] = [];
+  mokebReservsionNightName: string[] = [];
+  mokebReservsionNightCapacity: number[] = [];
   mokebReserveInRangeDataName: string[] = [];
   mokebReserveInRangeDataCapacity: number[] = [];
   /**
@@ -43,7 +45,13 @@ export class ReportingComponent {
       mokeb.forEach(item => {
         this.mokebFreeNightName.push(item.mokeb.name);
         this.mokebFreeNightCapacity.push(item.freeCapacityToNight);
+
+        this.mokebReservsionNightName.push(item.mokeb.name);
+        this.mokebReservsionNightCapacity.push(item.mokeb.capacity - item.freeCapacityToNight);
       });
+
+      const backgroundColor = this.mokebFreeNightName.map(() => this.getRandomColor(1));
+      const borderColor = this.mokebReservsionNightName.map(() => this.getRandomColor());
 
       this.mokebFreeCapacityData = {
         labels: this.mokebFreeNightName,
@@ -51,31 +59,34 @@ export class ReportingComponent {
           {
             label: 'ظرفیت خالی امشب موکب ها',
             data: this.mokebFreeNightCapacity,
-
+            backgroundColor: backgroundColor,
+            borderColor: borderColor,
             borderWidth: 1,
           },
         ],
       };
-    });
-
-    this.mokebService.getAllList().subscribe(mokeb => {
-      mokeb.items.forEach(item => {
-        this.mokebName.push(item.name);
-        this.mokebCapacity.push(item.capacity);
-      });
 
       this.mokebData = {
         labels: this.mokebName,
         datasets: [
           {
-            label: 'ظرفیت موکب ها',
-            data: this.mokebCapacity,
-
+            label: 'تعداد رزرو های امشب هر موکب',
+            data: this.mokebReservsionNightCapacity,
+            backgroundColor: backgroundColor,
+            borderColor: borderColor,
             borderWidth: 1,
           },
         ],
       };
     });
+
+    // this.mokebService.getAllList().subscribe(mokeb => {
+    //   mokeb.items.forEach(item => {
+    //     this.mokebName.push(item.name);
+    //     this.mokebCapacity.push(item.capacity);
+    //   });
+
+    // });
 
     this.basicOptions = {
       plugins: {

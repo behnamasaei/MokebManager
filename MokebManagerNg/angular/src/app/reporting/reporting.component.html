@@ -20,13 +20,13 @@
         <p-chart type="bar" [data]="mokebReserveInRangeData" [options]="basicOptions" />
       </div>
     </p-accordionTab>
-    <p-accordionTab header="گزارش ظرفیت های موجود موکب ها">
-      <div class="card">
-        <p-chart type="bar" [data]="mokebData" [options]="basicOptions" />
+    <p-accordionTab header="گزارش ظرفیت های موجود موکب ها" class="p-5">
+      <div class="card p-5">
+        <p-chart type="bar" class="p-5" [data]="mokebData" [options]="basicOptions" />
       </div>
 
-      <div class="card">
-        <p-chart type="bar" [data]="mokebFreeCapacityData" [options]="basicOptions" />
+      <div class="card p-5">
+        <p-chart type="bar" class="p-5" [data]="mokebFreeCapacityData" [options]="basicOptions" />
       </div>
     </p-accordionTab>
   </p-accordion>
