@@ -17,10 +17,11 @@ namespace MokebManager
             string commandRunServer = "cd ../MokebManagerNg/aspnet-core/src/MokebManagerNg.HttpApi.Host && dotnet run";
             string commandRunAngular = "cd ../MokebManagerNg/angular && npm start";
 
-            SetLocalIp();
-            System.Console.WriteLine("Local Ip Is Set.");		
-	    System.Console.ReadKey();
-	
+            string ip = SetLocalIp();
+            System.Console.WriteLine("Local Ip Is Set.");
+            System.Console.WriteLine($"Run application with this ip: https://{ip}:4200");
+            System.Console.ReadKey();
+
             //var programHost = new Program();
             //System.Console.WriteLine("Run host...");
             //programHost.RunCommandLineAsync(commandRunServer);
@@ -91,7 +92,7 @@ namespace MokebManager
         /// <summary>
         /// Updates the IP address in the environment file.
         /// </summary>
-        public static void SetLocalIp()
+        public static string SetLocalIp()
         {
             try
             {
@@ -104,10 +105,14 @@ namespace MokebManager
                 File.WriteAllText(ENVIRONMENT_PATH, fileContent);
 
                 Console.WriteLine("Local IP has been set successfully.");
+
+                return localIp;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"An error occurred while setting the local IP: {e.Message}");
+
+                return null;
             }
         }
 
