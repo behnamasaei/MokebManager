@@ -142,7 +142,7 @@ namespace MokebManager
         private static string UpdateIssuerUrl(string fileContent, string localIp)
         {
             string pattern = @"issuer:\s*'https?://[^']*'";
-            string replacement = $"issuer: 'https://{localIp}:44355'";
+            string replacement = $"issuer: 'https://{localIp}:44355/'";
             return Regex.Replace(fileContent, pattern, replacement);
         }
 
