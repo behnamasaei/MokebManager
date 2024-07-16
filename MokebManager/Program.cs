@@ -18,18 +18,20 @@ namespace MokebManager
             string commandRunAngular = "cd ../MokebManagerNg/angular && npm start";
 
             SetLocalIp();
+            System.Console.WriteLine("Local Ip Is Set.");		
+	    System.Console.ReadKey();
+	
+            //var programHost = new Program();
+            //System.Console.WriteLine("Run host...");
+            //programHost.RunCommandLineAsync(commandRunServer);
 
-            var programHost = new Program();
-            System.Console.WriteLine("Run host...");
-            programHost.RunCommandLineAsync(commandRunServer);
-
-            System.Console.WriteLine("Run Angular...");
-            var programAngular = new Program();
-            programAngular.RunCommandLineAsync(commandRunAngular);
+            //System.Console.WriteLine("Run Angular...");
+            //var programAngular = new Program();
+            //programAngular.RunCommandLineAsync(commandRunAngular);
 
 
-            System.Console.WriteLine("Server is run...");
-            Task.Delay(TimeSpan.FromMinutes(10)).Wait();
+            //System.Console.WriteLine("Server is run...");
+            //Task.Delay(TimeSpan.FromMinutes(10)).Wait();
 
         }
 

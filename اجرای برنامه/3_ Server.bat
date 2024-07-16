@@ -1,0 +1,1 @@
+cd ../MokebManagerNg/angular && npm start
