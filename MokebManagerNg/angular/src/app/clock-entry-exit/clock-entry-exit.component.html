@@ -20,9 +20,9 @@
     (torchCompatible)="onTorchCompatible($event)"
   ></zxing-scanner>
 
-  <button (click)="toggleTorch()">Toggle Torch</button>
+  <button (click)="toggleTorch()">چراغ قوه</button>
 
-  <p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+  <p *ngIf="scanResult !== null">موکب: {{ scanResult }}</p>
 
   <button
     *ngIf="scanResult !== null"

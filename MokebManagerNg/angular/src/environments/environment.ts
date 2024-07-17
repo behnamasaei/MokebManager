@@ -18,10 +18,14 @@ export const environment = {
     scope: 'offline_access MokebManagerNg',
     requireHttps: true,
   },
+
   apis: {
     default: {
       url: 'https://192.168.1.104:44355',
       rootNamespace: 'MokebManagerNg',
     },
   },
+
+  // Add this property
+  loginUrl: '/login',
 } as Environment;

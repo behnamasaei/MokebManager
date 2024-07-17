@@ -1,0 +1,37 @@
+.inputMokebStyle {
+  direction: ltr;
+  margin: 20px 0;
+}
+
+p-card {
+  //   background-image: url('/assets/images/Travel-to-Karbala.jpg');
+}
+
+.login-component {
+  width: 100%;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 3.1)),
+    url('/assets/images/Travel-to-Karbala.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+:host ::ng-deep {
+  p-password {
+    input {
+      width: 100%;
+    }
+    .p-password {
+      width: 100%;
+    }
+  }
+
+  .login-component {
+    width: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 3.1)),
+      url('/assets/images/Travel-to-Karbala.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}

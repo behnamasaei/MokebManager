@@ -23,6 +23,13 @@ const routes: Routes = [
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
   },
   {
+    path: 'mokeb-account',
+    loadChildren: () =>
+      import('./mokeb-manager-account/mokeb-manager-account.module').then(
+        m => m.MokebManagerAccountModule
+      ),
+  },
+  {
     path: 'new-zaer',
     component: NewZaerComponent,
     canActivate: [permissionGuard],

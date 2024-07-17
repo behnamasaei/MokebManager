@@ -1,5 +1,6 @@
 import { AuthService } from '@abp/ng.core';
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent {
   /**
    *
    */
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     if (!this.hasLoggedIn) this.login();
   }
 
@@ -24,6 +25,6 @@ export class AppComponent {
   }
 
   login() {
-    this.authService.navigateToLogin();
+    this.router.navigate(['mokeb-account', 'login']);
   }
 }

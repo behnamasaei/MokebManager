@@ -1,7 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { MessageService } from 'primeng/api';
-import { ClockEntryExitService, CreateUpdateClockEntryExitDto, EntryExitZaerService } from '@proxy';
+import {
+  ClockEntryExitService,
+  CreateUpdateClockEntryExitDto,
+  EntryExitZaerService,
+  MokebService,
+} from '@proxy';
 import * as moment from 'moment';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { error } from 'console';
@@ -30,6 +35,7 @@ export class ClockEntryExitComponent {
   availableDevices: MediaDeviceInfo[];
   selectedDevice: MediaDeviceInfo;
   timeBetweenScansMillis: number = 50; // Reduce the delay for faster scans
+  mokebName: string;
 
   /**
    *
@@ -38,6 +44,7 @@ export class ClockEntryExitComponent {
     private clockEntryExitServie: ClockEntryExitService,
     private entryExitService: EntryExitZaerService,
     private messageService: MessageService,
+    private mokebService: MokebService,
     private titleService: Title
   ) {}
 
@@ -56,8 +63,8 @@ export class ClockEntryExitComponent {
         entryExitClock: this.getEntryDate(),
       };
 
-      this.entryExitService.get(this.scanResult).subscribe(x => {
-        if (x === null) {
+      this.entryExitService.get(this.scanResult).subscribe(entryExitRes => {
+        if (entryExitRes === null) {
           this.audioPlayerErrorRef.nativeElement.play();
           this.styleScanner = 'red';
           return false;
@@ -66,27 +73,31 @@ export class ClockEntryExitComponent {
         // Get the current UTC time in the desired format
         const currentTime = moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
 
-        const exitDate = x.exitDate;
+        const exitDate = entryExitRes.exitDate;
 
         // Compare the times
         if (moment(currentTime).isBefore(exitDate)) {
           this.audioPlayerSuccessRef.nativeElement.play();
           this.styleScanner = 'green';
-          this.clockEntryExitServie.create(input).subscribe(
-            x => {
-              this.scanResult = null;
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Success',
-                life: 1000,
-              });
-            },
-            error => {
-              this.audioPlayerErrorRef.nativeElement.play();
-              this.styleScanner = 'red';
-            }
-          );
+          this.mokebService.get(entryExitRes.mokebId).subscribe(mokebRes => {
+            this.mokebName = mokebRes.name;
+            this.clockEntryExitServie.create(input).subscribe(
+              x => {
+                this.scanResult = null;
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                  detail: 'Success',
+                  life: 1000,
+                });
+              },
+              error => {
+                this.audioPlayerErrorRef.nativeElement.play();
+                this.styleScanner = 'red';
+              }
+            );
+          });
+
           return true;
         } else if (moment(currentTime).isAfter(exitDate)) {
           this.audioPlayerErrorRef.nativeElement.play();

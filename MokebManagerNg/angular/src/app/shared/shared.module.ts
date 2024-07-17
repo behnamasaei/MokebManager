@@ -1,5 +1,6 @@
 import { CoreModule } from '@abp/ng.core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
@@ -37,6 +38,12 @@ import { ChartModule } from 'primeng/chart';
 import { CalendarModule } from 'primeng/calendar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PageModule } from '@abp/ng.components/page';
+import { DividerModule } from 'primeng/divider';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputMaskModule } from 'primeng/inputmask';
+import { PasswordModule } from 'primeng/password';
+import { CheckboxModule } from 'primeng/checkbox';
 
 const primeNgModules = [
   TableModule,
@@ -65,6 +72,12 @@ const primeNgModules = [
   ChartModule,
   CalendarModule,
   BreadcrumbModule,
+  DividerModule,
+  InputGroupModule,
+  InputGroupAddonModule,
+  InputMaskModule,
+  PasswordModule,
+  CheckboxModule,
 ];
 
 @NgModule({
@@ -76,6 +89,7 @@ const primeNgModules = [
     NgxValidateCoreModule,
     BarcodeScannerLivestreamModule,
     PageModule,
+    FormsModule,
     ...primeNgModules,
   ],
   exports: [
@@ -87,6 +101,7 @@ const primeNgModules = [
     BarcodeScannerLivestreamModule,
     ZXingScannerModule,
     PageModule,
+    FormsModule,
     ...primeNgModules,
   ],
   providers: [],

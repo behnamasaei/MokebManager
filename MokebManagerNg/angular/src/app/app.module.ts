@@ -1,5 +1,5 @@
 import { AccountConfigModule } from '@abp/ng.account/config';
-import { CoreModule } from '@abp/ng.core';
+import { AuthService, CoreModule } from '@abp/ng.core';
 import { registerLocale } from '@abp/ng.core/locale';
 import { IdentityConfigModule } from '@abp/ng.identity/config';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
@@ -21,6 +21,7 @@ import { SharedModule } from './shared/shared.module';
 import { SettingsModule } from './settings/settings.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FooterComponent } from './footer/footer.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -52,7 +53,7 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent,
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [APP_ROUTE_PROVIDER, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,43 @@
+<div class="login-component">
+  <div class="card flex justify-content-center p-5">
+    <p-card
+      header="نرم افزار مدیریت موکب"
+      subheader="تقدیم به شهدای اسلام"
+      [style]="{ width: '360px' }"
+      class="d-flex justify-content-center p-5"
+    >
+      <ng-template pTemplate="header">
+        <img alt="Card" src="assets/images/Travel-to-Karbala.jpg" />
+      </ng-template>
+
+      <div
+        class="w-full md:w-5 flex flex-column align-items-center justify-content-center gap-3 py-2 px-1"
+      >
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+          <p-inputGroup class="inputMokebStyle">
+            <p-inputGroupAddon>
+              <i class="pi pi-user"></i>
+            </p-inputGroupAddon>
+            <input pInputText [(ngModel)]="userName" placeholder="نام کاربری" />
+          </p-inputGroup>
+        </div>
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+          <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false" />
+        </div>
+
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+          <p-inputGroup class="inputMokebStyle">
+            <p-checkbox [binary]="true" [(ngModel)]="remember" inputId="ny" />
+            <label for="ny">مرا به خاطر بسپار</label>
+          </p-inputGroup>
+        </div>
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="d-flex justify-content-center gap-3 mt-1">
+          <p-button label="ورود" icon="pi pi-user" styleClass="w-10rem mx-auto" (click)="login()" />
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
