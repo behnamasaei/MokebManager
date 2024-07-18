@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'new-zaer',
     component: NewZaerComponent,
-    canActivate: [permissionGuard],
+    // canActivate: [permissionGuard],
     data: {
       requiredPolicy: 'MokebManagerNg.ZaerCreate', // policy key for your component
     },
@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: 'new-zaer-id',
     component: NewZaerWithIdComponent,
-    canActivate: [permissionGuard],
+    // canActivate: [permissionGuard],
     data: {
       requiredPolicy: 'MokebManagerNg.ZaerCreate', // policy key for your component
     },
@@ -48,10 +48,10 @@ const routes: Routes = [
   {
     path: 'reservation',
     component: ReservationComponent,
-    canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.Reservation', // policy key for your component
-    },
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.Reservation', // policy key for your component
+    // },
   },
   {
     path: 'barcode-scanner',
@@ -60,50 +60,50 @@ const routes: Routes = [
   {
     path: 'exit-date',
     component: SetExitDateComponent,
-    canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.ClockEntryExit', // policy key for your component
-    },
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ClockEntryExit', // policy key for your component
+    // },
   },
   {
     path: 'clock-entry-exit',
     component: ClockEntryExitComponent,
-    canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.ClockEntryExit', // policy key for your component
-    },
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ClockEntryExit', // policy key for your component
+    // },
   },
   {
     path: 'zaers',
     component: ZaersComponent,
-    canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.ZaerRead', // policy key for your component
-    },
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ZaerRead', // policy key for your component
+    // },
   },
   {
     path: 'zaers/:id',
     component: ZaerComponent,
-    canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.ZaerRead', // policy key for your component
-    },
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ZaerRead', // policy key for your component
+    // },
   },
   {
     path: 'update-zaers/:id',
     component: UpdateZaerComponent,
-    canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.ZaerUpdate', // policy key for your component
-    },
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ZaerUpdate', // policy key for your component
+    // },
   },
   {
     path: 'reporting',
     component: ReportingComponent,
-    canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.Reporting', // policy key for your component
-    },
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.Reporting', // policy key for your component
+    // },
   },
   {
     path: 'account',
