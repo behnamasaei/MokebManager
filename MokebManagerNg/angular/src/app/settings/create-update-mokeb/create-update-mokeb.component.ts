@@ -26,6 +26,8 @@ export class CreateUpdateMokebComponent {
       name: [''],
       gender: ['', Validators.required],
       capacity: [0, [Validators.required, Validators.min(1)]],
+      address: [''],
+      location: [''],
     });
   }
 
@@ -46,6 +48,8 @@ export class CreateUpdateMokebComponent {
           name: x.name,
           gender: x.gender,
           capacity: x.capacity,
+          address: x.address ?? '',
+          location: x.location ?? '',
         });
       });
     }
