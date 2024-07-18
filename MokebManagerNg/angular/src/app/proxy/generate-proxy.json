@@ -2636,9 +2636,9 @@
               "parametersOnMethod": [
                 {
                   "name": "zaer",
-                  "typeAsString": "MokebManagerNg.Zaer, MokebManagerNg.Domain",
-                  "type": "MokebManagerNg.Zaer",
-                  "typeSimple": "MokebManagerNg.Zaer",
+                  "typeAsString": "MokebManagerNg.Domain.Dtos.ZaerDto, MokebManagerNg.Domain",
+                  "type": "MokebManagerNg.Domain.Dtos.ZaerDto",
+                  "typeSimple": "MokebManagerNg.Domain.Dtos.ZaerDto",
                   "isOptional": false,
                   "defaultValue": null
                 }
@@ -2648,8 +2648,8 @@
                   "nameOnMethod": "zaer",
                   "name": "zaer",
                   "jsonName": null,
-                  "type": "MokebManagerNg.Zaer",
-                  "typeSimple": "MokebManagerNg.Zaer",
+                  "type": "MokebManagerNg.Domain.Dtos.ZaerDto",
+                  "typeSimple": "MokebManagerNg.Domain.Dtos.ZaerDto",
                   "isOptional": false,
                   "defaultValue": null,
                   "constraintTypes": null,
@@ -6293,18 +6293,6 @@
           "regex": null
         },
         {
-          "name": "ImageFileName",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "PhoneNumber",
           "jsonName": null,
           "type": "System.Int64?",
@@ -6714,18 +6702,6 @@
           "jsonName": null,
           "type": "MokebManagerNg.MokebStateDto",
           "typeSimple": "MokebManagerNg.MokebStateDto",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ImageFileName",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -7312,18 +7288,6 @@
           "regex": null
         },
         {
-          "name": "ImageFileName",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "PhoneNumber",
           "jsonName": null,
           "type": "System.Int64?",
@@ -7478,18 +7442,6 @@
           "jsonName": null,
           "type": "MokebManagerNg.MokebState",
           "typeSimple": "MokebManagerNg.MokebState",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "ImageFileName",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

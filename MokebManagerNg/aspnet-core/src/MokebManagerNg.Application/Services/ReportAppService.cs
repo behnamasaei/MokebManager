@@ -19,7 +19,7 @@ namespace MokebManagerNg;
 public class ReportAppService : ApplicationService
 {
 
-    private Zaer _zaer;
+    private ZaerDto _zaer;
 
     public async Task GenerateReportAsync()
     {
@@ -64,6 +64,7 @@ public class ReportAppService : ApplicationService
         const float WIDTH_PAGE = 2.83f; // Width in inches
         const float HEIGHT_PAGE = 3.94f; // Height in inches
 
+        _zaer = zaer;
 
         PrintDocument pd = new PrintDocument();
         pd.PrintPage += new PrintPageEventHandler(PrintText);
@@ -92,7 +93,7 @@ public class ReportAppService : ApplicationService
     {
 
         // Generate QR code as SVG string
-        var qr = QrCode.EncodeText(_zaer.Id.ToString(), QrCode.Ecc.Low);
+        var qr = QrCode.EncodeText(_zaer.Mokeb.Location?.ToString(), QrCode.Ecc.Low);
         string svg = qr.ToSvgString(4);
 
         // Write SVG to a temporary file
@@ -103,8 +104,8 @@ public class ReportAppService : ApplicationService
         SvgDocument svgDocument = SvgDocument.Open(svgFilePath);
 
         // Increase the size of the Bitmap
-        int bitmapWidth = 200; // Adjust this value to increase the size of the QR code
-        int bitmapHeight = 200; // Adjust this value to increase the size of the QR code
+        int bitmapWidth = 150; // Adjust this value to increase the size of the QR code
+        int bitmapHeight = 150; // Adjust this value to increase the size of the QR code
         Bitmap svgBitmap = new(svgDocument.Draw(bitmapWidth, bitmapHeight));
 
         // Draw the enlarged Bitmap on the page
@@ -113,9 +114,11 @@ public class ReportAppService : ApplicationService
         // Offset for the text below the SVG (reduce the space)
         float yOffset = svgBitmap.Height + 5; // Reduced space after the SVG
 
-        System.Drawing.Font font = new System.Drawing.Font("Arial", 10); // Font size can be adjusted
+        System.Drawing.Font font = new System.Drawing.Font("Arial", 15); // Font size can be adjusted
         Brush brush = Brushes.Black;
         float rightMargin = e.MarginBounds.Right;
+        float leftMargin = e.MarginBounds.Left;
+
         float lineHeight = font.GetHeight(e.Graphics);
         float yPos = yOffset; // Start immediately after the QR code
 
@@ -125,9 +128,9 @@ public class ReportAppService : ApplicationService
         };
 
         var zaerCard = new string[] {
-            $"{_zaer.Name} { _zaer.Family} :نام و نام خانوادگی",
+            $"نام و نام خانوادگی: {_zaer.Name} { _zaer.Family}",
             $"{_zaer.PassportNo} :شماره پاسپورت",
-            $"{_zaer.Mokeb.Name} :موکب",
+            $"موکب: {_zaer.Mokeb.Name}",
             $"{_zaer.MokebState.State} :جایگاه",
             $"{ConvertUtcToJalali(_zaer.EntryExitZaerDates.First().ExitDate)} :خروج",
         };
@@ -140,8 +143,8 @@ public class ReportAppService : ApplicationService
             yPos += lineHeight; // Move to next line position
         }
 
-        // Clean up the temporary SVG file
-        File.Delete(svgFilePath);
+        // // Clean up the temporary SVG file
+        // File.Delete(svgFilePath);
 
     }
 
@@ -157,7 +160,7 @@ public class ReportAppService : ApplicationService
         int minute = persianCalendar.GetMinute(utcDateTime);
         int second = persianCalendar.GetSecond(utcDateTime);
 
-        return $"{year}/{month:D2}/{day:D2} {hour:D2}:{minute:D2}:{second:D2}";
+        return $"{year}/{month:D2}/{day:D2} {hour:D2}:{minute:D2}";
     }
 
     static void SaveStreamToFile(Stream stream, string filePath)

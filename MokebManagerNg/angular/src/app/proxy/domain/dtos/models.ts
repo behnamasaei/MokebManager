@@ -27,7 +27,6 @@ export interface ZaerDto extends AuditedEntityDto<string> {
   entryExitZaerDates: EntryExitZaerDto[];
   clockEntryExits: ClockEntryExitDto[];
   mokebState: MokebStateDto;
-  imageFileName?: string;
   passportNo?: string;
   mokebId?: string;
   mokeb: MokebDto;
