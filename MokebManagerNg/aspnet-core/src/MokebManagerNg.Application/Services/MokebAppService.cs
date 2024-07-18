@@ -15,7 +15,7 @@ using Volo.Abp.Domain.Repositories;
 namespace MokebManagerNg;
 
 
-[Authorize(MokebManagerNgPermissions.Mokeb)]
+// [Authorize(MokebManagerNgPermissions.Mokeb)]
 public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSortedResultRequestDto,
                         CreateUpdateMokebDto, CreateUpdateMokebDto>,
     IMokebAppService
@@ -34,7 +34,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         _entryExitListCache = entryExitListCache;
     }
 
-    [Authorize(MokebManagerNgPermissions.MokebRead)]
+    // [Authorize(MokebManagerNgPermissions.MokebRead)]
     public async Task<PagedResultDto<MokebDto>> GetAllListAsync()
     {
         string cacheKey = "MokebDtoList_cache";
@@ -52,7 +52,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         return data;
     }
 
-    [Authorize(MokebManagerNgPermissions.MokebRead)]
+    // [Authorize(MokebManagerNgPermissions.MokebRead)]
     public override Task<MokebDto> GetAsync(Guid id)
     {
         return base.GetAsync(id);
