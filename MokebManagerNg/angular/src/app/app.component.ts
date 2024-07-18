@@ -18,7 +18,7 @@ export class AppComponent {
    *
    */
   constructor(private authService: AuthService, private router: Router) {
-    if (!this.hasLoggedIn) this.login();
+    // if (!this.hasLoggedIn) this.login();
   }
 
   get hasLoggedIn(): boolean {
@@ -27,7 +27,7 @@ export class AppComponent {
 
   login() {
     // this.router.navigate(['mokeb-account', 'login']);
-    this.authService.navigateToLogin();
+    // this.authService.navigateToLogin();
     // this.logdin.login({ username: 'admin', password: '1q2w3E*' }).subscribe(x => {
     //   console.log(x);
     // });
