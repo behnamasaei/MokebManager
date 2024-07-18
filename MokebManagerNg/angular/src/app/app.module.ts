@@ -53,7 +53,7 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent,
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER, AuthService],
+  providers: [APP_ROUTE_PROVIDER],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
 import { AuthService } from '@abp/ng.core';
-import { Component, HostListener } from '@angular/core';
+
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,6 +26,10 @@ export class AppComponent {
   }
 
   login() {
-    this.router.navigate(['mokeb-account', 'login']);
+    // this.router.navigate(['mokeb-account', 'login']);
+    this.authService.navigateToLogin();
+    // this.logdin.login({ username: 'admin', password: '1q2w3E*' }).subscribe(x => {
+    //   console.log(x);
+    // });
   }
 }

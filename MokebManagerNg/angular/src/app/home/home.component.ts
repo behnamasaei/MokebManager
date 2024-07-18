@@ -92,6 +92,7 @@ export class HomeComponent {
   }
 
   login() {
-    this.router.navigate(['mokeb-account', 'login']);
+    // this.router.navigate(['mokeb-account', 'login']);
+    this.authService.navigateToLogin();
   }
 }

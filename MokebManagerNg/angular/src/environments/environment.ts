@@ -16,7 +16,8 @@ export const environment = {
     clientId: 'MokebManagerNg_App',
     responseType: 'code',
     scope: 'offline_access MokebManagerNg',
-    requireHttps: true,
+    requireHttps: false,
+    usePkce: true,
   },
 
   apis: {
@@ -25,7 +26,4 @@ export const environment = {
       rootNamespace: 'MokebManagerNg',
     },
   },
-
-  // Add this property
-  loginUrl: '/login',
 } as Environment;

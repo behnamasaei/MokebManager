@@ -33,6 +33,10 @@ using Volo.Abp.Caching;
 using Volo.Abp.Domain.Entities.Caching;
 using MokebManagerNg.Domain.Dtos;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace MokebManagerNg;
 
@@ -61,6 +65,7 @@ public class MokebManagerNgHttpApiHostModule : AbpModule
                 options.UseAspNetCore();
             });
         });
+
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -77,6 +82,14 @@ public class MokebManagerNgHttpApiHostModule : AbpModule
         ConfigureSwaggerServices(context, configuration);
         ConfigureCache(context);
         ConfigureMokebManager(context);
+
+
+        context.Services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.SameSite = SameSiteMode.Lax;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Ensure cookies are sent only over HTTPS
+        });
+
     }
 
     private void ConfigureMokebManager(ServiceConfigurationContext context)
