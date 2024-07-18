@@ -43,9 +43,9 @@ export class HomeComponent {
   ngOnInit() {
     this.titleService.setTitle('مدیریت موکب | خانه');
 
-    if (!this.hasLoggedIn) {
-      this.login();
-    }
+    // if (!this.hasLoggedIn) {
+    //   this.login();
+    // }
 
     this.items = [
       {
@@ -93,6 +93,6 @@ export class HomeComponent {
 
   login() {
     // this.router.navigate(['mokeb-account', 'login']);
-    this.authService.navigateToLogin();
+    // this.authService.navigateToLogin();
   }
 }

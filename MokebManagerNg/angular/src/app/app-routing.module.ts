@@ -33,17 +33,17 @@ const routes: Routes = [
     path: 'new-zaer',
     component: NewZaerComponent,
     // canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.ZaerCreate', // policy key for your component
-    },
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ZaerCreate', // policy key for your component
+    // },
   },
   {
     path: 'new-zaer-id',
     component: NewZaerWithIdComponent,
     // canActivate: [permissionGuard],
-    data: {
-      requiredPolicy: 'MokebManagerNg.ZaerCreate', // policy key for your component
-    },
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ZaerCreate', // policy key for your component
+    // },
   },
   {
     path: 'reservation',

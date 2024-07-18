@@ -59,7 +59,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     }
 
 
-    [Authorize(MokebManagerNgPermissions.MokebCreate)]
+    // [Authorize(MokebManagerNgPermissions.MokebCreate)]
     public override async Task<MokebDto> CreateAsync(CreateUpdateMokebDto input)
     {
         string cacheKey = "MokebDtoList_cache";
@@ -69,7 +69,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     }
 
 
-    [Authorize(MokebManagerNgPermissions.MokebUpdate)]
+    // [Authorize(MokebManagerNgPermissions.MokebUpdate)]
     public override async Task<MokebDto> UpdateAsync(Guid id, CreateUpdateMokebDto input)
     {
         string cacheKey = "MokebDtoList_cache";
@@ -79,7 +79,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     }
 
 
-    [Authorize(MokebManagerNgPermissions.MokebDelete)]
+    // [Authorize(MokebManagerNgPermissions.MokebDelete)]
     public override async Task DeleteAsync(Guid id)
     {
         string cacheKey = "MokebDtoList_cache";
@@ -89,7 +89,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     }
 
 
-    [Authorize(MokebManagerNgPermissions.MokebRead)]
+    // [Authorize(MokebManagerNgPermissions.MokebRead)]
     public async Task<List<MokebCapacityDto>> GetMokebCapacityToNight()
     {
         var mokebs = await GetAllListAsync();
