@@ -10,6 +10,8 @@ public class Mokeb : AggregateRoot<Guid>
     public string Name { get; set; }
     public Gender Gender { get; set; }
     public int Capacity { get; set; }
+    public string? Address { get; set; }
+    public string? Location { get; set; }
     public virtual ICollection<Zaer>? Zaers { get; set; }
     public virtual ICollection<EntryExitZaer>? EntryExitZaers { get; set; }
     public virtual ICollection<MokebState>? MokebStates { get; set; }

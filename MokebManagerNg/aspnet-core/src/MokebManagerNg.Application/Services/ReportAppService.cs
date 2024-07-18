@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using MokebManagerNg.Domain.Dtos;
 using Net.Codecrete.QrCodeGenerator;
 using PdfSharpCore.Fonts;
 using Stimulsoft.Report;
@@ -16,8 +19,7 @@ namespace MokebManagerNg;
 public class ReportAppService : ApplicationService
 {
 
-    private Guid _idZaer;
-    private string[] _zaerCard;
+    private Zaer _zaer;
 
     public async Task GenerateReportAsync()
     {
@@ -57,13 +59,11 @@ public class ReportAppService : ApplicationService
         SaveStreamToFile(stream, filePath);
     }
 
-    public async Task GenerateCardZaerAsync(Guid id, string[] zaerCard)
+    public async Task GenerateCardZaerAsync(ZaerDto zaer)
     {
         const float WIDTH_PAGE = 2.83f; // Width in inches
         const float HEIGHT_PAGE = 3.94f; // Height in inches
 
-        _idZaer = id;
-        _zaerCard = zaerCard;
 
         PrintDocument pd = new PrintDocument();
         pd.PrintPage += new PrintPageEventHandler(PrintText);
@@ -92,7 +92,7 @@ public class ReportAppService : ApplicationService
     {
 
         // Generate QR code as SVG string
-        var qr = QrCode.EncodeText(_idZaer.ToString(), QrCode.Ecc.Low);
+        var qr = QrCode.EncodeText(_zaer.Id.ToString(), QrCode.Ecc.Low);
         string svg = qr.ToSvgString(4);
 
         // Write SVG to a temporary file
@@ -124,7 +124,15 @@ public class ReportAppService : ApplicationService
             Alignment = StringAlignment.Far // Align text to the right
         };
 
-        foreach (string line in _zaerCard)
+        var zaerCard = new string[] {
+            $"{_zaer.Name} { _zaer.Family} :نام و نام خانوادگی",
+            $"{_zaer.PassportNo} :شماره پاسپورت",
+            $"{_zaer.Mokeb.Name} :موکب",
+            $"{_zaer.MokebState.State} :جایگاه",
+            $"{ConvertUtcToJalali(_zaer.EntryExitZaerDates.First().ExitDate)} :خروج",
+        };
+
+        foreach (string line in zaerCard)
         {
             // Calculate the position for the right-aligned text
             float xPos = rightMargin;
@@ -135,6 +143,21 @@ public class ReportAppService : ApplicationService
         // Clean up the temporary SVG file
         File.Delete(svgFilePath);
 
+    }
+
+
+    public static string ConvertUtcToJalali(DateTime utcDateTime)
+    {
+        PersianCalendar persianCalendar = new PersianCalendar();
+
+        int year = persianCalendar.GetYear(utcDateTime);
+        int month = persianCalendar.GetMonth(utcDateTime);
+        int day = persianCalendar.GetDayOfMonth(utcDateTime);
+        int hour = persianCalendar.GetHour(utcDateTime);
+        int minute = persianCalendar.GetMinute(utcDateTime);
+        int second = persianCalendar.GetSecond(utcDateTime);
+
+        return $"{year}/{month:D2}/{day:D2} {hour:D2}:{minute:D2}:{second:D2}";
     }
 
     static void SaveStreamToFile(Stream stream, string filePath)

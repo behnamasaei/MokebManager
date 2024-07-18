@@ -61,6 +61,8 @@ export interface Mokeb extends AggregateRoot<string> {
   name?: string;
   gender: Gender;
   capacity: number;
+  address?: string;
+  location?: string;
   zaers: Zaer[];
   entryExitZaers: EntryExitZaer[];
   mokebStates: MokebState[];
