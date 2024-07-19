@@ -69,9 +69,9 @@ public class ReportAppService : ApplicationService
         PrintDocument pd = new PrintDocument();
         pd.PrintPage += new PrintPageEventHandler(PrintText);
 
-        // Set paper size to A7
-        PaperSize paperSize = new PaperSize("A7", (int)(WIDTH_PAGE * 100), (int)(HEIGHT_PAGE * 100));
-        pd.DefaultPageSettings.PaperSize = paperSize;
+        // // Set paper size to A7
+        // PaperSize paperSize = new PaperSize("A7", (int)(WIDTH_PAGE * 100), (int)(HEIGHT_PAGE * 100));
+        // pd.DefaultPageSettings.PaperSize = paperSize;
 
         // Set printer settings to ensure A7 paper is used
         PrinterSettings ps = new PrinterSettings();
@@ -91,7 +91,6 @@ public class ReportAppService : ApplicationService
     // https://github.com/manuelbl/QrCodeGenerator
     private void PrintText(object sender, PrintPageEventArgs e)
     {
-
         // Generate QR code as SVG string
         var qr = QrCode.EncodeText(_zaer.Mokeb.Location?.ToString(), QrCode.Ecc.Low);
         string svg = qr.ToSvgString(4);
@@ -109,44 +108,79 @@ public class ReportAppService : ApplicationService
         Bitmap svgBitmap = new(svgDocument.Draw(bitmapWidth, bitmapHeight));
 
         // Draw the enlarged Bitmap on the page
-        e.Graphics.DrawImage(svgBitmap, new RectangleF(0, 0, bitmapWidth, bitmapHeight));
+        e.Graphics.DrawImage(svgBitmap, new RectangleF(50, 0, bitmapWidth, bitmapHeight));
 
         // Offset for the text below the SVG (reduce the space)
         float yOffset = svgBitmap.Height + 5; // Reduced space after the SVG
 
-        System.Drawing.Font font = new System.Drawing.Font("Arial", 15); // Font size can be adjusted
+        // Define font and brush
+        System.Drawing.Font font = new System.Drawing.Font("Arial", 12); // Font size can be adjusted
         Brush brush = Brushes.Black;
+
+        // Get the right margin for alignment
         float rightMargin = e.MarginBounds.Right;
         float leftMargin = e.MarginBounds.Left;
 
+
+        // Calculate line height for consistent vertical spacing
         float lineHeight = font.GetHeight(e.Graphics);
         float yPos = yOffset; // Start immediately after the QR code
 
+        // Create string format for right alignment
         StringFormat format = new StringFormat
         {
-            Alignment = StringAlignment.Far // Align text to the right
+            Alignment = StringAlignment.Far, // Align text to the right
         };
 
-        var zaerCard = new string[] {
-            $"نام و نام خانوادگی: {_zaer.Name} { _zaer.Family}",
-            $"{_zaer.PassportNo} :شماره پاسپورت",
-            $"موکب: {_zaer.Mokeb.Name}",
-            $"{_zaer.MokebState.State} :جایگاه",
-            $"{ConvertUtcToJalali(_zaer.EntryExitZaerDates.First().ExitDate)} :خروج",
+        StringFormat formatHeader = new StringFormat
+        {
+            Alignment = StringAlignment.Center, // Align text to the right
         };
 
+        // Array of strings to print
+        var zaerCard = new string[]
+        {
+        $"نام و نام خانوادگی: {_zaer.Name} {_zaer.Family}",
+        $"{_zaer.PassportNo} :شماره پاسپورت",
+        $"موکب: {_zaer.Mokeb.Name}",
+        $"{_zaer.MokebState.State} :جایگاه",
+        $"{ConvertUtcToJalali(_zaer.EntryExitZaerDates.First().ExitDate)} :خروج",
+        };
+
+        // Iterate over each string and draw it on the page
         foreach (string line in zaerCard)
         {
-            // Calculate the position for the right-aligned text
-            float xPos = rightMargin;
-            e.Graphics.DrawString(line, font, brush, xPos, yPos, format);
+            // Draw string right-aligned at the specified position
+            // e.Graphics.DrawString(line, font, brush, new PointF(rightMargin, yPos), format);
+            // e.Graphics.DrawString(line, font, brush, new RectangleF(leftMargin, yPos, e.MarginBounds.Width, lineHeight), format);
+            // e.Graphics.DrawString(line, font, brush, new RectangleF(leftMargin, yPos, rightMargin - leftMargin, lineHeight), format);
+            e.Graphics.DrawString(line, font, brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 35, e.MarginBounds.Height), format);
+
+
+
             yPos += lineHeight; // Move to next line position
         }
 
-        // // Clean up the temporary SVG file
-        // File.Delete(svgFilePath);
+        yPos += lineHeight;
+        yPos += lineHeight;
 
+
+        string[] connectionText = new string[] {
+            "نرم افزار مدیریت موکب شهدای فاوا",
+            "0915-313-4479",
+            "0915-207-8926"
+        };
+        foreach (var line in connectionText)
+        {
+            e.Graphics.DrawString(line, new System.Drawing.Font("Arial", 8), brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 30, e.MarginBounds.Height), format);
+            yPos += lineHeight;
+        }
+
+
+        // Clean up the temporary SVG file
+        File.Delete(svgFilePath);
     }
+
 
 
     public static string ConvertUtcToJalali(DateTime utcDateTime)
