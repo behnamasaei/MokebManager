@@ -29,13 +29,13 @@ function configureRoutes(routesService: RoutesService) {
         order: 2,
         layout: eLayoutType.application,
       },
-      {
-        path: '/new-zaer-id',
-        name: '::NewZaerWithId',
-        iconClass: 'fas fa-cogs',
-        order: 2,
-        layout: eLayoutType.application,
-      },
+      // {
+      //   path: '/new-zaer-id',
+      //   name: '::NewZaerWithId',
+      //   iconClass: 'fas fa-cogs',
+      //   order: 2,
+      //   layout: eLayoutType.application,
+      // },
       {
         path: '/reservation',
         name: '::ExtensionOfReservation',
