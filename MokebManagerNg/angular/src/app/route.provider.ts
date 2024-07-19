@@ -71,6 +71,12 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-cogs',
         order: 2,
         layout: eLayoutType.application,
+      },{
+        path: '/program-helper',
+        name: 'راهنمای برنامه',
+        iconClass: 'fas fa-cogs',
+        order: 50,
+        layout: eLayoutType.application,
       },
     ]);
   };
