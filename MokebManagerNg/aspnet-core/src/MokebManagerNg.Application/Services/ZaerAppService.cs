@@ -20,7 +20,7 @@ using Volo.Abp;
 
 namespace MokebManagerNg;
 
-[Authorize(MokebManagerNgPermissions.Zaer)]
+// [Authorize(MokebManagerNgPermissions.Zaer)]
 public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSortedResultRequestDto,
                       CreateZaerDto, UpdateZaerDto>,
   IZaerAppService
@@ -42,14 +42,14 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     }
 
 
-    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    // [Authorize(MokebManagerNgPermissions.ZaerRead)]
     public override Task<PagedResultDto<ZaerDto>> GetListAsync(PagedAndSortedResultRequestDto input)
     {
         return base.GetListAsync(input);
     }
 
 
-    [Authorize(MokebManagerNgPermissions.ZaerCreate)]
+    // [Authorize(MokebManagerNgPermissions.ZaerCreate)]
     public async Task<ZaerDto> CreateNewWithIdAsync(CreateZaerDto input)
     {
         string cacheKey = "AllEntryExit_cache";
@@ -60,7 +60,7 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         return ObjectMapper.Map<Zaer, ZaerDto>(response);
     }
 
-    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    // [Authorize(MokebManagerNgPermissions.ZaerRead)]
     public async Task<ZaerDto> GetWithDetailAsync(Guid id)
     {
         var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates,
@@ -75,7 +75,7 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     }
 
 
-    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    // [Authorize(MokebManagerNgPermissions.ZaerRead)]
     public async Task<PagedResultDto<ZaerDto>> GetListWithDetailAsync(PagedAndSortedResultRequestDto input)
     {
         var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates,
@@ -92,20 +92,20 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     }
 
 
-    [Authorize(MokebManagerNgPermissions.ZaerDelete)]
+    // [Authorize(MokebManagerNgPermissions.ZaerDelete)]
     public override async Task DeleteAsync(Guid id)
     {
         await _entryExitListCache.RemoveAsync("AllEntryExit_cache");
         await base.DeleteAsync(id);
     }
 
-    [Authorize(MokebManagerNgPermissions.ZaerUpdate)]
+    // [Authorize(MokebManagerNgPermissions.ZaerUpdate)]
     public override Task<ZaerDto> UpdateAsync(Guid id, UpdateZaerDto input)
     {
         return base.UpdateAsync(id, input);
     }
 
-    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    // [Authorize(MokebManagerNgPermissions.ZaerRead)]
     public async Task<List<ZaerDto>> GetSearchAsync(string text)
     {
         var zaers = await _repository.GetListAsync(x => x.PassportNo.Contains(text) || x.Name.Contains(text)
@@ -114,7 +114,7 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     }
 
 
-    [Authorize(MokebManagerNgPermissions.ZaerRead)]
+    // [Authorize(MokebManagerNgPermissions.ZaerRead)]
     public async Task<ZaerDto> GetWithPassportNoAsync(string passportNo)
     {
         var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates,

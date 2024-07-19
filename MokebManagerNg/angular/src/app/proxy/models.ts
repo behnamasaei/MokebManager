@@ -38,7 +38,6 @@ export interface CreateZaerDto extends EntityDto<string> {
   gender: Gender;
   passportNo: string;
   mokebId: string;
-  imageFileName?: string;
   phoneNumber?: number;
   state?: string;
   city?: string;
@@ -61,6 +60,8 @@ export interface Mokeb extends AggregateRoot<string> {
   name?: string;
   gender: Gender;
   capacity: number;
+  address?: string;
+  location?: string;
   zaers: Zaer[];
   entryExitZaers: EntryExitZaer[];
   mokebStates: MokebState[];
@@ -99,7 +100,6 @@ export interface UpdateZaerDto {
   gender: Gender;
   passportNo: string;
   mokebId: string;
-  imageFileName?: string;
   phoneNumber?: number;
   state?: string;
   city?: string;
@@ -118,7 +118,6 @@ export interface Zaer extends AggregateRoot<string> {
   entryExitZaerDates: EntryExitZaer[];
   clockEntryExits: ClockEntryExit[];
   mokebState: MokebState;
-  imageFileName?: string;
   passportNo?: string;
   mokebId?: string;
   mokeb: Mokeb;

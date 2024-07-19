@@ -15,7 +15,6 @@ public class ZaerDto : AuditedEntityDto<Guid>
     public virtual ICollection<ClockEntryExitDto> ClockEntryExits { get; set; }
     public virtual MokebStateDto? MokebState { get; set; }
 
-    public string ImageFileName { get; set; }
     public string PassportNo { get; set; }
     public Guid MokebId { get; set; }
     public virtual MokebDto Mokeb { get; set; }

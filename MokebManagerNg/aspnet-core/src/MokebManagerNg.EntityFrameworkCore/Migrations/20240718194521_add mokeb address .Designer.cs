@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MokebManagerNg.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace MokebManagerNg.Migrations
 {
     [DbContext(typeof(MokebManagerNgDbContext))]
-    partial class MokebManagerNgDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718194521_add mokeb address ")]
+    partial class addmokebaddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,6 +198,9 @@ namespace MokebManagerNg.Migrations
 
                     b.Property<int>("Gender")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ImageFileName")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("MokebId")
                         .HasColumnType("TEXT");

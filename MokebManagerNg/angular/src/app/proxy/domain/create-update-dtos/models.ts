@@ -11,4 +11,6 @@ export interface CreateUpdateMokebDto {
   name?: string;
   gender: Gender;
   capacity: number;
+  address?: string;
+  location?: string;
 }

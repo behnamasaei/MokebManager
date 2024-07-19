@@ -14,7 +14,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace MokebManagerNg;
 
-[Authorize(MokebManagerNgPermissions.Reservation)]
+// [Authorize(MokebManagerNgPermissions.Reservation)]
 public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZaerDto, Guid, PagedAndSortedResultRequestDto,
                         CreateUpdateEntryExitZaerDto, CreateUpdateEntryExitZaerDto>,
     IEntryExitZaerDateAppService
@@ -30,7 +30,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         _repository = repository;
     }
 
-    [Authorize(MokebManagerNgPermissions.Reservation)]
+    // [Authorize(MokebManagerNgPermissions.Reservation)]
     public async Task<IList<EntryExitZaerDto>> GetAllEntryExitAsync()
     {
         string cacheKey = "AllEntryExit_cache";
@@ -49,7 +49,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         return entryExitListDto;
     }
 
-    [Authorize(MokebManagerNgPermissions.Reservation)]
+    // [Authorize(MokebManagerNgPermissions.Reservation)]
     public override async Task<EntryExitZaerDto> GetAsync(Guid id)
     {
         var entryExits = await GetAllEntryExitAsync();
@@ -57,7 +57,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         return zaer;
     }
 
-    [Authorize(MokebManagerNgPermissions.Reservation)]
+    // [Authorize(MokebManagerNgPermissions.Reservation)]
     public override async Task<EntryExitZaerDto> CreateAsync(CreateUpdateEntryExitZaerDto input)
     {
         string cacheKey = "AllEntryExit_cache";
@@ -65,7 +65,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         return await base.CreateAsync(input);
     }
 
-    [Authorize(MokebManagerNgPermissions.Reservation)]
+    // [Authorize(MokebManagerNgPermissions.Reservation)]
     public async Task<EntryExitZaerDto> SetExitDateAsync(Guid zaerId, DateTime ExitDate)
     {
         string cacheKey = "AllEntryExit_cache";
@@ -83,7 +83,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         return updateEntryExit;
     }
 
-    [Authorize(MokebManagerNgPermissions.Reservation)]
+    // [Authorize(MokebManagerNgPermissions.Reservation)]
     public override async Task DeleteAsync(Guid id)
     {
         string cacheKey = "AllEntryExit_cache";
@@ -91,7 +91,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         await base.DeleteAsync(id);
     }
 
-    [Authorize(MokebManagerNgPermissions.Reservation)]
+    // [Authorize(MokebManagerNgPermissions.Reservation)]
     public override async Task<EntryExitZaerDto> UpdateAsync(Guid id, CreateUpdateEntryExitZaerDto input)
     {
         string cacheKey = "AllEntryExit_cache";
