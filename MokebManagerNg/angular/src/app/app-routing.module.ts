@@ -11,6 +11,7 @@ import { ReportingComponent } from './reporting/reporting.component';
 import { UpdateZaerComponent } from './zaer/update-zaer/update-zaer.component';
 import { permissionGuard } from '@abp/ng.core';
 import { SetExitDateComponent } from './set-exit-date/set-exit-date.component';
+import { ProgramHelperComponent } from './program-helper/program-helper.component';
 
 const routes: Routes = [
   {
@@ -103,6 +104,14 @@ const routes: Routes = [
     // canActivate: [permissionGuard],
     // data: {
     //   requiredPolicy: 'MokebManagerNg.Reporting', // policy key for your component
+    // },
+  },
+  {
+    path: 'program-helper',
+    component: ProgramHelperComponent,
+    // canActivate: [permissionGuard],
+    // data: {
+    //   requiredPolicy: 'MokebManagerNg.ZaerUpdate', // policy key for your component
     // },
   },
   {
