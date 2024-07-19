@@ -103,18 +103,21 @@ public class ReportAppService : ApplicationService
         SvgDocument svgDocument = SvgDocument.Open(svgFilePath);
 
         // Increase the size of the Bitmap
-        int bitmapWidth = 150; // Adjust this value to increase the size of the QR code
-        int bitmapHeight = 150; // Adjust this value to increase the size of the QR code
+        int bitmapWidth = 120; // Adjust this value to increase the size of the QR code
+        int bitmapHeight = 120; // Adjust this value to increase the size of the QR code
         Bitmap svgBitmap = new(svgDocument.Draw(bitmapWidth, bitmapHeight));
 
         // Draw the enlarged Bitmap on the page
         e.Graphics.DrawImage(svgBitmap, new RectangleF(50, 0, bitmapWidth, bitmapHeight));
 
         // Offset for the text below the SVG (reduce the space)
-        float yOffset = svgBitmap.Height + 5; // Reduced space after the SVG
+        float yOffset = svgBitmap.Height; // Reduced space after the SVG
+        float yPos = yOffset; // Start immediately after the QR code
+
+        #region Body
 
         // Define font and brush
-        System.Drawing.Font font = new System.Drawing.Font("Arial", 12); // Font size can be adjusted
+        System.Drawing.Font font = new System.Drawing.Font("Arial", 11, FontStyle.Bold); // Font size can be adjusted
         Brush brush = Brushes.Black;
 
         // Get the right margin for alignment
@@ -124,7 +127,6 @@ public class ReportAppService : ApplicationService
 
         // Calculate line height for consistent vertical spacing
         float lineHeight = font.GetHeight(e.Graphics);
-        float yPos = yOffset; // Start immediately after the QR code
 
         // Create string format for right alignment
         StringFormat format = new StringFormat
@@ -132,10 +134,33 @@ public class ReportAppService : ApplicationService
             Alignment = StringAlignment.Far, // Align text to the right
         };
 
+
+        #endregion
+
+
+        #region Header
+
+        System.Drawing.Font fontHeader = new System.Drawing.Font("Arial", 8); // Font size can be adjusted
         StringFormat formatHeader = new StringFormat
         {
             Alignment = StringAlignment.Center, // Align text to the right
         };
+        // Calculate line height for consistent vertical spacing
+        float lineHeightHeader = fontHeader.GetHeight(e.Graphics);
+
+        string textHeader1 = "ستاد اسکان عتبات عالیات";
+        e.Graphics.DrawString(textHeader1, fontHeader, Brushes.Black, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 35, e.MarginBounds.Height), formatHeader);
+        yPos += lineHeightHeader; // Move to next line position
+
+
+        string textHeader2 = "شارع قبله الامام حسین، موکب شهدای طالخونچه";
+        e.Graphics.DrawString(textHeader2, fontHeader, Brushes.Black, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 35, e.MarginBounds.Height), formatHeader);
+        yPos += lineHeight; // Move to next line position
+        yPos += lineHeight; // Move to next line position
+        #endregion
+
+
+
 
         // Array of strings to print
         var zaerCard = new string[]
@@ -154,7 +179,7 @@ public class ReportAppService : ApplicationService
             // e.Graphics.DrawString(line, font, brush, new PointF(rightMargin, yPos), format);
             // e.Graphics.DrawString(line, font, brush, new RectangleF(leftMargin, yPos, e.MarginBounds.Width, lineHeight), format);
             // e.Graphics.DrawString(line, font, brush, new RectangleF(leftMargin, yPos, rightMargin - leftMargin, lineHeight), format);
-            e.Graphics.DrawString(line, font, brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 35, e.MarginBounds.Height), format);
+            e.Graphics.DrawString(line, font, brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 40, e.MarginBounds.Height), format);
 
 
 
@@ -172,7 +197,7 @@ public class ReportAppService : ApplicationService
         };
         foreach (var line in connectionText)
         {
-            e.Graphics.DrawString(line, new System.Drawing.Font("Arial", 8), brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 30, e.MarginBounds.Height), format);
+            e.Graphics.DrawString(line, new System.Drawing.Font("Arial", 8), brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 40, e.MarginBounds.Height), format);
             yPos += lineHeight;
         }
 
