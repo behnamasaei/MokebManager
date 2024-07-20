@@ -54,12 +54,12 @@ export class HomeComponent {
         command: () => this.router.navigate(['./new-zaer']),
         style: { margin: '10px 0px' },
       },
-      {
-        label: this.localizationService.instant('::NewZaerWithId'),
-        icon: 'pi pi-qrcode',
-        command: () => this.router.navigate(['./new-zaer-id']),
-        style: { margin: '10px 0px' },
-      },
+      // {
+      //   label: this.localizationService.instant('::NewZaerWithId'),
+      //   icon: 'pi pi-qrcode',
+      //   command: () => this.router.navigate(['./new-zaer-id']),
+      //   style: { margin: '10px 0px' },
+      // },
       {
         label: this.localizationService.instant('::SaveEntryExitClock'),
         icon: 'pi pi-calendar-minus',
