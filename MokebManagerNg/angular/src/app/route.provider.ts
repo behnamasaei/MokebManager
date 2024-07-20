@@ -33,7 +33,7 @@ function configureRoutes(routesService: RoutesService) {
         path: '/new-zaer-id',
         name: '::NewZaerWithId',
         iconClass: 'pi pi-qrcode',
-        order: 2,
+        order: 3,
         layout: eLayoutType.application,
       },
       {
