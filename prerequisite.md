@@ -9,3 +9,5 @@
 4. [TeamViewer](https://dl2.soft98.ir/soft/t/TeamViewer.15.55.3.x64.rar?1721042662)
 
 5. [Git Windows 2.45.1 x64](https://dl2.soft98.ir/soft/g/Git.for.Windows.2.45.1.x64.rar?1721042709)
+
+6. [Fork - Git client](https://cdn.fork.dev/win/Fork-1.99.3.exe)
