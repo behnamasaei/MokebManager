@@ -166,9 +166,9 @@ public class ReportAppService : ApplicationService
 
 
         string[] connectionText = new string[] {
-            "نرم افزار مدیریت موکب شهدای فاوا",
-            "0915-313-4479",
-            "0915-207-8926"
+            "سامانه مدیریت موکب شهدای فاوا",
+            "abarmatn.com",
+            "behnamasaei@gmail.com"
         };
         foreach (var line in connectionText)
         {
