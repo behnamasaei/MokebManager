@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace MokebManagerNg;
 
-[Authorize(MokebManagerNgPermissions.ClockEntryExit)]
+// [Authorize(MokebManagerNgPermissions.ClockEntryExit)]
 public class ClockEntryExitAppService : CrudAppService<ClockEntryExit, ClockEntryExitDto, Guid, PagedAndSortedResultRequestDto,
                         CreateUpdateClockEntryExitDto, CreateUpdateClockEntryExitDto>,
     IClockEntryExitAppService

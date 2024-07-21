@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using MokebManagerNg.Domain.Dtos;
 using Net.Codecrete.QrCodeGenerator;
 using PdfSharpCore.Fonts;
 using Stimulsoft.Report;
@@ -16,8 +19,7 @@ namespace MokebManagerNg;
 public class ReportAppService : ApplicationService
 {
 
-    private Guid _idZaer;
-    private string[] _zaerCard;
+    private ZaerDto _zaer;
 
     public async Task GenerateReportAsync()
     {
@@ -57,20 +59,19 @@ public class ReportAppService : ApplicationService
         SaveStreamToFile(stream, filePath);
     }
 
-    public async Task GenerateCardZaerAsync(Guid id, string[] zaerCard)
+    public async Task GenerateCardZaerAsync(ZaerDto zaer)
     {
         const float WIDTH_PAGE = 2.83f; // Width in inches
         const float HEIGHT_PAGE = 3.94f; // Height in inches
 
-        _idZaer = id;
-        _zaerCard = zaerCard;
+        _zaer = zaer;
 
         PrintDocument pd = new PrintDocument();
         pd.PrintPage += new PrintPageEventHandler(PrintText);
 
-        // Set paper size to A7
-        PaperSize paperSize = new PaperSize("A7", (int)(WIDTH_PAGE * 100), (int)(HEIGHT_PAGE * 100));
-        pd.DefaultPageSettings.PaperSize = paperSize;
+        // // Set paper size to A7
+        // PaperSize paperSize = new PaperSize("A7", (int)(WIDTH_PAGE * 100), (int)(HEIGHT_PAGE * 100));
+        // pd.DefaultPageSettings.PaperSize = paperSize;
 
         // Set printer settings to ensure A7 paper is used
         PrinterSettings ps = new PrinterSettings();
@@ -90,9 +91,8 @@ public class ReportAppService : ApplicationService
     // https://github.com/manuelbl/QrCodeGenerator
     private void PrintText(object sender, PrintPageEventArgs e)
     {
-
         // Generate QR code as SVG string
-        var qr = QrCode.EncodeText(_idZaer.ToString(), QrCode.Ecc.Low);
+        var qr = QrCode.EncodeText(_zaer.Mokeb.Location?.ToString(), QrCode.Ecc.Low);
         string svg = qr.ToSvgString(4);
 
         // Write SVG to a temporary file
@@ -103,38 +103,98 @@ public class ReportAppService : ApplicationService
         SvgDocument svgDocument = SvgDocument.Open(svgFilePath);
 
         // Increase the size of the Bitmap
-        int bitmapWidth = 200; // Adjust this value to increase the size of the QR code
-        int bitmapHeight = 200; // Adjust this value to increase the size of the QR code
+        int bitmapWidth = 150; // Adjust this value to increase the size of the QR code
+        int bitmapHeight = 150; // Adjust this value to increase the size of the QR code
         Bitmap svgBitmap = new(svgDocument.Draw(bitmapWidth, bitmapHeight));
 
         // Draw the enlarged Bitmap on the page
-        e.Graphics.DrawImage(svgBitmap, new RectangleF(0, 0, bitmapWidth, bitmapHeight));
+        e.Graphics.DrawImage(svgBitmap, new RectangleF(50, 0, bitmapWidth, bitmapHeight));
 
         // Offset for the text below the SVG (reduce the space)
         float yOffset = svgBitmap.Height + 5; // Reduced space after the SVG
 
-        System.Drawing.Font font = new System.Drawing.Font("Arial", 10); // Font size can be adjusted
+        // Define font and brush
+        System.Drawing.Font font = new System.Drawing.Font("Arial", 12); // Font size can be adjusted
         Brush brush = Brushes.Black;
+
+        // Get the right margin for alignment
         float rightMargin = e.MarginBounds.Right;
+        float leftMargin = e.MarginBounds.Left;
+
+
+        // Calculate line height for consistent vertical spacing
         float lineHeight = font.GetHeight(e.Graphics);
         float yPos = yOffset; // Start immediately after the QR code
 
+        // Create string format for right alignment
         StringFormat format = new StringFormat
         {
-            Alignment = StringAlignment.Far // Align text to the right
+            Alignment = StringAlignment.Far, // Align text to the right
         };
 
-        foreach (string line in _zaerCard)
+        StringFormat formatHeader = new StringFormat
         {
-            // Calculate the position for the right-aligned text
-            float xPos = rightMargin;
-            e.Graphics.DrawString(line, font, brush, xPos, yPos, format);
+            Alignment = StringAlignment.Center, // Align text to the right
+        };
+
+        // Array of strings to print
+        var zaerCard = new string[]
+        {
+        $"نام و نام خانوادگی: {_zaer.Name} {_zaer.Family}",
+        $"{_zaer.PassportNo} :شماره پاسپورت",
+        $"موکب: {_zaer.Mokeb.Name}",
+        $"{_zaer.MokebState.State} :جایگاه",
+        $"{ConvertUtcToJalali(_zaer.EntryExitZaerDates.First().ExitDate)} :خروج",
+        };
+
+        // Iterate over each string and draw it on the page
+        foreach (string line in zaerCard)
+        {
+            // Draw string right-aligned at the specified position
+            // e.Graphics.DrawString(line, font, brush, new PointF(rightMargin, yPos), format);
+            // e.Graphics.DrawString(line, font, brush, new RectangleF(leftMargin, yPos, e.MarginBounds.Width, lineHeight), format);
+            // e.Graphics.DrawString(line, font, brush, new RectangleF(leftMargin, yPos, rightMargin - leftMargin, lineHeight), format);
+            e.Graphics.DrawString(line, font, brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 35, e.MarginBounds.Height), format);
+
+
+
             yPos += lineHeight; // Move to next line position
         }
 
+        yPos += lineHeight;
+        yPos += lineHeight;
+
+
+        string[] connectionText = new string[] {
+            "سامانه مدیریت موکب شهدای فاوا",
+            "abarmatn.com",
+            "behnamasaei@gmail.com"
+        };
+        foreach (var line in connectionText)
+        {
+            e.Graphics.DrawString(line, new System.Drawing.Font("Arial", 8), brush, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 30, e.MarginBounds.Height), format);
+            yPos += lineHeight;
+        }
+
+
         // Clean up the temporary SVG file
         File.Delete(svgFilePath);
+    }
 
+
+
+    public static string ConvertUtcToJalali(DateTime utcDateTime)
+    {
+        PersianCalendar persianCalendar = new PersianCalendar();
+
+        int year = persianCalendar.GetYear(utcDateTime);
+        int month = persianCalendar.GetMonth(utcDateTime);
+        int day = persianCalendar.GetDayOfMonth(utcDateTime);
+        int hour = persianCalendar.GetHour(utcDateTime);
+        int minute = persianCalendar.GetMinute(utcDateTime);
+        int second = persianCalendar.GetSecond(utcDateTime);
+
+        return $"{year}/{month:D2}/{day:D2} {hour:D2}:{minute:D2}";
     }
 
     static void SaveStreamToFile(Stream stream, string filePath)

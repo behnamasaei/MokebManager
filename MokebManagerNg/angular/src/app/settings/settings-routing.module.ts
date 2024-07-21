@@ -18,26 +18,26 @@ const routes: Routes = [
       {
         path: 'mokeb',
         component: MokebComponent,
-        canActivate: [permissionGuard],
-        data: {
-          requiredPolicy: 'MokebManagerNg.MokebRead', // policy key for your component
-        },
+        // canActivate: [permissionGuard],
+        // data: {
+        //   requiredPolicy: 'MokebManagerNg.MokebRead', // policy key for your component
+        // },
       },
       {
         path: 'create-update-mokeb/:id',
         component: CreateUpdateMokebComponent,
-        canActivate: [permissionGuard],
-        data: {
-          requiredPolicy: 'MokebManagerNg.MokebUpdate', // policy key for your component
-        },
+        // canActivate: [permissionGuard],
+        // data: {
+        //   requiredPolicy: 'MokebManagerNg.MokebUpdate', // policy key for your component
+        // },
       },
       {
         path: 'create-update-mokeb',
         component: CreateUpdateMokebComponent,
-        canActivate: [permissionGuard],
-        data: {
-          requiredPolicy: 'MokebManagerNg.MokebCreate', // policy key for your component
-        },
+        // canActivate: [permissionGuard],
+        // data: {
+        //   requiredPolicy: 'MokebManagerNg.MokebCreate', // policy key for your component
+        // },
       },
     ],
   },

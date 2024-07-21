@@ -13,6 +13,8 @@ export interface MokebDto extends AuditedEntityDto<string> {
   name?: string;
   gender: Gender;
   capacity: number;
+  address?: string;
+  location?: string;
   zaers: ZaerDto[];
   entryExitZaers: EntryExitZaerDto[];
   mokebStates: MokebStateDto[];
@@ -25,7 +27,6 @@ export interface ZaerDto extends AuditedEntityDto<string> {
   entryExitZaerDates: EntryExitZaerDto[];
   clockEntryExits: ClockEntryExitDto[];
   mokebState: MokebStateDto;
-  imageFileName?: string;
   passportNo?: string;
   mokebId?: string;
   mokeb: MokebDto;

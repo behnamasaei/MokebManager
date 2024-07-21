@@ -43,9 +43,9 @@ export class HomeComponent {
   ngOnInit() {
     this.titleService.setTitle('مدیریت موکب | خانه');
 
-    if (!this.hasLoggedIn) {
-      this.login();
-    }
+    // if (!this.hasLoggedIn) {
+    //   this.login();
+    // }
 
     this.items = [
       {
@@ -56,32 +56,26 @@ export class HomeComponent {
       },
       {
         label: this.localizationService.instant('::NewZaerWithId'),
-        icon: 'pi pi-barcode',
+        icon: 'pi pi-qrcode',
         command: () => this.router.navigate(['./new-zaer-id']),
         style: { margin: '10px 0px' },
       },
       {
         label: this.localizationService.instant('::SaveEntryExitClock'),
-        icon: 'pi pi-clock',
+        icon: 'pi pi-calendar-minus',
         command: () => this.router.navigate(['./clock-entry-exit']),
         style: { margin: '10px 0px' },
       },
       {
+        label: this.localizationService.instant('ثبت خروج'),
+        icon: 'pi pi-clock',
+        command: () => this.router.navigate(['./exit-date']),
+        style: { margin: '10px 0px' },
+      },
+      {
         label: this.localizationService.instant('::ExtensionOfReservation'),
-        icon: 'pi pi-sync',
+        icon: 'pi pi-calendar-plus',
         command: () => this.router.navigate(['./reservation']),
-        style: { margin: '10px 0px' },
-      },
-      {
-        label: this.localizationService.instant('::MokebSettings'),
-        icon: 'pi pi-cog',
-        command: () => this.router.navigate(['./settings/mokeb']),
-        style: { margin: '10px 0px' },
-      },
-      {
-        label: this.localizationService.instant('::Zaers'),
-        icon: 'pi pi-users',
-        command: () => this.router.navigate(['./zaers']),
         style: { margin: '10px 0px' },
       },
     ];
@@ -93,6 +87,6 @@ export class HomeComponent {
 
   login() {
     // this.router.navigate(['mokeb-account', 'login']);
-    this.authService.navigateToLogin();
+    // this.authService.navigateToLogin();
   }
 }

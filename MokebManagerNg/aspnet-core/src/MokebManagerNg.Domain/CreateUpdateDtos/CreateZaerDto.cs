@@ -14,7 +14,6 @@ public class CreateZaerDto : EntityDto<Guid>
     public string PassportNo { get; set; }
     [Required]
     public Guid MokebId { get; set; }
-    public string? ImageFileName { get; set; }
     public long? PhoneNumber { get; set; }
     public string? State { get; set; }
     public string? City { get; set; }

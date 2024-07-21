@@ -21,6 +21,8 @@ import { SharedModule } from './shared/shared.module';
 import { SettingsModule } from './settings/settings.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FooterComponent } from './footer/footer.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './shared/ErrorInterceptor';
 
 @NgModule({
   imports: [
@@ -53,7 +55,10 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent,
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [
+    APP_ROUTE_PROVIDER,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

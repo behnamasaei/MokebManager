@@ -232,16 +232,8 @@ export class NewZaerComponent implements OnInit {
       rejectIcon: 'none',
 
       accept: () => {
-        this.zaerService.getWithDetail(id).subscribe(zaer => {
-          const zaerCard: string[] = [
-            `${zaer.passportNo} :شماره پاسپورت`,
-            `${zaer.name} ${zaer.family} :نام و نام خانوادگی`,
-            `${zaer.mokeb.name} :موکب`,
-            `${zaer.mokebState.state} :جایگاه`,
-            `${zaer.entryExitZaerDates.pop().exitDate} :خروج`,
-          ];
-
-          this.reportService.generateCardZaer(zaer.id, zaerCard).subscribe(() => {
+        this.zaerService.getWithDetail(id).subscribe(zaerRes => {
+          this.reportService.generateCardZaer(zaerRes).subscribe(() => {
             this.showMessage('success', 'Success', 'Success');
           });
         });
