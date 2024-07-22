@@ -38,7 +38,7 @@ function configureRoutes(routesService: RoutesService) {
       },
       {
         path: '/reservation',
-        name: '::ExtensionOfReservation',
+        name: 'تمدید پذیرش',
         iconClass: 'pi pi-calendar-plus',
         order: 2,
         layout: eLayoutType.application,

@@ -32,7 +32,7 @@ export class ReservationComponent {
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('مدیریت موکب | تمدید رزرو');
+    this.titleService.setTitle('مدیریت موکب | تمدید پذیرش');
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.entryExitOptions = [
@@ -53,7 +53,7 @@ export class ReservationComponent {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
-          exitAfterDate:this.selectedEntryExit.key,
+          exitAfterDate: this.selectedEntryExit.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitService.create(input).subscribe(x => {
@@ -75,7 +75,7 @@ export class ReservationComponent {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
-          exitAfterDate:this.selectedEntryExit.key,
+          exitAfterDate: this.selectedEntryExit.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitService.create(input).subscribe(x => {

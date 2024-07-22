@@ -16,13 +16,18 @@ export class ReportingComponent {
   mokebData: any;
   mokebFreeCapacityData: any;
   mokebReserveInRangeData: any;
+
   basicOptions: any;
+
   mokebName: string[] = [];
   mokebCapacity: number[] = [];
+
   mokebFreeNightName: string[] = [];
   mokebFreeNightCapacity: number[] = [];
+
   mokebReservsionNightName: string[] = [];
   mokebReservsionNightCapacity: number[] = [];
+
   mokebReserveInRangeDataName: string[] = [];
   mokebReserveInRangeDataCapacity: number[] = [];
   /**
@@ -67,10 +72,10 @@ export class ReportingComponent {
       };
 
       this.mokebData = {
-        labels: this.mokebName,
+        labels: this.mokebReservsionNightName,
         datasets: [
           {
-            label: 'تعداد رزرو های امشب هر موکب',
+            label: 'تعداد پذیرش های امشب هر موکب',
             data: this.mokebReservsionNightCapacity,
             backgroundColor: backgroundColor,
             borderColor: borderColor,
@@ -93,6 +98,15 @@ export class ReportingComponent {
         legend: {
           labels: {
             color: textColor,
+            font: {
+              size: 18, // Set font size for legend labels
+            },
+            title: {
+              display: true,
+              font: {
+                size: 22, // Set font size for the chart title
+              },
+            },
           },
         },
       },
@@ -101,6 +115,9 @@ export class ReportingComponent {
           beginAtZero: true,
           ticks: {
             color: textColorSecondary,
+            font: {
+              size: 14, // Set font size for Y axis labels
+            },
           },
           grid: {
             color: surfaceBorder,
@@ -110,6 +127,9 @@ export class ReportingComponent {
         x: {
           ticks: {
             color: textColorSecondary,
+            font: {
+              size: 20, // Set font size for Y axis labels
+            },
           },
           grid: {
             color: surfaceBorder,
@@ -138,7 +158,7 @@ export class ReportingComponent {
           const reservationCount = selectedEntryExit.filter(x => {
             const entryDate = new Date(x.entryDate);
             const exitDate = new Date(x.exitDate);
-            return this.rangeDates[0] <= entryDate && this.rangeDates[1] >= exitDate;
+            return this.rangeDates[0] <= entryDate && this.rangeDates[1] >= entryDate;
           }).length;
 
           mokebReservation.push(reservationCount);
@@ -151,7 +171,7 @@ export class ReportingComponent {
           labels: mokebName,
           datasets: [
             {
-              label: 'First Dataset',
+              label: 'تعداد پذیرش به هر موکب',
               data: mokebReservation,
               backgroundColor: backgroundColor,
               borderColor: borderColor,
