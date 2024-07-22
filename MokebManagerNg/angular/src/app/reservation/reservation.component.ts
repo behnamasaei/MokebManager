@@ -53,6 +53,7 @@ export class ReservationComponent {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
+          exitAfterDate:this.selectedEntryExit.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitService.create(input).subscribe(x => {
@@ -74,6 +75,7 @@ export class ReservationComponent {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
+          exitAfterDate:this.selectedEntryExit.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitService.create(input).subscribe(x => {

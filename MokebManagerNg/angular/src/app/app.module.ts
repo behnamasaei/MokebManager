@@ -57,7 +57,7 @@ import { ErrorInterceptor } from './shared/ErrorInterceptor';
   declarations: [AppComponent],
   providers: [
     APP_ROUTE_PROVIDER,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     provideClientHydration(),
   ],
   bootstrap: [AppComponent],

@@ -110,7 +110,7 @@ export class UpdateZaerComponent implements OnInit {
 
   getMokebsInformation() {
     this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebService.getAllList().subscribe(mokeb => {
           this.mokebs = mokeb.items;
           this.mokebsDropDown = mokeb.items.map(item => ({
@@ -129,7 +129,7 @@ export class UpdateZaerComponent implements OnInit {
     const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
 
     this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebsDropDown = selectedItems
           .map(item => {
             const capacity =

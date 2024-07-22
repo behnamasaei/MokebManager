@@ -11,7 +11,7 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'http://192.168.43.141:44355/',
+    issuer: 'http://192.168.43.65:44355/',
     redirectUri: baseUrl,
     clientId: 'MokebManagerNg_App',
     responseType: 'code',
@@ -22,7 +22,7 @@ export const environment = {
 
   apis: {
     default: {
-      url: 'http://192.168.43.141:44355',
+      url: 'http://192.168.43.65:44355',
       rootNamespace: 'MokebManagerNg',
     },
   },

@@ -96,7 +96,7 @@ export class NewZaerWithIdComponent {
 
   getMokebsInformation() {
     this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebService.getAllList().subscribe(mokeb => {
           this.mokebs = mokeb.items;
           this.mokebsDropDown = mokeb.items.map(item => ({
@@ -115,7 +115,7 @@ export class NewZaerWithIdComponent {
     const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
 
     this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebsDropDown = selectedItems
           .map(item => {
             const capacity =
@@ -163,6 +163,7 @@ export class NewZaerWithIdComponent {
           const entryExitDate: CreateUpdateEntryExitZaerDto = {
             zaerId: x.id,
             entryDate: entryDate,
+            exitAfterDate:this.form.get('entryExitDate')?.value.key,
             exitDate: exitDate,
             mokebId: x.mokebId,
           };
@@ -186,6 +187,7 @@ export class NewZaerWithIdComponent {
         const entryExitDate: CreateUpdateEntryExitZaerDto = {
           zaerId: x.id,
           entryDate: entryDate,
+          exitAfterDate:this.form.get('entryExitDate')?.value.key,
           exitDate: exitDate,
           mokebId: x.mokebId,
         };

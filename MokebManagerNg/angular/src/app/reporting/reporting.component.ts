@@ -41,7 +41,7 @@ export class ReportingComponent {
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.mokebService.getMokebCapacityToNight().subscribe(mokeb => {
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokeb => {
       mokeb.forEach(item => {
         this.mokebFreeNightName.push(item.mokeb.name);
         this.mokebFreeNightCapacity.push(item.freeCapacityToNight);

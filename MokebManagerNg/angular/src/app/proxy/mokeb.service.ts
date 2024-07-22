@@ -54,10 +54,10 @@ export class MokebService {
     { apiName: this.apiName,...config });
   
 
-  getMokebCapacityToNight = (config?: Partial<Rest.Config>) =>
+  getMokebFreeCapacityToNight = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, MokebCapacityDto[]>({
       method: 'GET',
-      url: '/api/app/mokeb/mokeb-capacity-to-night',
+      url: '/api/app/mokeb/mokeb-free-capacity-to-night',
     },
     { apiName: this.apiName,...config });
   

@@ -107,7 +107,7 @@ export class NewZaerComponent implements OnInit {
 
   private getMokebsInformation() {
     this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebService.getAllList().subscribe(mokeb => {
           this.mokebs = mokeb.items;
           this.mokebsDropDown = mokeb.items.map(item => ({
@@ -126,7 +126,7 @@ export class NewZaerComponent implements OnInit {
     const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
 
     this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebsDropDown = selectedItems
           .map(item => {
             const capacity =
@@ -161,7 +161,7 @@ export class NewZaerComponent implements OnInit {
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate').value.key);
 
-    this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
       if (mokebCapacity.find(e => e.mokebId === formValue.mokebId)?.freeCapacityToNight > 0) {
         if (formValue.image) {
           const formData = new FormData();
@@ -194,6 +194,7 @@ export class NewZaerComponent implements OnInit {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
+          exitAfterDate:this.form.get('entryExitDate').value.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitZaerService.create(entryExitDate).subscribe(() => {
