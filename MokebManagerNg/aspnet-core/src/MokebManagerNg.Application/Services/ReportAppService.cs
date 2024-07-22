@@ -183,16 +183,16 @@ public class ReportAppService : ApplicationService
 
 
 
-    public static string ConvertUtcToJalali(DateTime utcDateTime)
+    public static string ConvertUtcToJalali(DateTime? DateTime )
     {
         PersianCalendar persianCalendar = new PersianCalendar();
 
-        int year = persianCalendar.GetYear(utcDateTime);
-        int month = persianCalendar.GetMonth(utcDateTime);
-        int day = persianCalendar.GetDayOfMonth(utcDateTime);
-        int hour = persianCalendar.GetHour(utcDateTime);
-        int minute = persianCalendar.GetMinute(utcDateTime);
-        int second = persianCalendar.GetSecond(utcDateTime);
+        int year = persianCalendar.GetYear((DateTime)DateTime);
+        int month = persianCalendar.GetMonth((DateTime)DateTime);
+        int day = persianCalendar.GetDayOfMonth((DateTime)DateTime);
+        int hour = persianCalendar.GetHour((DateTime)DateTime);
+        int minute = persianCalendar.GetMinute((DateTime)DateTime);
+        int second = persianCalendar.GetSecond((DateTime)DateTime);
 
         return $"{year}/{month:D2}/{day:D2} {hour:D2}:{minute:D2}";
     }
