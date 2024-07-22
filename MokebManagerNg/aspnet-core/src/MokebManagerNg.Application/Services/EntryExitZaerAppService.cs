@@ -72,6 +72,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         await _entryExitListCache.RemoveAsync(cacheKey);
 
         var entryExits = await GetAsync(zaerId);
+        var dateNow = DateTime.Now;
         var updateEntryExit = await UpdateAsync(entryExits.Id, new CreateUpdateEntryExitZaerDto()
         {
             ZaerId = zaerId,
