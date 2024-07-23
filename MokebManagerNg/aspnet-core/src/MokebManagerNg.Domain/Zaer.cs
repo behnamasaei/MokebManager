@@ -8,7 +8,6 @@ namespace MokebManagerNg;
 public class Zaer : AggregateRoot<Guid>
 {
     public string? Name { get; set; }
-    public string? Family { get; set; }
     public Gender Gender { get; set; }
     public virtual ICollection<EntryExitZaer>? EntryExitZaerDates { get; set; }
     public virtual ICollection<ClockEntryExit>? ClockEntryExits { get; set; }

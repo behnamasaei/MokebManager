@@ -6245,18 +6245,6 @@
           "regex": null
         },
         {
-          "name": "Family",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "Gender",
           "jsonName": null,
           "type": "MokebManagerNg.Gender",
@@ -6651,18 +6639,6 @@
       "properties": [
         {
           "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Family",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -7252,18 +7228,6 @@
           "regex": null
         },
         {
-          "name": "Family",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "Gender",
           "jsonName": null,
           "type": "MokebManagerNg.Gender",
@@ -7391,18 +7355,6 @@
       "properties": [
         {
           "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Family",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",

@@ -11,7 +11,6 @@ namespace MokebManagerNg.Domain.CreateUpdateDtos;
 public class CreateUpdateZaerDto
 {
     public string? Name { get; set; }
-    public string? Family { get; set; }
     [Required]
     public Gender Gender { get; set; }
     [Required]

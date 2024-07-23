@@ -95,7 +95,6 @@ export class UpdateZaerComponent implements OnInit {
         const city = this.citiesOfProvince?.filter(x => x.name === zaer.city)[0];
         this.form.patchValue({
           name: zaer.name,
-          family: zaer.family,
           gender: zaer.gender,
           passportNo: zaer.passportNo,
           mokebId: zaer.mokebId,

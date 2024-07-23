@@ -140,7 +140,7 @@ public class ReportAppService : ApplicationService
         // Array of strings to print
         var zaerCard = new string[]
         {
-        $"نام و نام خانوادگی: {_zaer.Name} {_zaer.Family}",
+        $"نام و نام خانوادگی: {_zaer.Name} ",
         $"{_zaer.PassportNo} :شماره پاسپورت",
         $"موکب: {_zaer.Mokeb.Name}",
         $"{_zaer.MokebState.State} :جایگاه",
@@ -183,7 +183,7 @@ public class ReportAppService : ApplicationService
 
 
 
-    public static string ConvertUtcToJalali(DateTime? DateTime )
+    public static string ConvertUtcToJalali(DateTime? DateTime)
     {
         PersianCalendar persianCalendar = new PersianCalendar();
 
@@ -216,7 +216,6 @@ public class ReportAppService : ApplicationService
         return new ReportDataDto
         {
             Name = "بهنام",
-            Family = "آسایی",
             Mokeb = "امام رضا (ع)",
             PassportID = "sdfwe234",
             Prdate = DateTime.Now.ToString("HH/MM/DD")

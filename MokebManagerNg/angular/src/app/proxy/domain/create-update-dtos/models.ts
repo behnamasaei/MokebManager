@@ -1,4 +1,4 @@
-import type { Gender } from '../../gender.enum'; 
+import type { Gender } from '../../gender.enum';
 
 export interface CreateUpdateEntryExitZaerDto {
   zaerId?: string;

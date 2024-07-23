@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalizationService } from '@abp/ng.core';
 import { Gender } from '@proxy/gender.enum';
 import {
+  CreateUpdateMokebStateDto,
   CreateZaerDto,
   EntryExitZaerService,
   FileService,
   MokebCapacityDto,
   MokebService,
+  MokebStateService,
   UploadFileDto,
   ZaerService,
 } from '@proxy';
@@ -22,13 +24,15 @@ import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { Title } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'app-new-zaer-with-id',
   standalone: true,
   imports: [SharedModule],
   templateUrl: './new-zaer-with-id.component.html',
-  styleUrl: './new-zaer-with-id.component.scss',
+  styleUrls: ['./new-zaer-with-id.component.scss'],
   providers: [MessageService],
 })
 export class NewZaerWithIdComponent {
@@ -45,7 +49,15 @@ export class NewZaerWithIdComponent {
   scanShow: boolean = false;
   allProvinces: any[];
   citiesOfProvince: any[];
+  hasDevices: boolean;
+  hasPermission: boolean;
+  availableDevices: MediaDeviceInfo[];
+  currentDevice: MediaDeviceInfo;
   @ViewChild('fileUpload') fileUpload: FileUpload;
+  @ViewChild('scanner', { static: false }) scanner: ZXingScannerComponent;
+
+  hasDevices$ = new BehaviorSubject<boolean>(false);
+  hasPermission$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private fb: FormBuilder,
@@ -55,20 +67,39 @@ export class NewZaerWithIdComponent {
     private zaerService: ZaerService,
     private messageService: MessageService,
     private fileService: FileService,
-    private titleService: Title
+    private titleService: Title,
+    private mokebStateService: MokebStateService
   ) {}
 
   ngOnInit() {
+    this.initializeTitle();
+    this.initializeEntryExitOptions();
+    this.initializeForm();
+    this.loadGenders();
+    this.loadAllProvinces();
+    this.getMokebsInformation();
+  }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.fetchInitForm();
+  }
+
+  private initializeTitle() {
     this.titleService.setTitle('مدیریت موکب | زائر جدید با شناسه');
+  }
+
+  private initializeEntryExitOptions() {
     this.entryExitOptions = [
       { name: '1 شب', key: '1' },
       { name: '2 شب', key: '2' },
       { name: '3 شب', key: '3' },
     ];
+  }
 
+  private initializeForm() {
     this.form = this.fb.group({
       name: [null],
-      family: [null],
       gender: [null, Validators.required],
       image: [null],
       passportNo: [null, Validators.required],
@@ -79,7 +110,9 @@ export class NewZaerWithIdComponent {
       city: [null],
       address: [null],
     });
+  }
 
+  private loadGenders() {
     this.localizationService.get('::Female').subscribe(female => {
       this.localizationService.get('::Male').subscribe(male => {
         this.genders = [
@@ -88,23 +121,22 @@ export class NewZaerWithIdComponent {
         ];
       });
     });
-
-    let iranCity = require('iran-city');
-    this.allProvinces = iranCity.allProvinces();
-
-    this.getMokebsInformation();
   }
 
-  ngAfterViewInit(): void {
-    this.fetchInitForm();
+  private loadAllProvinces() {
+    const iranCity = require('iran-city');
+    this.allProvinces = iranCity.allProvinces();
+  }
+
+  getCitiesOfProvice(event) {
+    const iranCity = require('iran-city');
+    this.citiesOfProvince = iranCity.citiesOfProvince(event.value.id);
   }
 
   private fetchInitForm() {
-    if (environment.mokebGenderReseption === 'Male') {
-      this.form.patchValue({ gender: this.genders[0].value });
-    } else if (environment.mokebGenderReseption === 'Female') {
-      this.form.patchValue({ gender: this.genders[1].value });
-    }
+    const genderReception = environment.mokebGenderReseption;
+    const genderValue = genderReception === 'Male' ? this.genders[0].value : this.genders[1].value;
+    this.form.patchValue({ gender: genderValue });
   }
 
   getMokebsInformation() {
@@ -112,41 +144,50 @@ export class NewZaerWithIdComponent {
       this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebService.getAllList().subscribe(mokeb => {
           this.mokebs = mokeb.items;
-          this.mokebsDropDown = mokeb.items.map(item => ({
-            label: `${item.name} - ${localization} : ${
-              mokebCapacity.find(x => x.mokebId === item.id).freeCapacityToNight
-            }`,
-            value: item.id,
-          }));
+          this.populateMokebsDropDown(mokebCapacity, localization);
           this.changeGender();
         });
       });
     });
   }
 
+  private populateMokebsDropDown(mokebCapacity, localization) {
+    this.mokebsDropDown = this.mokebs.map(item => ({
+      label: `${item.name} - ${localization} : ${
+        mokebCapacity.find(x => x.mokebId === item.id).freeCapacityToNight
+      }`,
+      value: item.id,
+    }));
+  }
+
   changeGender() {
-    const selectedItems = this.mokebs.filter(item => item.gender === this.form.value.gender);
+    const selectedGender = this.form.value.gender;
+    const selectedItems = this.mokebs.filter(item => item.gender === selectedGender);
 
     this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
-      this.mokebsDropDown = selectedItems
-        .map(item => {
-          const capacity = mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight || 0;
-          return {
-            label: `${item.name} - ظرفیت باقی مانده: ${capacity}`,
-            value: item.id,
-            freeCapacityToNight: capacity,
-          };
-        })
-        .filter(item => item.freeCapacityToNight > 0)
-        .map(item => ({
-          label: item.label,
-          value: item.value,
-        }));
-
-      if (this.mokebsDropDown.length > 0) {
-        this.form.patchValue({ mokebId: this.mokebsDropDown[0].value });
-      }
+      this.updateMokebsDropDown(selectedItems, mokebCapacity);
+      this.setInitialMokebId();
     });
+  }
+
+  private updateMokebsDropDown(selectedItems, mokebCapacity) {
+    this.mokebsDropDown = selectedItems
+      .map(item => {
+        const capacity = mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight || 0;
+        return {
+          label: `${item.name} - ظرفیت باقی مانده: ${capacity}`,
+          value: item.id,
+          freeCapacityToNight: capacity,
+        };
+      })
+      .filter(item => item.freeCapacityToNight > 0)
+      .map(item => ({ label: item.label, value: item.value }));
+  }
+
+  private setInitialMokebId() {
+    if (this.mokebsDropDown.length > 0) {
+      this.form.patchValue({ mokebId: this.mokebsDropDown[0].value });
+    }
   }
 
   onFileSelected(event) {
@@ -158,69 +199,83 @@ export class NewZaerWithIdComponent {
   }
 
   onSubmit() {
-    // const formValue: CreateUpdateZaerDto = this.form.value as CreateUpdateZaerDto;
+    const formValue = this.prepareFormValue();
+    const entryDate = this.getEntryDate();
+    const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
+
+    if (formValue.image) {
+      this.uploadImage(formValue, entryDate, exitDate);
+      this.createZaerWithId(formValue, entryDate, exitDate);
+    } else {
+      this.createZaerWithId(formValue, entryDate, exitDate);
+    }
+  }
+
+  private prepareFormValue(): CreateZaerDto | any {
     const formValue: CreateZaerDto | any = { ...this.form.value };
     formValue.city = formValue.city?.name ?? '';
     formValue.state = formValue.state?.name ?? '';
     formValue.id = this.scanResult;
-    const entryDate = this.getEntryDate();
-    const exitDate = this.getExitDate(this.form.get('entryExitDate')?.value.key);
+    return formValue;
+  }
 
-    if (formValue.image != null) {
-      const formData = new FormData();
-      formData.append('File', formValue.image, formValue.image.name);
-      formData.append('Name', formValue.image.name); // Example of adding additional form data
+  private uploadImage(formValue, entryDate, exitDate) {
+    const formData = new FormData();
+    formData.append('File', formValue.image, formValue.image.name);
+    formData.append('Name', formValue.image.name);
 
-      this.fileService.saveBlobStream(formData).subscribe(file => {
-        formValue.imageFileName = file;
-        this.zaerService.createNewWithId(formValue).subscribe(x => {
-          const entryExitDate: CreateUpdateEntryExitZaerDto = {
-            zaerId: x.id,
-            entryDate: entryDate,
-            exitAfterDate: this.form.get('entryExitDate')?.value.key,
-            exitDate: exitDate,
-            mokebId: x.mokebId,
-          };
-          this.entryExitZaerService.create(entryExitDate).subscribe(x => {
-            this.form.reset();
-            this.fileUpload.clear();
-            this.scanShow = false;
-            this.scanResult = null;
-            this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Success',
-              life: 1000,
-            });
-          });
-        });
-      });
-    } else {
-      this.zaerService.createNewWithId(formValue).subscribe(x => {
-        const entryExitDate: CreateUpdateEntryExitZaerDto = {
-          zaerId: x.id,
-          entryDate: entryDate,
-          exitAfterDate: this.form.get('entryExitDate')?.value.key,
-          exitDate: exitDate,
-          mokebId: x.mokebId,
+    this.fileService.saveBlobStream(formData).subscribe(file => {
+      formValue.imageFileName = file;
+      this.createZaerWithId(formValue, entryDate, exitDate);
+    });
+  }
+
+  private createZaerWithId(formValue, entryDate, exitDate) {
+    this.zaerService.createNewWithId(formValue).subscribe(zaerRes => {
+      const entryExitDate: CreateUpdateEntryExitZaerDto = {
+        zaerId: zaerRes.id,
+        entryDate: entryDate,
+        exitAfterDate: this.form.get('entryExitDate')?.value.key,
+        exitDate: exitDate,
+        mokebId: zaerRes.mokebId,
+      };
+
+      this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+        const mokebStateInput: CreateUpdateMokebStateDto = {
+          zaerId: zaerRes.id,
+          mokebId: zaerRes.mokebId,
+          state: freeStateRes,
         };
-        this.entryExitZaerService.create(entryExitDate).subscribe(x => {
-          this.form.reset();
-          this.fileUpload.clear();
-          this.scanShow = false;
-          this.scanResult = null;
 
-          this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Success',
-            life: 1000,
-          });
-        });
+        this.mokebStateService.create(mokebStateInput).subscribe();
       });
-    }
+
+      this.createEntryExitZaer(entryExitDate);
+    });
+  }
+
+  private createEntryExitZaer(entryExitDate: CreateUpdateEntryExitZaerDto) {
+    this.entryExitZaerService.create(entryExitDate).subscribe(() => {
+      this.resetForm();
+      this.showMessage('Success', 'Success');
+    });
+  }
+
+  private resetForm() {
+    this.form.reset();
+    this.fileUpload.clear();
+    this.scanShow = false;
+    this.scanResult = null;
+    this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+  }
+
+  private showMessage(summary: string, detail: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: summary,
+      detail: detail,
+      life: 1000,
+    });
   }
 
   getEntryDate(): string {
@@ -228,25 +283,6 @@ export class NewZaerWithIdComponent {
   }
 
   getExitDate(exitDate: number): string {
-    const exitDaysAfter = moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000[Z]'); // Two days after current UTC date
-
-    return exitDaysAfter;
-  }
-
-  handleScanSuccess(result: string): void {
-    if (this.isValidGuid(result)) {
-      this.scanResult = result;
-      this.scanShow = false;
-    }
-  }
-
-  isValidGuid(guid: string): boolean {
-    const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    return guidRegex.test(guid);
-  }
-
-  getCitiesOfProvice(event) {
-    let iranCity = require('iran-city');
-    this.citiesOfProvince = iranCity.citiesOfProvince(event.value.id);
+    return moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000');
   }
 }

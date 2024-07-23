@@ -80,7 +80,6 @@ export class NewZaerComponent implements OnInit {
   private initializeForm() {
     this.form = this.fb.group({
       name: [null],
-      family: [null],
       gender: [null, Validators.required],
       image: [null],
       passportNo: [null, Validators.required],
@@ -196,25 +195,27 @@ export class NewZaerComponent implements OnInit {
   }
 
   private saveZaer(formValue: CreateZaerDto, entryDate: string, exitDate: string) {
-    this.zaerService.create(formValue).subscribe(zaer => {
-      const mokebStateInput: CreateUpdateMokebStateDto = {
-        zaerId: zaer.id,
-        mokebId: zaer.mokebId,
-        state: 1,
-      };
-
-      this.mokebStateService.create(mokebStateInput).subscribe(() => {
-        const entryExitDate: CreateUpdateEntryExitZaerDto = {
-          zaerId: zaer.id,
-          entryDate: entryDate,
-          exitDate: exitDate,
-          exitAfterDate: this.form.get('entryExitDate').value.key,
-          mokebId: zaer.mokebId,
+    this.zaerService.create(formValue).subscribe(zaerRes => {
+      this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+        const mokebStateInput: CreateUpdateMokebStateDto = {
+          zaerId: zaerRes.id,
+          mokebId: zaerRes.mokebId,
+          state: freeStateRes,
         };
-        this.entryExitZaerService.create(entryExitDate).subscribe(() => {
-          this.showMessage('success', 'Success', 'Success');
-          this.resetForm();
-          this.printZaerCard(zaer.id);
+
+        this.mokebStateService.create(mokebStateInput).subscribe(() => {
+          const entryExitDate: CreateUpdateEntryExitZaerDto = {
+            zaerId: zaerRes.id,
+            entryDate: entryDate,
+            exitDate: exitDate,
+            exitAfterDate: this.form.get('entryExitDate').value.key,
+            mokebId: zaerRes.mokebId,
+          };
+          this.entryExitZaerService.create(entryExitDate).subscribe(() => {
+            this.showMessage('success', 'Success', 'Success');
+            this.resetForm();
+            this.printZaerCard(zaerRes.id);
+          });
         });
       });
     });
