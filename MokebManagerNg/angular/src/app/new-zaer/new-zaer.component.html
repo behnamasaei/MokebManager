@@ -52,18 +52,6 @@
     </div>
 
     <div class="p-field mb-3">
-      <label for="image">{{ '::Image' | abpLocalization }}</label>
-      <p-fileUpload
-        #fileUpload
-        name="image"
-        accept="image/*"
-        customUpload
-        (onSelect)="onFileSelected($event)"
-        auto
-      ></p-fileUpload>
-    </div>
-
-    <div class="p-field mb-3">
       <label for="name">{{ '::Name' | abpLocalization }}</label>
       <input id="name" type="text" pInputText formControlName="name" />
     </div>
@@ -80,7 +68,19 @@
 
     <div class="card flex justify-content-center mt-3">
       <p-accordion>
-        <p-accordionTab header="{{ '::AdditionalInformation' | abpLocalization }}">
+        <p-accordionTab header="اطلاعات تکمیلی">
+          <div class="p-field mb-3">
+            <label for="image">{{ '::Image' | abpLocalization }}</label>
+            <p-fileUpload
+              #fileUpload
+              name="image"
+              accept="image/*"
+              customUpload
+              (onSelect)="onFileSelected($event)"
+              auto
+            ></p-fileUpload>
+          </div>
+
           <div class="p-field mb-3">
             <p-dropdown
               [options]="allProvinces"
