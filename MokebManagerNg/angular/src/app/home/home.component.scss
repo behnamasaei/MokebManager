@@ -29,4 +29,13 @@
       width: 100%; // Ensures the element takes full width
     }
   }
+
+  $mobile-max: 767px;
+
+  // Hide element on mobile screens
+  @media (max-width: $mobile-max) {
+    .hideOnMobile {
+      display: none;
+    }
+  }
 }
