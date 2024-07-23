@@ -1,9 +1,6 @@
 import { CoreModule } from '@abp/ng.core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { ThemeSharedModule } from '@abp/ng.theme.shared';
-import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -18,7 +15,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { AccordionModule } from 'primeng/accordion';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { PanelModule } from 'primeng/panel';
 import { SpeedDialModule } from 'primeng/speeddial';
@@ -44,6 +40,13 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputMaskModule } from 'primeng/inputmask';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideDateFnsAdapter } from 'ngx-material-date-fns-adapter';
 
 const primeNgModules = [
   TableModule,
@@ -83,10 +86,9 @@ const primeNgModules = [
 @NgModule({
   declarations: [],
   imports: [
+    CommonModule,
     CoreModule,
     ThemeSharedModule,
-    NgbDropdownModule,
-    NgxValidateCoreModule,
     BarcodeScannerLivestreamModule,
     PageModule,
     FormsModule,
@@ -96,14 +98,15 @@ const primeNgModules = [
     CommonModule,
     CoreModule,
     ThemeSharedModule,
-    NgbDropdownModule,
-    NgxValidateCoreModule,
     BarcodeScannerLivestreamModule,
     ZXingScannerModule,
     PageModule,
     FormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
     ...primeNgModules,
   ],
-  providers: [],
+  providers: [provideNativeDateAdapter(), provideDateFnsAdapter()],
 })
 export class SharedModule {}

@@ -23,6 +23,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { FooterComponent } from './footer/footer.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './shared/ErrorInterceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { ErrorInterceptor } from './shared/ErrorInterceptor';
     APP_ROUTE_PROVIDER,
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     provideClientHydration(),
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

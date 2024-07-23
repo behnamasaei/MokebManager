@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { EntryExitZaerService, MokebService } from '@proxy';
 import { MokebDto } from '@proxy/domain/dtos';
 import { Title } from '@angular/platform-browser';
+import { DateAdapter } from '@angular/material/core';
+import { enUS, faIR } from 'date-fns/locale';
 
 @Component({
   selector: 'app-reporting',
@@ -10,8 +12,11 @@ import { Title } from '@angular/platform-browser';
   imports: [SharedModule],
   templateUrl: './reporting.component.html',
   styleUrl: './reporting.component.scss',
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class ReportingComponent {
+  startDate: any;
+  endDate: any;
   rangeDates: any;
   mokebData: any;
   mokebFreeCapacityData: any;
@@ -36,10 +41,12 @@ export class ReportingComponent {
   constructor(
     private mokebService: MokebService,
     private entryExitService: EntryExitZaerService,
-    private titleService: Title
+    private titleService: Title,
+    private _adapter: DateAdapter<any>
   ) {}
 
   ngOnInit() {
+    this._adapter.setLocale(faIR);
     this.titleService.setTitle('مدیریت موکب | گزارشگیری');
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -141,7 +148,7 @@ export class ReportingComponent {
   }
 
   searchInRangeDate() {
-    if (!this.rangeDates) return;
+    // if (!this.rangeDates) return;
 
     const mokebName: string[] = [];
     const mokebReservation: number[] = [];
@@ -158,7 +165,7 @@ export class ReportingComponent {
           const reservationCount = selectedEntryExit.filter(x => {
             const entryDate = new Date(x.entryDate);
             const exitDate = new Date(x.exitDate);
-            return this.rangeDates[0] <= entryDate && this.rangeDates[1] >= entryDate;
+            return this.startDate <= entryDate && this.endDate >= entryDate;
           }).length;
 
           mokebReservation.push(reservationCount);
