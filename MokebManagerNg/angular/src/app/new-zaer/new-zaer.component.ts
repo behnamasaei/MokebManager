@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-new-zaer',
@@ -62,6 +63,18 @@ export class NewZaerComponent implements OnInit {
     this.loadGenders();
     this.loadProvinces();
     this.getMokebsInformation();
+  }
+
+  ngAfterViewInit(): void {
+    this.fetchInitForm();
+  }
+
+  private fetchInitForm() {
+    if (environment.mokebGenderReseption === 'Male') {
+      this.form.patchValue({ gender: this.genders[0].value });
+    } else if (environment.mokebGenderReseption === 'Female') {
+      this.form.patchValue({ gender: this.genders[1].value });
+    }
   }
 
   private initializeForm() {
@@ -116,33 +129,34 @@ export class NewZaerComponent implements OnInit {
             }`,
             value: item.id,
           }));
+          this.changeGender();
         });
       });
     });
   }
 
-  changeGender(event: any) {
-    const genderValue = event.value;
-    const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
+  changeGender() {
+    const selectedItems = this.mokebs.filter(item => item.gender === this.form.value.gender);
 
-    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
-        this.mokebsDropDown = selectedItems
-          .map(item => {
-            const capacity =
-              mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight ?? 0;
-            return {
-              label: `${item.name} - ${localization}: ${capacity}`,
-              value: item.id,
-              freeCapacityToNight: capacity,
-            };
-          })
-          .filter(item => item.freeCapacityToNight > 0)
-          .map(item => ({
-            label: item.label,
-            value: item.value,
-          }));
-      });
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebsDropDown = selectedItems
+        .map(item => {
+          const capacity = mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight ?? 0;
+          return {
+            label: `${item.name} - ظرفیت باقی مانده: ${capacity}`,
+            value: item.id,
+            freeCapacityToNight: capacity,
+          };
+        })
+        .filter(item => item.freeCapacityToNight > 0)
+        .map(item => ({
+          label: item.label,
+          value: item.value,
+        }));
+
+      if (this.mokebsDropDown.length > 0) {
+        this.form.patchValue({ mokebId: this.mokebsDropDown[0].value });
+      }
     });
   }
 
@@ -194,7 +208,7 @@ export class NewZaerComponent implements OnInit {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
-          exitAfterDate:this.form.get('entryExitDate').value.key,
+          exitAfterDate: this.form.get('entryExitDate').value.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitZaerService.create(entryExitDate).subscribe(() => {

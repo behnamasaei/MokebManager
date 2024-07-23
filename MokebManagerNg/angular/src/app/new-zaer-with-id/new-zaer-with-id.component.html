@@ -29,7 +29,7 @@
         [options]="genders"
         formControlName="gender"
         placeholder="{{ '::SelectGender' | abpLocalization }}"
-        (onChange)="changeGender($event)"
+        (onChange)="changeGender()"
       ></p-dropdown>
       <small class="required">* {{ '::requiredField' | abpLocalization }}</small>
     </div>

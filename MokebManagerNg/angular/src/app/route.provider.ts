@@ -15,13 +15,7 @@ function configureRoutes(routesService: RoutesService) {
         order: 1,
         layout: eLayoutType.application,
       },
-      {
-        path: '/settings/mokeb',
-        name: '::MokebSettings',
-        iconClass: 'pi pi-building',
-        order: 2,
-        layout: eLayoutType.application,
-      },
+
       {
         path: '/new-zaer',
         name: '::NewZaer',
@@ -70,6 +64,20 @@ function configureRoutes(routesService: RoutesService) {
         name: 'ثبت خروج',
         iconClass: 'pi pi-calendar-minus',
         order: 2,
+        layout: eLayoutType.application,
+      },
+      {
+        path: '/settings/mokeb',
+        name: 'مدیریت موکب ها',
+        iconClass: 'pi pi-building',
+        order: 48,
+        layout: eLayoutType.application,
+      },
+      {
+        path: '/settings/mokeb-settings',
+        name: 'تنظیمات',
+        iconClass: 'pi pi-building',
+        order: 49,
         layout: eLayoutType.application,
       },
       {

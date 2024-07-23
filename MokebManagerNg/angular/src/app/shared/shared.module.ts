@@ -47,6 +47,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideDateFnsAdapter } from 'ngx-material-date-fns-adapter';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 const primeNgModules = [
   TableModule,
@@ -81,6 +82,7 @@ const primeNgModules = [
   InputMaskModule,
   PasswordModule,
   CheckboxModule,
+  SelectButtonModule,
 ];
 
 @NgModule({
