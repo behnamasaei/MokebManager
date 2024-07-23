@@ -4,6 +4,7 @@ import { MokebComponent } from './mokeb/mokeb.component';
 import { SettingsComponent } from './settings.component';
 import { CreateUpdateMokebComponent } from './create-update-mokeb/create-update-mokeb.component';
 import { permissionGuard } from '@abp/ng.core';
+import { MokebSettingsComponent } from './mokeb-settings/mokeb-settings.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
         // data: {
         //   requiredPolicy: 'MokebManagerNg.MokebCreate', // policy key for your component
         // },
+      },
+      {
+        path: 'mokeb-settings',
+        component: MokebSettingsComponent,
       },
     ],
   },
