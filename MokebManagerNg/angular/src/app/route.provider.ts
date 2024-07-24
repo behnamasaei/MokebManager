@@ -15,13 +15,13 @@ function configureRoutes(routesService: RoutesService) {
         order: 1,
         layout: eLayoutType.application,
       },
-      {
-        path: '/barcodescanner',
-        name: 'barcodescanner',
-        iconClass: 'fas fa-home',
-        order: 1,
-        layout: eLayoutType.application,
-      },
+      // {
+      //   path: '/barcodescanner',
+      //   name: 'barcodescanner',
+      //   iconClass: 'fas fa-home',
+      //   order: 1,
+      //   layout: eLayoutType.application,
+      // },
       {
         path: '/new-zaer',
         name: '::NewZaer',

@@ -48,6 +48,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideDateFnsAdapter } from 'ngx-material-date-fns-adapter';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
 
 const primeNgModules = [
   TableModule,
@@ -86,7 +87,7 @@ const primeNgModules = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [BarcodeScannerComponent],
   imports: [
     CommonModule,
     CoreModule,
@@ -107,6 +108,7 @@ const primeNgModules = [
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
+    BarcodeScannerComponent,
     ...primeNgModules,
   ],
   providers: [provideNativeDateAdapter(), provideDateFnsAdapter()],

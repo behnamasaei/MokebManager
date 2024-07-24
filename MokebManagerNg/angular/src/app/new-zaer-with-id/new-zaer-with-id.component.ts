@@ -26,6 +26,7 @@ import { Title } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
 
 @Component({
   selector: 'app-new-zaer-with-id',
@@ -55,6 +56,7 @@ export class NewZaerWithIdComponent {
   currentDevice: MediaDeviceInfo;
   @ViewChild('fileUpload') fileUpload: FileUpload;
   @ViewChild('scanner', { static: false }) scanner: ZXingScannerComponent;
+  @ViewChild(BarcodeScannerComponent) barcodescanner: BarcodeScannerComponent;
 
   hasDevices$ = new BehaviorSubject<boolean>(false);
   hasPermission$ = new BehaviorSubject<boolean>(false);
@@ -83,6 +85,12 @@ export class NewZaerWithIdComponent {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     this.fetchInitForm();
+  }
+
+  handleScanResult(result: string): void {
+    this.scanResult = result;
+    console.log('Received scan result:', result);
+    // Additional logic to handle the scanned result
   }
 
   private initializeTitle() {

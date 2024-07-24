@@ -1,20 +1,19 @@
 <!-- clock-example.component.html -->
 <p-toast />
 
-<zxing-scanner
-  style="width: 60%; align-self: center"
-  *ngIf="scanShow"
-  #scanner
-  [ngStyle]="styleScanner"
-  (scanSuccess)="handleScanSuccess($event)"
-  [device]="currentDevice"
-  [formats]="['QR_CODE']"
-  [torch]="true"
-></zxing-scanner>
+<app-barcode-scanner (scanResultEvent)="handleScanResult($event)"></app-barcode-scanner>
 
-<button type="button" (click)="scanShow = true" pButton label="اسکن بارکد" class="mb-3"></button>
+<div *ngIf="scanResult !== null">
+  <p>QrCode: {{ scanResult }}</p>
 
-<p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+  <button
+    type="button"
+    (click)="barcodescanner.startScanning()"
+    pButton
+    label="اسکن بارکد"
+    class="mb-3"
+  ></button>
+</div>
 
 <div class="p-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
