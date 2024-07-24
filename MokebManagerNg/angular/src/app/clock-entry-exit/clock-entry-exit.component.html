@@ -1,69 +1,14 @@
-<p>clock-entry-exit works!</p>
+<p>ثبت عبور و مرور</p>
 
 <p-toast />
 
-<zxing-scanner
-  [enable]="scannerEnabled"
-  [device]="selectedDevice"
-  (scanSuccess)="onCodeScanned($event)"
-></zxing-scanner>
+<app-barcode-scanner (scanResultEvent)="handleScanResult($event)"></app-barcode-scanner>
 
-<ng-container *ngIf="availableDevices">
-  <select (change)="onDeviceSelectChange($event.target.value)">
-    <option value="" [selected]="!selectedDevice">No device selected</option>
-    <option
-      *ngFor="let device of availableDevices"
-      [value]="device.deviceId"
-      [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId"
-    >
-      {{ device.label }}
-    </option>
-  </select>
-</ng-container>
+<div>
+  <h3 class="d-flex justify-content-center" [style]="{ color: style }">
+    {{ accessResult }}<br />
+    {{ mokebName }}
+  </h3>
 
-<button (click)="toggleScanner()">{{ scannerEnabled ? 'Disable' : 'Enable' }} Scanner</button>
-
-<div
-  class="row d-flex justify-content-center"
-  style="border: 1px solid"
-  [ngStyle]="{ 'background-color': styleScanner }"
->
-  <zxing-scanner
-    style="width: 70%; align-self: center"
-    [formats]="['QR_CODE']"
-    #scanner
-    [device]="selectedDevice"
-    [torch]="torchEnabled"
-    [timeBetweenScans]="timeBetweenScansMillis"
-    (camerasFound)="onCamerasFound($event)"
-    (scanSuccess)="onCodeResult($event)"
-    (permissionResponse)="onHasPermission($event)"
-    (torchCompatible)="onTorchCompatible($event)"
-  ></zxing-scanner>
-
-  <button (click)="toggleTorch()">چراغ قوه</button>
-
-  <p *ngIf="scanResult !== null">موکب: {{ scanResult }}</p>
-
-  <button
-    *ngIf="scanResult !== null"
-    type="button"
-    (click)="save()"
-    pButton
-    label="بررسی و ثبت"
-    class="mb-3"
-  ></button>
+  <button type="button" (click)="barcodeScan()" pButton label="اسکن بارکد" class="mb-3"></button>
 </div>
-
-<audio #audioPlayerError>
-  <source src="assets/voice/error-126627.mp3" type="audio/mp3" />
-  Your browser does not support the audio element.
-</audio>
-
-<audio #audioPlayerSuccess>
-  <source
-    src="assets/voice/short-success-sound-glockenspiel-treasure-video-game-6346.mp3"
-    type="audio/mp3"
-  />
-  Your browser does not support the audio element.
-</audio>
