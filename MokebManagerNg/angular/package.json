@@ -42,6 +42,8 @@
     "@angular/ssr": "^17.1.4",
     "@auth0/angular-jwt": "^5.2.0",
     "@ericblade/quagga2": "^1.8.4",
+    "@nguniversal/builders": "^16.2.0",
+    "@nguniversal/express-engine": "7.0.2",
     "@scanapp/html5-qrcode": "^0.0.9",
     "@volo/abp.ng.identity-server": "^8.2.0",
     "@zxing/browser": "^0.1.5",
