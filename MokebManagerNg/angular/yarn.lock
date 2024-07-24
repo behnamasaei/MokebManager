@@ -3289,6 +3289,11 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.19.0.tgz#baf9b65023ea2ecc5e6ec68f787a0fecfd8ee84c"
   integrity sha512-xNo5fV5ycvCCKqiZcpB65VMR11NJB+StnxHz20jdqRAktfdfzhgjTiJ2doTDQE/7dqGaV5I7ZGqKpgph6lCIag==
 
+"@scanapp/html5-qrcode@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@scanapp/html5-qrcode/-/html5-qrcode-0.0.9.tgz#1163fe7790bdaec85b573847be09f168da7578f0"
+  integrity sha512-i9yM1jhxb0d9dOy4ukBNMUNQLW0BkszVmVL8XubcLnOdQoQZJDswKNPVKlwEZFKRWe+m6T/skB7y9Ps0jcInSg==
+
 "@schematics/angular@16.2.14":
   version "16.2.14"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-16.2.14.tgz#3aac7e05b6e3919195275cf06ac403d7a3567876"
@@ -6518,6 +6523,11 @@ html-escaper@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
+
+html5-qrcode@^2.3.8:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/html5-qrcode/-/html5-qrcode-2.3.8.tgz#0b0cdf7a9926cfd4be530e13a51db47592adfa0d"
+  integrity sha512-jsr4vafJhwoLVEDW3n1KvPnCCXWaQfRng0/EEYk1vNcQGcG/htAdhJX0be8YyqMoSz7+hZvOZSTAepsabiuhiQ==
 
 htmlparser2@^8.0.2:
   version "8.0.2"

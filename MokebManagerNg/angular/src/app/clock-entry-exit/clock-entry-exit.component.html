@@ -2,6 +2,27 @@
 
 <p-toast />
 
+<zxing-scanner
+  [enable]="scannerEnabled"
+  [device]="selectedDevice"
+  (scanSuccess)="onCodeScanned($event)"
+></zxing-scanner>
+
+<ng-container *ngIf="availableDevices">
+  <select (change)="onDeviceSelectChange($event.target.value)">
+    <option value="" [selected]="!selectedDevice">No device selected</option>
+    <option
+      *ngFor="let device of availableDevices"
+      [value]="device.deviceId"
+      [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId"
+    >
+      {{ device.label }}
+    </option>
+  </select>
+</ng-container>
+
+<button (click)="toggleScanner()">{{ scannerEnabled ? 'Disable' : 'Enable' }} Scanner</button>
+
 <div
   class="row d-flex justify-content-center"
   style="border: 1px solid"

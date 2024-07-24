@@ -48,12 +48,47 @@ export class ClockEntryExitComponent {
     private titleService: Title
   ) {}
 
+  scannerEnabled = false;
+  scannerError: string | null = null;
+
   ngOnInit(): void {
     this.titleService.setTitle('مدیریت موکب | ساعت عبور');
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.styleScanner = 'gainsboro';
     this.audioPlayerErrorRef.nativeElement.play();
+  }
+
+  ngAfterViewInit() {
+    if (this.scanner) {
+      this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
+        // Handle found devices
+      });
+
+      this.scanner.camerasNotFound.subscribe((error: any) => {
+        console.error('No cameras found:', error);
+        this.scannerError = 'No cameras found. Please ensure you have a working camera.';
+      });
+
+      this.scanner.permissionResponse.subscribe((answer: boolean) => {
+        this.scannerEnabled = answer;
+      });
+
+      this.scanner.scanError.subscribe((error: Error) => {
+        console.error('Scanner error:', error);
+        this.scannerError = `Scanner error: ${error.message}`;
+      });
+    }
+  }
+
+  onCodeScanned(result: string) {
+    console.log('QR Code scanned:', result);
+    // Handle the scanned result here
+  }
+
+  toggleScanner() {
+    this.scannerEnabled = !this.scannerEnabled;
+    this.scannerError = null; // Reset error when toggling
   }
 
   save() {

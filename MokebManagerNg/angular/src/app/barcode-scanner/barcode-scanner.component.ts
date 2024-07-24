@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 import { Buffer } from 'buffer';
 import * as moment from 'moment';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 
 @Component({
   selector: 'app-barcode-scanner',
@@ -15,13 +16,38 @@ export class BarcodeScannerComponent {
   scanResult: string | null = null;
   selectedDevice: MediaDeviceInfo | undefined;
   styleScanner;
+  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
 
   constructor(private renderer: Renderer2, private elRef: ElementRef) {}
-
+  private html5QrcodeScanner: Html5QrcodeScanner;
   ngOnInit(): void {
     const buffer = Buffer.from('Hello, world!');
     console.log(buffer.toString());
   }
+
+  ngAfterViewInit(): void {
+    // Initialize the Html5QrcodeScanner after the view is initialized
+    this.html5QrcodeScanner = new Html5QrcodeScanner(
+      'reader',
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      /* verbose= */ false
+    );
+
+    // Render the scanner
+    this.html5QrcodeScanner.render(this.onScanSuccess, this.onScanFailure);
+  }
+
+  // Define the onScanSuccess callback function
+  onScanSuccess = (decodedText: string, decodedResult: any) => {
+    console.log(`Code scanned = ${decodedText}`, decodedResult);
+    // Handle the scanned code here
+  };
+
+  // Define the onScanFailure callback function
+  onScanFailure = (error: any) => {
+    console.error(`Code scan failed = ${error}`);
+    // Handle scan failure here
+  };
 
   handleScanSuccess(result: string): void {
     this.scanResult = result;

@@ -1,6 +1,6 @@
 <p>barcode-scanner works!</p>
 
-<zxing-scanner
+<!-- <zxing-scanner
   [ngStyle]="styleScanner"
   (scanSuccess)="handleScanSuccess($event)"
   [device]="selectedDevice"
@@ -8,3 +8,11 @@
   [torch]="true"
 ></zxing-scanner>
 <p *ngIf="scanResult">Scanned Result: {{ scanResult }}</p>
+ -->
+<!-- some.component.html -->
+<!-- <zxing-scanner></zxing-scanner>
+
+<button (click)="startCamera()">Start Camera</button>
+<video #videoElement autoplay></video> -->
+
+<div id="reader"></div>
