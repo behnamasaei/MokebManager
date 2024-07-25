@@ -165,7 +165,7 @@ public class ReportAppService : ApplicationService
         // Array of strings to print
         var zaerCard = new string[]
         {
-        $"نام و نام خانوادگی: {_zaer.Name} {_zaer.Family}",
+        $"نام و نام خانوادگی: {_zaer.Name}",
         $"{_zaer.PassportNo} :شماره پاسپورت",
         $"موکب: {_zaer.Mokeb.Name}",
         $"{_zaer.MokebState.State} :جایگاه",
