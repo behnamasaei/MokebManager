@@ -38,6 +38,10 @@ export class ClockEntryExitComponent {
     this.titleService.setTitle('مدیریت موکب | ساعت عبور');
   }
 
+  ngAfterViewInit(): void {
+    this.barcodescanner.startScanning();
+  }
+
   handleScanResult(result: string): void {
     this.scanResult = result;
     console.log('Received scan result:', result);

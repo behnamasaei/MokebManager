@@ -2,7 +2,10 @@
 
 <p-toast />
 
-<app-barcode-scanner (scanResultEvent)="handleScanResult($event)"></app-barcode-scanner>
+<app-barcode-scanner
+  [scannerId]="'clockEntryExitId'"
+  (scanResultEvent)="handleScanResult($event)"
+></app-barcode-scanner>
 
 <div>
   <h3 class="d-flex justify-content-center" [style]="{ color: style }">
