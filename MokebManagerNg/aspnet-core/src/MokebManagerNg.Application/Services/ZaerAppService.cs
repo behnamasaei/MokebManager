@@ -48,10 +48,21 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
         return base.GetListAsync(input);
     }
 
+    public async override Task<ZaerDto> CreateAsync(CreateZaerDto input)
+    {
+        if (await _repository.AnyAsync(x => x.PassportNo == input.PassportNo))
+            throw new UserFriendlyException($"پاسپورت تکراری می باشد.", code: "307");
+        return await base.CreateAsync(input);
+    }
+
 
     // [Authorize(MokebManagerNgPermissions.ZaerCreate)]
     public async Task<ZaerDto> CreateNewWithIdAsync(CreateZaerDto input)
     {
+        if (await _repository.AnyAsync(x => x.PassportNo == input.PassportNo))
+            throw new UserFriendlyException($"پاسپورت تکراری می باشد.", code: "307");
+
+
         string cacheKey = "AllEntryExit_cache";
         await _entryExitListCache.RemoveAsync(cacheKey);
         var entity = ObjectMapper.Map<CreateZaerDto, Zaer>(input);
