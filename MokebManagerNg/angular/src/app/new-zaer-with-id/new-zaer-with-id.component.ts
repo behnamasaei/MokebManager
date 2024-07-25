@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-zaer-with-id',
@@ -73,7 +74,8 @@ export class NewZaerWithIdComponent {
     private titleService: Title,
     private mokebStateService: MokebStateService,
     private confirmationService: ConfirmationService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -242,26 +244,51 @@ export class NewZaerWithIdComponent {
   }
 
   private createZaerWithId(formValue, entryDate, exitDate) {
-    this.zaerService.createNewWithId(formValue).subscribe(zaerRes => {
-      const entryExitDate: CreateUpdateEntryExitZaerDto = {
-        zaerId: zaerRes.id,
-        entryDate: entryDate,
-        exitAfterDate: this.form.get('entryExitDate')?.value.key,
-        exitDate: exitDate,
-        mokebId: zaerRes.mokebId,
-      };
-
-      this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
-        const mokebStateInput: CreateUpdateMokebStateDto = {
+    this.zaerService.createNewWithId(formValue).subscribe(
+      zaerRes => {
+        const entryExitDate: CreateUpdateEntryExitZaerDto = {
           zaerId: zaerRes.id,
+          entryDate: entryDate,
+          exitAfterDate: this.form.get('entryExitDate')?.value.key,
+          exitDate: exitDate,
           mokebId: zaerRes.mokebId,
-          state: freeStateRes,
         };
 
-        this.mokebStateService.create(mokebStateInput).subscribe();
-      });
+        this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+          const mokebStateInput: CreateUpdateMokebStateDto = {
+            zaerId: zaerRes.id,
+            mokebId: zaerRes.mokebId,
+            state: freeStateRes,
+          };
 
-      this.createEntryExitZaer(entryExitDate);
+          this.mokebStateService.create(mokebStateInput).subscribe();
+        });
+
+        this.createEntryExitZaer(entryExitDate);
+      },
+      error => {
+        if (error.error.code === '307') {
+          this.redirectToReservation();
+        }
+      }
+    );
+  }
+
+  private redirectToReservation() {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'مشخصات تکراری می باشد به صفحه تمدید منتقل شوید؟',
+      header: 'مشخصات تکراری',
+      icon: 'pi pi-print',
+      acceptButtonStyleClass: 'p-button-success p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.router.navigate(['reservation']);
+      },
+      reject: () => {},
     });
   }
 
