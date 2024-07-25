@@ -16,7 +16,7 @@
         [options]="genders"
         formControlName="gender"
         placeholder="{{ '::SelectGender' | abpLocalization }}"
-        (onChange)="changeGender($event)"
+        (onChange)="changeGender()"
         required="true"
       ></p-dropdown>
       <small class="required">* {{ '::requiredField' | abpLocalization }}</small>
@@ -52,25 +52,8 @@
     </div>
 
     <div class="p-field mb-3">
-      <label for="image">{{ '::Image' | abpLocalization }}</label>
-      <p-fileUpload
-        #fileUpload
-        name="image"
-        accept="image/*"
-        customUpload
-        (onSelect)="onFileSelected($event)"
-        auto
-      ></p-fileUpload>
-    </div>
-
-    <div class="p-field mb-3">
-      <label for="name">{{ '::Name' | abpLocalization }}</label>
+      <label for="name">نام و نام خانوادگی</label>
       <input id="name" type="text" pInputText formControlName="name" />
-    </div>
-
-    <div class="p-field mb-3">
-      <label for="family">{{ '::Family' | abpLocalization }}</label>
-      <input id="family" type="text" pInputText formControlName="family" />
     </div>
 
     <div class="p-field mb-3">
@@ -80,7 +63,19 @@
 
     <div class="card flex justify-content-center mt-3">
       <p-accordion>
-        <p-accordionTab header="{{ '::AdditionalInformation' | abpLocalization }}">
+        <p-accordionTab header="اطلاعات تکمیلی">
+          <div class="p-field mb-3">
+            <label for="image">{{ '::Image' | abpLocalization }}</label>
+            <p-fileUpload
+              #fileUpload
+              name="image"
+              accept="image/*"
+              customUpload
+              (onSelect)="onFileSelected($event)"
+              auto
+            ></p-fileUpload>
+          </div>
+
           <div class="p-field mb-3">
             <p-dropdown
               [options]="allProvinces"

@@ -1,13 +1,23 @@
 <div class="card flex justify-content-center">
   <p-accordion [activeIndex]="0">
-    <p-accordionTab header="گزارش تعداد رزرو ها به تفکیک موکب">
+    <p-accordionTab header="گزارش تعداد پذیرش ها به تفکیک موکب">
       <div class="card flex justify-content-center align-items-center">
-        <p-calendar
+        <!-- <p-calendar
           [(ngModel)]="rangeDates"
           [showIcon]="true"
           selectionMode="range"
           [readonlyInput]="true"
-        />
+        /> -->
+
+        <mat-form-field>
+          <mat-label>بازه زمانی راانتخاب کنید</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="تاریخ شروع" [(ngModel)]="startDate" />
+            <input matEndDate placeholder="تاریخ پایان" [(ngModel)]="endDate" />
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
 
         <button
           type="button"
@@ -22,11 +32,11 @@
     </p-accordionTab>
     <p-accordionTab header="گزارش ظرفیت های موجود موکب ها" class="p-5">
       <div class="card p-5">
-        <p-chart type="bar" class="p-5" [data]="mokebData" [options]="basicOptions" />
+        <p-chart type="bar" class="p-5" [data]="mokebFreeCapacityData" [options]="basicOptions" />
       </div>
 
       <div class="card p-5">
-        <p-chart type="bar" class="p-5" [data]="mokebFreeCapacityData" [options]="basicOptions" />
+        <p-chart type="bar" class="p-5" [data]="mokebData" [options]="basicOptions" />
       </div>
     </p-accordionTab>
   </p-accordion>

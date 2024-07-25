@@ -1,19 +1,19 @@
 <!-- clock-example.component.html -->
 <p-toast />
 
-<zxing-scanner
-  style="width: 60%; align-self: center"
-  *ngIf="scanShow"
-  [ngStyle]="styleScanner"
-  (scanSuccess)="handleScanSuccess($event)"
-  [device]="selectedDevice"
-  [formats]="['QR_CODE']"
-  [torch]="true"
-></zxing-scanner>
+<app-barcode-scanner (scanResultEvent)="handleScanResult($event)"></app-barcode-scanner>
 
-<button type="button" (click)="scanShow = true" pButton label="اسکن بارکد" class="mb-3"></button>
+<div *ngIf="scanResult !== null">
+  <p>QrCode: {{ scanResult }}</p>
 
-<p *ngIf="scanResult !== null">Scanned Result: {{ scanResult }}</p>
+  <button
+    type="button"
+    (click)="barcodescanner.startScanning()"
+    pButton
+    label="اسکن بارکد"
+    class="mb-3"
+  ></button>
+</div>
 
 <div class="p-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -29,7 +29,7 @@
         [options]="genders"
         formControlName="gender"
         placeholder="{{ '::SelectGender' | abpLocalization }}"
-        (onChange)="changeGender($event)"
+        (onChange)="changeGender()"
       ></p-dropdown>
       <small class="required">* {{ '::requiredField' | abpLocalization }}</small>
     </div>
@@ -63,26 +63,8 @@
     </div>
 
     <div class="p-field mb-3">
-      <label for="image">{{ '::Image' | abpLocalization }} </label>
-      <p-fileUpload
-        #fileUpload
-        name="image"
-        accept="image/*"
-        customUpload
-        formControlName="image"
-        (onSelect)="onFileSelected($event)"
-        auto
-      ></p-fileUpload>
-    </div>
-
-    <div class="p-field mb-3">
-      <label for="name">{{ '::Name' | abpLocalization }}</label>
+      <label for="name">نام و نام خانوادگی</label>
       <input id="name" type="text" pInputText formControlName="name" />
-    </div>
-
-    <div class="p-field mb-3">
-      <label for="family">{{ '::Family' | abpLocalization }}</label>
-      <input id="family" type="text" pInputText formControlName="family" />
     </div>
 
     <div class="p-field mb-3">
@@ -92,7 +74,20 @@
 
     <div class="card flex justify-content-center mt-3">
       <p-accordion>
-        <p-accordionTab header="{{ '::AdditionalInformation' | abpLocalization }}">
+        <p-accordionTab header="اطلاعات تکمیلی">
+          <div class="p-field mb-3">
+            <label for="image">{{ '::Image' | abpLocalization }} </label>
+            <p-fileUpload
+              #fileUpload
+              name="image"
+              accept="image/*"
+              customUpload
+              formControlName="image"
+              (onSelect)="onFileSelected($event)"
+              auto
+            ></p-fileUpload>
+          </div>
+
           <div class="p-field mb-3">
             <p-dropdown
               [options]="allProvinces"

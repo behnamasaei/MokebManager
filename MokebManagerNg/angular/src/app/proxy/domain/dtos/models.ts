@@ -22,7 +22,6 @@ export interface MokebDto extends AuditedEntityDto<string> {
 
 export interface ZaerDto extends AuditedEntityDto<string> {
   name?: string;
-  family?: string;
   gender: Gender;
   entryExitZaerDates: EntryExitZaerDto[];
   clockEntryExits: ClockEntryExitDto[];

@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-new-zaer',
@@ -64,10 +65,21 @@ export class NewZaerComponent implements OnInit {
     this.getMokebsInformation();
   }
 
+  ngAfterViewInit(): void {
+    this.fetchInitForm();
+  }
+
+  private fetchInitForm() {
+    if (environment.mokebGenderReseption === 'Male') {
+      this.form.patchValue({ gender: this.genders[0].value });
+    } else if (environment.mokebGenderReseption === 'Female') {
+      this.form.patchValue({ gender: this.genders[1].value });
+    }
+  }
+
   private initializeForm() {
     this.form = this.fb.group({
       name: [null],
-      family: [null],
       gender: [null, Validators.required],
       image: [null],
       passportNo: [null, Validators.required],
@@ -107,7 +119,7 @@ export class NewZaerComponent implements OnInit {
 
   private getMokebsInformation() {
     this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
         this.mokebService.getAllList().subscribe(mokeb => {
           this.mokebs = mokeb.items;
           this.mokebsDropDown = mokeb.items.map(item => ({
@@ -116,33 +128,34 @@ export class NewZaerComponent implements OnInit {
             }`,
             value: item.id,
           }));
+          this.changeGender();
         });
       });
     });
   }
 
-  changeGender(event: any) {
-    const genderValue = event.value;
-    const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
+  changeGender() {
+    const selectedItems = this.mokebs.filter(item => item.gender === this.form.value.gender);
 
-    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
-        this.mokebsDropDown = selectedItems
-          .map(item => {
-            const capacity =
-              mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight ?? 0;
-            return {
-              label: `${item.name} - ${localization}: ${capacity}`,
-              value: item.id,
-              freeCapacityToNight: capacity,
-            };
-          })
-          .filter(item => item.freeCapacityToNight > 0)
-          .map(item => ({
-            label: item.label,
-            value: item.value,
-          }));
-      });
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebsDropDown = selectedItems
+        .map(item => {
+          const capacity = mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight ?? 0;
+          return {
+            label: `${item.name} - ظرفیت باقی مانده: ${capacity}`,
+            value: item.id,
+            freeCapacityToNight: capacity,
+          };
+        })
+        .filter(item => item.freeCapacityToNight > 0)
+        .map(item => ({
+          label: item.label,
+          value: item.value,
+        }));
+
+      if (this.mokebsDropDown.length > 0) {
+        this.form.patchValue({ mokebId: this.mokebsDropDown[0].value });
+      }
     });
   }
 
@@ -161,7 +174,7 @@ export class NewZaerComponent implements OnInit {
     const entryDate = this.getEntryDate();
     const exitDate = this.getExitDate(this.form.get('entryExitDate').value.key);
 
-    this.mokebService.getMokebCapacityToNight().subscribe(mokebCapacity => {
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
       if (mokebCapacity.find(e => e.mokebId === formValue.mokebId)?.freeCapacityToNight > 0) {
         if (formValue.image) {
           const formData = new FormData();
@@ -182,24 +195,27 @@ export class NewZaerComponent implements OnInit {
   }
 
   private saveZaer(formValue: CreateZaerDto, entryDate: string, exitDate: string) {
-    this.zaerService.create(formValue).subscribe(zaer => {
-      const mokebStateInput: CreateUpdateMokebStateDto = {
-        zaerId: zaer.id,
-        mokebId: zaer.mokebId,
-        state: 1,
-      };
-
-      this.mokebStateService.create(mokebStateInput).subscribe(() => {
-        const entryExitDate: CreateUpdateEntryExitZaerDto = {
-          zaerId: zaer.id,
-          entryDate: entryDate,
-          exitDate: exitDate,
-          mokebId: zaer.mokebId,
+    this.zaerService.create(formValue).subscribe(zaerRes => {
+      this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+        const mokebStateInput: CreateUpdateMokebStateDto = {
+          zaerId: zaerRes.id,
+          mokebId: zaerRes.mokebId,
+          state: freeStateRes,
         };
-        this.entryExitZaerService.create(entryExitDate).subscribe(() => {
-          this.showMessage('success', 'Success', 'Success');
-          this.resetForm();
-          this.printZaerCard(zaer.id);
+
+        this.mokebStateService.create(mokebStateInput).subscribe(() => {
+          const entryExitDate: CreateUpdateEntryExitZaerDto = {
+            zaerId: zaerRes.id,
+            entryDate: entryDate,
+            exitDate: exitDate,
+            exitAfterDate: this.form.get('entryExitDate').value.key,
+            mokebId: zaerRes.mokebId,
+          };
+          this.entryExitZaerService.create(entryExitDate).subscribe(() => {
+            this.showMessage('success', 'Success', 'Success');
+            this.resetForm();
+            this.printZaerCard(zaerRes.id);
+          });
         });
       });
     });

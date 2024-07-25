@@ -1,63 +1,74 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
-import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
-import { Buffer } from 'buffer';
-import * as moment from 'moment';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  Renderer2,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 
 @Component({
   selector: 'app-barcode-scanner',
-  standalone: true,
-  imports: [SharedModule],
   templateUrl: './barcode-scanner.component.html',
-  styleUrl: './barcode-scanner.component.scss',
+  styleUrls: ['./barcode-scanner.component.scss'],
 })
-export class BarcodeScannerComponent {
-  scanResult: string | null = null;
-  selectedDevice: MediaDeviceInfo | undefined;
-  styleScanner;
+export class BarcodeScannerComponent implements AfterViewInit, OnDestroy {
+  scannerStarted = false;
+  private html5QrcodeScanner: Html5QrcodeScanner;
+  @Output() scanResultEvent = new EventEmitter<string>();
 
-  constructor(private renderer: Renderer2, private elRef: ElementRef) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    const buffer = Buffer.from('Hello, world!');
-    console.log(buffer.toString());
+  ngAfterViewInit(): void {
+    this.initializeScanner();
   }
 
-  handleScanSuccess(result: string): void {
-    this.scanResult = result;
-    this.checkTimeBeforeOrAfterEntryDate();
+  ngOnDestroy(): void {
+    this.stopScanning();
   }
 
-  getExitNowDate(): string {
-    return moment.utc().format('YYYY-MM-DDT11:00:00.000[Z]');
+  private initializeScanner(): void {
+    this.html5QrcodeScanner = new Html5QrcodeScanner(
+      'reader',
+      { fps: 60, qrbox: { width: 200, height: 200 } },
+      false
+    );
+    this.html5QrcodeScanner.render(this.onScanSuccess, this.onScanFailure);
+    this.scannerStarted = true;
   }
 
-  checkTimeBeforeOrAfterEntryDate(): boolean {
-    // Get the current UTC time in the desired format
-    const currentTime = moment.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
-    // this.scanResult += currentTime;
+  private onScanSuccess = (decodedText: string, decodedResult: any) => {
+    console.log(`Code scanned = ${decodedText}`, decodedResult);
+    this.scanResultEvent.emit(decodedText);
+    this.stopScanning();
+  };
 
-    // Get the entry date in the same format
-    const exitDate = this.scanResult; // Assuming getEntryDate() returns a date in some format
-    // this.scanResult += exitDate;
-    // Compare the times
-    if (moment(currentTime).isBefore(exitDate)) {
-      this.styleScanner = { border: '20px solid green' };
-      this.resetStyleAfterDelay();
-      return true;
-    } else if (moment(currentTime).isAfter(exitDate)) {
-      this.styleScanner = { border: '20px solid red' };
-      this.resetStyleAfterDelay();
-      return false;
-    } else {
-      this.styleScanner = { border: '' };
-      return null;
+  private onScanFailure = (error: any) => {
+    console.error(`Code scan failed = ${error}`);
+  };
+
+  stopScanning(): void {
+    if (this.html5QrcodeScanner) {
+      this.html5QrcodeScanner
+        .clear()
+        .then(() => {
+          console.log('QR code scanning stopped.');
+          this.scannerStarted = false;
+        })
+        .catch(error => {
+          console.error('Failed to stop scanning:', error);
+        });
     }
   }
 
-  private resetStyleAfterDelay(): void {
-    setTimeout(() => {
-      this.styleScanner = { border: '' };
-    }, 2000); // Reset border after 2 seconds (2000 milliseconds)
+  startScanning(): void {
+    if (!this.scannerStarted) {
+      this.initializeScanner();
+      console.log('QR code scanning started.');
+    } else {
+      console.log('Scanner is already running.');
+    }
   }
 }

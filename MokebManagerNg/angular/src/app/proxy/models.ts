@@ -34,7 +34,6 @@ export interface CreateUpdateMokebStateDto {
 
 export interface CreateZaerDto extends EntityDto<string> {
   name?: string;
-  family?: string;
   gender: Gender;
   passportNo: string;
   mokebId: string;
@@ -96,7 +95,6 @@ export interface SaveBlobInputDto {
 
 export interface UpdateZaerDto {
   name?: string;
-  family?: string;
   gender: Gender;
   passportNo: string;
   mokebId: string;
@@ -113,7 +111,6 @@ export interface UploadFileDto {
 
 export interface Zaer extends AggregateRoot<string> {
   name?: string;
-  family?: string;
   gender: Gender;
   entryExitZaerDates: EntryExitZaer[];
   clockEntryExits: ClockEntryExit[];

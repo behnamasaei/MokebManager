@@ -89,8 +89,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
     }
 
 
-    // [Authorize(MokebManagerNgPermissions.MokebRead)]
-    public async Task<List<MokebCapacityDto>> GetMokebCapacityToNight()
+    public async Task<List<MokebCapacityDto>> GetMokebFreeCapacityToNight()
     {
         var mokebs = await GetAllListAsync();
         var reservations = await _entryExitZaerDate.GetAllEntryExitAsync();
@@ -103,7 +102,6 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         // Set the specific date and time
         DateTime nowDate = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0, 0, DateTimeKind.Utc);
 
-        Console.WriteLine(nowDate.ToString());
 
         foreach (var mokeb in mokebs.Items)
         {
@@ -118,4 +116,6 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
 
         return mokebCapacityToNight;
     }
+
+
 }

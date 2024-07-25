@@ -2110,11 +2110,11 @@
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
             },
-            "GetMokebCapacityToNight": {
-              "uniqueName": "GetMokebCapacityToNight",
-              "name": "GetMokebCapacityToNight",
+            "GetMokebFreeCapacityToNight": {
+              "uniqueName": "GetMokebFreeCapacityToNight",
+              "name": "GetMokebFreeCapacityToNight",
               "httpMethod": "GET",
-              "url": "api/app/mokeb/mokeb-capacity-to-night",
+              "url": "api/app/mokeb/mokeb-free-capacity-to-night",
               "supportedVersions": [],
               "parametersOnMethod": [],
               "parameters": [],
@@ -6091,8 +6091,8 @@
         {
           "name": "EntryExitClock",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6136,8 +6136,8 @@
         {
           "name": "EntryExitClock",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6169,8 +6169,8 @@
         {
           "name": "EntryExitClock",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6234,18 +6234,6 @@
       "properties": [
         {
           "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Family",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -6364,8 +6352,8 @@
         {
           "name": "EntryDate",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6376,8 +6364,20 @@
         {
           "name": "ExitDate",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ExitAfterDate",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6490,8 +6490,8 @@
         {
           "name": "EntryDate",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6502,8 +6502,8 @@
         {
           "name": "ExitDate",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6639,18 +6639,6 @@
       "properties": [
         {
           "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Family",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",
@@ -6829,8 +6817,8 @@
         {
           "name": "EntryDate",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -6841,8 +6829,8 @@
         {
           "name": "ExitDate",
           "jsonName": null,
-          "type": "System.DateTime",
-          "typeSimple": "string",
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -7240,18 +7228,6 @@
           "regex": null
         },
         {
-          "name": "Family",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
           "name": "Gender",
           "jsonName": null,
           "type": "MokebManagerNg.Gender",
@@ -7379,18 +7355,6 @@
       "properties": [
         {
           "name": "Name",
-          "jsonName": null,
-          "type": "System.String",
-          "typeSimple": "string",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "Family",
           "jsonName": null,
           "type": "System.String",
           "typeSimple": "string",

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { MessageService } from 'primeng/api';
 import { EntryExitZaerService, ZaerService } from '@proxy';
 import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
 import { Title } from '@angular/platform-browser';
+import { Html5QrcodeScanner } from 'html5-qrcode';
+import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
 
 @Component({
   selector: 'app-reservation',
@@ -20,6 +22,7 @@ export class ReservationComponent {
   scanShow: boolean = false;
   entryExitOptions: any[] = [];
   selectedEntryExit;
+  @ViewChild(BarcodeScannerComponent) barcodescanner: BarcodeScannerComponent;
 
   /**
    *
@@ -32,7 +35,7 @@ export class ReservationComponent {
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('مدیریت موکب | تمدید رزرو');
+    this.titleService.setTitle('مدیریت موکب | تمدید پذیرش');
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.entryExitOptions = [
@@ -41,6 +44,12 @@ export class ReservationComponent {
       { name: '3 شب', key: '3' },
     ];
     this.selectedEntryExit = this.entryExitOptions[0];
+  }
+
+  handleScanResult(result: string): void {
+    this.scanResult = result;
+    console.log('Received scan result:', result);
+    // Additional logic to handle the scanned result
   }
 
   save() {
@@ -53,6 +62,7 @@ export class ReservationComponent {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
+          exitAfterDate: this.selectedEntryExit.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitService.create(input).subscribe(x => {
@@ -74,6 +84,7 @@ export class ReservationComponent {
           zaerId: zaer.id,
           entryDate: entryDate,
           exitDate: exitDate,
+          exitAfterDate: this.selectedEntryExit.key,
           mokebId: zaer.mokebId,
         };
         this.entryExitService.create(input).subscribe(x => {

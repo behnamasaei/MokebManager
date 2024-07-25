@@ -45,6 +45,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
 
         var listEntryExit = await _repository.GetListAsync();
         var entryExitListDto = ObjectMapper.Map<List<EntryExitZaer>, List<EntryExitZaerDto>>(listEntryExit);
+        entryExitListDto = entryExitListDto.OrderByDescending(x => x.LastModificationTime).ThenBy(x => x.CreationTime).ToList();
         await _entryExitListCache.SetAsync(cacheKey, entryExitListDto);
         return entryExitListDto;
     }
@@ -53,7 +54,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
     public override async Task<EntryExitZaerDto> GetAsync(Guid id)
     {
         var entryExits = await GetAllEntryExitAsync();
-        var zaer = entryExits.OrderByDescending(x => x.LastModificationTime).ThenBy(x => x.CreationTime).FirstOrDefault(x => x.ZaerId == id);
+        var zaer = entryExits.FirstOrDefault(x => x.ZaerId == id);
         return zaer;
     }
 
@@ -62,6 +63,11 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
     {
         string cacheKey = "AllEntryExit_cache";
         await _entryExitListCache.RemoveAsync(cacheKey);
+        var dateNow = DateTime.Now;
+        var exitDate = dateNow.AddDays(input.ExitAfterDate);
+
+        input.EntryDate = dateNow;
+        input.ExitDate = new DateTime(exitDate.Year, exitDate.Month, exitDate.Day, 11, 0, 0);
         return await base.CreateAsync(input);
     }
 
@@ -72,11 +78,12 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
         await _entryExitListCache.RemoveAsync(cacheKey);
 
         var entryExits = await GetAsync(zaerId);
+
         var updateEntryExit = await UpdateAsync(entryExits.Id, new CreateUpdateEntryExitZaerDto()
         {
             ZaerId = zaerId,
             EntryDate = entryExits.EntryDate,
-            ExitDate = ExitDate,
+            ExitDate = DateTime.Now,
             MokebId = entryExits.MokebId
         });
 

@@ -5,6 +5,7 @@ const hostUrl = '192.168.1.103';
 
 export const environment = {
   production: false,
+  mokebGenderReseption: 'Male',
   application: {
     baseUrl,
     name: 'MokebManagerNg',
@@ -16,8 +17,6 @@ export const environment = {
     clientId: 'MokebManagerNg_App',
     responseType: 'code',
     scope: 'offline_access MokebManagerNg',
-    requireHttps: false,
-    usePkce: true,
   },
 
   apis: {

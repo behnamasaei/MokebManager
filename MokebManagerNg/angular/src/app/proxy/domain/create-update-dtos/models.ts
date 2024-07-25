@@ -4,6 +4,7 @@ export interface CreateUpdateEntryExitZaerDto {
   zaerId?: string;
   entryDate?: string;
   exitDate?: string;
+  exitAfterDate: number;
   mokebId?: string;
 }
 

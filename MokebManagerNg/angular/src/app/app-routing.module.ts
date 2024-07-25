@@ -116,6 +116,10 @@ const routes: Routes = [
     component: AboutusComponent,
   },
   {
+    path: 'barcodescanner',
+    component: BarcodeScannerComponent,
+  },
+  {
     path: 'account',
     loadChildren: () => import('@abp/ng.account').then(m => m.AccountModule.forLazy()),
   },

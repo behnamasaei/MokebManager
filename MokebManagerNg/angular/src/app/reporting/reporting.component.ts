@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { EntryExitZaerService, MokebService } from '@proxy';
 import { MokebDto } from '@proxy/domain/dtos';
 import { Title } from '@angular/platform-browser';
+import { DateAdapter } from '@angular/material/core';
+import { enUS, faIR } from 'date-fns/locale';
 
 @Component({
   selector: 'app-reporting',
@@ -10,19 +12,27 @@ import { Title } from '@angular/platform-browser';
   imports: [SharedModule],
   templateUrl: './reporting.component.html',
   styleUrl: './reporting.component.scss',
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class ReportingComponent {
+  startDate: any;
+  endDate: any;
   rangeDates: any;
   mokebData: any;
   mokebFreeCapacityData: any;
   mokebReserveInRangeData: any;
+
   basicOptions: any;
+
   mokebName: string[] = [];
   mokebCapacity: number[] = [];
+
   mokebFreeNightName: string[] = [];
   mokebFreeNightCapacity: number[] = [];
+
   mokebReservsionNightName: string[] = [];
   mokebReservsionNightCapacity: number[] = [];
+
   mokebReserveInRangeDataName: string[] = [];
   mokebReserveInRangeDataCapacity: number[] = [];
   /**
@@ -31,17 +41,19 @@ export class ReportingComponent {
   constructor(
     private mokebService: MokebService,
     private entryExitService: EntryExitZaerService,
-    private titleService: Title
+    private titleService: Title,
+    private _adapter: DateAdapter<any>
   ) {}
 
   ngOnInit() {
+    this._adapter.setLocale(faIR);
     this.titleService.setTitle('مدیریت موکب | گزارشگیری');
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.mokebService.getMokebCapacityToNight().subscribe(mokeb => {
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokeb => {
       mokeb.forEach(item => {
         this.mokebFreeNightName.push(item.mokeb.name);
         this.mokebFreeNightCapacity.push(item.freeCapacityToNight);
@@ -67,10 +79,10 @@ export class ReportingComponent {
       };
 
       this.mokebData = {
-        labels: this.mokebName,
+        labels: this.mokebReservsionNightName,
         datasets: [
           {
-            label: 'تعداد رزرو های امشب هر موکب',
+            label: 'تعداد پذیرش های امشب هر موکب',
             data: this.mokebReservsionNightCapacity,
             backgroundColor: backgroundColor,
             borderColor: borderColor,
@@ -93,6 +105,15 @@ export class ReportingComponent {
         legend: {
           labels: {
             color: textColor,
+            font: {
+              size: 18, // Set font size for legend labels
+            },
+            title: {
+              display: true,
+              font: {
+                size: 22, // Set font size for the chart title
+              },
+            },
           },
         },
       },
@@ -101,6 +122,9 @@ export class ReportingComponent {
           beginAtZero: true,
           ticks: {
             color: textColorSecondary,
+            font: {
+              size: 14, // Set font size for Y axis labels
+            },
           },
           grid: {
             color: surfaceBorder,
@@ -110,6 +134,9 @@ export class ReportingComponent {
         x: {
           ticks: {
             color: textColorSecondary,
+            font: {
+              size: 20, // Set font size for Y axis labels
+            },
           },
           grid: {
             color: surfaceBorder,
@@ -121,7 +148,7 @@ export class ReportingComponent {
   }
 
   searchInRangeDate() {
-    if (!this.rangeDates) return;
+    // if (!this.rangeDates) return;
 
     const mokebName: string[] = [];
     const mokebReservation: number[] = [];
@@ -138,7 +165,7 @@ export class ReportingComponent {
           const reservationCount = selectedEntryExit.filter(x => {
             const entryDate = new Date(x.entryDate);
             const exitDate = new Date(x.exitDate);
-            return this.rangeDates[0] <= entryDate && this.rangeDates[1] >= exitDate;
+            return this.startDate <= entryDate && this.endDate >= entryDate;
           }).length;
 
           mokebReservation.push(reservationCount);
@@ -151,7 +178,7 @@ export class ReportingComponent {
           labels: mokebName,
           datasets: [
             {
-              label: 'First Dataset',
+              label: 'تعداد پذیرش به هر موکب',
               data: mokebReservation,
               backgroundColor: backgroundColor,
               borderColor: borderColor,

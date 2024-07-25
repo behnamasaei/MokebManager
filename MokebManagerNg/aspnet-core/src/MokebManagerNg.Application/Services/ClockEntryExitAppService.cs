@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using MokebManagerNg.Permissions;
 using Volo.Abp.Application.Dtos;
@@ -14,5 +15,11 @@ public class ClockEntryExitAppService : CrudAppService<ClockEntryExit, ClockEntr
 {
     public ClockEntryExitAppService(IRepository<ClockEntryExit, Guid> repository) : base(repository)
     {
+    }
+
+    public override Task<ClockEntryExitDto> CreateAsync(CreateUpdateClockEntryExitDto input)
+    {
+        input.EntryExitClock = DateTime.Now;
+        return base.CreateAsync(input);
     }
 }

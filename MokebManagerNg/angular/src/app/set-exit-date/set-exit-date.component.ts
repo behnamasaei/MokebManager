@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { EntryExitZaerService, ZaerService } from '@proxy';
 import { MessageService } from 'primeng/api';
 import moment from 'moment';
 import { error } from 'console';
 import { Title } from '@angular/platform-browser';
+import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
 
 @Component({
   selector: 'app-set-exit-date',
@@ -20,6 +21,7 @@ export class SetExitDateComponent implements OnInit {
   scanShow: boolean = false;
   entryExitOptions: any[] = [];
   selectedEntryExit: any;
+  @ViewChild(BarcodeScannerComponent) barcodescanner: BarcodeScannerComponent;
 
   constructor(
     private entryExitService: EntryExitZaerService,
@@ -31,6 +33,12 @@ export class SetExitDateComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('مدیریت موکب | ثبت خروج');
     // Initialization logic if any
+  }
+
+  handleScanResult(result: string): void {
+    this.scanResult = result;
+    console.log('Received scan result:', result);
+    // Additional logic to handle the scanned result
   }
 
   save(): void {

@@ -7,7 +7,6 @@ namespace MokebManagerNg;
 public class CreateZaerDto : EntityDto<Guid>
 {
     public string? Name { get; set; }
-    public string? Family { get; set; }
     [Required]
     public Gender Gender { get; set; }
     [Required]

@@ -9,7 +9,6 @@ namespace MokebManagerNg.Domain.Dtos;
 public class ZaerDto : AuditedEntityDto<Guid>
 {
     public string? Name { get; set; }
-    public string? Family { get; set; }
     public Gender Gender { get; set; }
     public virtual ICollection<EntryExitZaerDto> EntryExitZaerDates { get; set; }
     public virtual ICollection<ClockEntryExitDto> ClockEntryExits { get; set; }

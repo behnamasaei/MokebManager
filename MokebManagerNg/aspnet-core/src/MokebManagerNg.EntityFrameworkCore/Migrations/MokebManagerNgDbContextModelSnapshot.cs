@@ -32,7 +32,7 @@ namespace MokebManagerNg.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("ConcurrencyStamp");
 
-                    b.Property<DateTime>("EntryExitClock")
+                    b.Property<DateTime?>("EntryExitClock")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExtraProperties")
@@ -62,10 +62,10 @@ namespace MokebManagerNg.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("ConcurrencyStamp");
 
-                    b.Property<DateTime>("EntryDate")
+                    b.Property<DateTime?>("EntryDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("ExitDate")
+                    b.Property<DateTime?>("ExitDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExtraProperties")
@@ -189,9 +189,6 @@ namespace MokebManagerNg.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("ExtraProperties");
-
-                    b.Property<string>("Family")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("Gender")
                         .HasColumnType("INTEGER");

@@ -6,7 +6,7 @@ import { SettingManagementConfigModule } from '@abp/ng.setting-management/config
 import { TenantManagementConfigModule } from '@abp/ng.tenant-management/config';
 import { InternetConnectionStatusComponent, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgModule, isDevMode } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { FooterComponent } from './footer/footer.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './shared/ErrorInterceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   imports: [
@@ -57,7 +58,9 @@ import { ErrorInterceptor } from './shared/ErrorInterceptor';
   declarations: [AppComponent],
   providers: [
     APP_ROUTE_PROVIDER,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideClientHydration(),
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

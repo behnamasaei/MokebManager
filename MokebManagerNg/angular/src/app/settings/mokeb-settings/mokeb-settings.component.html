@@ -1,0 +1,11 @@
+<h3>تنظیمات موکب</h3>
+
+<br />
+<h4>جنسیت موکب پذیرش</h4>
+<p-selectButton
+  [options]="genderMokebOptions"
+  [(ngModel)]="genderMokebValue"
+  (onChange)="changeGenderMokeb()"
+  optionLabel="label"
+  optionValue="value"
+/>

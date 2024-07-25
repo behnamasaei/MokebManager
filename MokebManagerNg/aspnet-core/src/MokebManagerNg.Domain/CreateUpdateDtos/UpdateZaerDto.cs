@@ -6,7 +6,6 @@ namespace MokebManagerNg;
 public class UpdateZaerDto
 {
     public string? Name { get; set; }
-    public string? Family { get; set; }
     [Required]
     public Gender Gender { get; set; }
     [Required]
