@@ -225,6 +225,8 @@ export class NewZaerComponent implements OnInit {
     this.form.reset();
     this.fileUpload.clear();
     this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+    this.fetchInitForm();
+    this.changeGender();
   }
 
   private showMessage(severity: string, summary: string, detail: string) {
