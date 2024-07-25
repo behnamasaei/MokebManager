@@ -6,7 +6,7 @@ import {
   EntryExitZaerService,
   MokebService,
 } from '@proxy';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Title } from '@angular/platform-browser';
 import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
 import { SharedModule } from '../shared/shared.module';

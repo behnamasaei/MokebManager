@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -9,6 +8,8 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "esModuleInterop": true, 
+    "resolveJsonModule": true,
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020", 
@@ -17,7 +18,7 @@
       "es2020",
       "dom"
     ],
-    "types": ["node"],
+    "types": ["node","@angular/localize"],
     "typeRoots": [
       "node_modules/@types"
     ],

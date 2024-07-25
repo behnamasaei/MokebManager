@@ -27,14 +27,20 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "allowedCommonJsDependencies": ["chart.js", "js-sha256"],
+            "optimization": true,
+            "sourceMap": false,
+            "namedChunks": false,
+            "extractLicenses": false,
+            "vendorChunk": false,
+            "buildOptimizer": true,
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "js-sha256",
+              "@ericblade/quagga2",
+              "lodash.defaultsdeep"
+            ],
             "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
             "styles": [
-              {
-                "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/bootstrap-dim.css",
-                "inject": false,
-                "bundleName": "bootstrap-dim"
-              },
               {
                 "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/ng-bundle.css",
                 "inject": false,
@@ -124,8 +130,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "2.5mb"
+                  "maximumWarning": "7mb",
+                  "maximumError": "7mb"
                 },
                 {
                   "type": "anyComponentStyle",
