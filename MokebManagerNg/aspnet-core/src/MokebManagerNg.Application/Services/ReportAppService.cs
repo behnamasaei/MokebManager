@@ -21,43 +21,43 @@ public class ReportAppService : ApplicationService
 
     private ZaerDto _zaer;
 
-    public async Task GenerateReportAsync()
-    {
-        var report = new StiReport();
+    // public async Task GenerateReportAsync()
+    // {
+    //     var report = new StiReport();
 
 
-        // StiLicense.LoadFromFile("./license.key");
+    //     // StiLicense.LoadFromFile("./license.key");
 
-        // Load the report template (ensure the path is correct)
-        report.Load("./wwwroot/reports/Report3.mrt");
+    //     // Load the report template (ensure the path is correct)
+    //     report.Load("./wwwroot/reports/Report3.mrt");
 
-        // Fetch data for the report
-        var data = await GetDataForReportAsync();
-        report.RegData("DT", data);
+    //     // Fetch data for the report
+    //     var data = await GetDataForReportAsync();
+    //     report.RegData("DT", data);
 
-        // Render the report
-        report.Compile();
-        report.Render();
+    //     // Render the report
+    //     report.Compile();
+    //     report.Render();
 
-        // Export to PDF
-        using var stream = new MemoryStream();
-        report.ExportDocument(StiExportFormat.Pdf, stream);
+    //     // Export to PDF
+    //     using var stream = new MemoryStream();
+    //     report.ExportDocument(StiExportFormat.Pdf, stream);
 
-        string directoryPath = @"C:\Users\behna\MokebManager\MokebManagerNg\aspnet-core\src\MokebManagerNg.HttpApi.Host\Reports";
-        string fileName = "report.pdf";
-        string filePath = Path.Combine(directoryPath, fileName);
+    //     string directoryPath = @"C:\Users\behna\MokebManager\MokebManagerNg\aspnet-core\src\MokebManagerNg.HttpApi.Host\Reports";
+    //     string fileName = "report.pdf";
+    //     string filePath = Path.Combine(directoryPath, fileName);
 
-        var x = new FileDto
-        {
-            FileName = "MyReport.pdf",
-            FileType = "application/pdf",
-            FileContent = stream.ToArray()
-        };
+    //     var x = new FileDto
+    //     {
+    //         FileName = "MyReport.pdf",
+    //         FileType = "application/pdf",
+    //         FileContent = stream.ToArray()
+    //     };
 
-        // await using var fileStream = new FileStream("./", FileMode.Create);
-        // Save the stream to a file
-        SaveStreamToFile(stream, filePath);
-    }
+    //     // await using var fileStream = new FileStream("./", FileMode.Create);
+    //     // Save the stream to a file
+    //     SaveStreamToFile(stream, filePath);
+    // }
 
     public async Task GenerateCardZaerAsync(ZaerDto zaer)
     {
@@ -153,7 +153,7 @@ public class ReportAppService : ApplicationService
         yPos += lineHeightHeader; // Move to next line position
 
 
-        string textHeader2 = "شارع قبله الامام حسین، موکب شهدای طالخونچه";
+        string textHeader2 = _zaer.Mokeb.Address?.ToString();
         e.Graphics.DrawString(textHeader2, fontHeader, Brushes.Black, new RectangleF(0, yPos, e.PageSettings.PaperSize.Width - 35, e.MarginBounds.Height), formatHeader);
         yPos += lineHeight; // Move to next line position
         yPos += lineHeight; // Move to next line position
@@ -165,7 +165,7 @@ public class ReportAppService : ApplicationService
         // Array of strings to print
         var zaerCard = new string[]
         {
-        $"نام و نام خانوادگی: {_zaer.Name} ",
+        $"نام و نام خانوادگی: {_zaer.Name} {_zaer.Family}",
         $"{_zaer.PassportNo} :شماره پاسپورت",
         $"موکب: {_zaer.Mokeb.Name}",
         $"{_zaer.MokebState.State} :جایگاه",
@@ -208,16 +208,16 @@ public class ReportAppService : ApplicationService
 
 
 
-    public static string ConvertUtcToJalali(DateTime? DateTime)
+    public static string ConvertUtcToJalali(DateTime utcDateTime)
     {
         PersianCalendar persianCalendar = new PersianCalendar();
 
-        int year = persianCalendar.GetYear((DateTime)DateTime);
-        int month = persianCalendar.GetMonth((DateTime)DateTime);
-        int day = persianCalendar.GetDayOfMonth((DateTime)DateTime);
-        int hour = persianCalendar.GetHour((DateTime)DateTime);
-        int minute = persianCalendar.GetMinute((DateTime)DateTime);
-        int second = persianCalendar.GetSecond((DateTime)DateTime);
+        int year = persianCalendar.GetYear(utcDateTime);
+        int month = persianCalendar.GetMonth(utcDateTime);
+        int day = persianCalendar.GetDayOfMonth(utcDateTime);
+        int hour = persianCalendar.GetHour(utcDateTime);
+        int minute = persianCalendar.GetMinute(utcDateTime);
+        int second = persianCalendar.GetSecond(utcDateTime);
 
         return $"{year}/{month:D2}/{day:D2} {hour:D2}:{minute:D2}";
     }
@@ -235,16 +235,17 @@ public class ReportAppService : ApplicationService
         }
     }
 
-    private async Task<ReportDataDto> GetDataForReportAsync()
-    {
-        // Fetch data from database or other sources
-        return new ReportDataDto
-        {
-            Name = "بهنام",
-            Mokeb = "امام رضا (ع)",
-            PassportID = "sdfwe234",
-            Prdate = DateTime.Now.ToString("HH/MM/DD")
-        };
-    }
+    // private async Task<ReportDataDto> GetDataForReportAsync()
+    // {
+    //     // Fetch data from database or other sources
+    //     return new ReportDataDto
+    //     {
+    //         Name = "بهنام",
+    //         Family = "آسایی",
+    //         Mokeb = "امام رضا (ع)",
+    //         PassportID = "sdfwe234",
+    //         Prdate = DateTime.Now.ToString("HH/MM/DD")
+    //     };
+    // }
 }
 
