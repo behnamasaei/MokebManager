@@ -16,7 +16,7 @@ import {
 } from '@proxy';
 import { EntryExitZaerDto, MokebDto, ZaerDto } from '@proxy/domain/dtos';
 import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { Title } from '@angular/platform-browser';
