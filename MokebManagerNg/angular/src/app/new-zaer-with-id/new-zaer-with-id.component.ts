@@ -20,7 +20,7 @@ import {
   CreateUpdateEntryExitZaerDto,
   CreateUpdateMokebDto,
 } from '@proxy/domain/create-update-dtos';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { Title } from '@angular/platform-browser';
@@ -36,7 +36,7 @@ import { Router } from '@angular/router';
   imports: [SharedModule],
   templateUrl: './new-zaer-with-id.component.html',
   styleUrls: ['./new-zaer-with-id.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService,ConfirmationService],
 })
 export class NewZaerWithIdComponent {
   form: FormGroup;

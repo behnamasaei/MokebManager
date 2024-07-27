@@ -3,7 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MessageService } from 'primeng/api';
 import { EntryExitZaerService, ZaerService } from '@proxy';
 import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Title } from '@angular/platform-browser';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
