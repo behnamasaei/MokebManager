@@ -193,7 +193,7 @@ public class ReportAppService : ApplicationService
         string[] connectionText = new string[] {
             "سامانه مدیریت موکب شهدای فاوا",
             "abarmatn.com",
-            "behnamasaei@gmail.com"
+            "سبکه های اجتماعی: @behnamasaei"
         };
         foreach (var line in connectionText)
         {
