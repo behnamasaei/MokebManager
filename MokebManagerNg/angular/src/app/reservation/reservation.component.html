@@ -1,6 +1,9 @@
 <p-toast />
 
-<app-barcode-scanner (scanResultEvent)="handleScanResult($event)"></app-barcode-scanner>
+<app-barcode-scanner
+  [scannerId]="'resevtionScannerId'"
+  (scanResultEvent)="handleScanResult($event)"
+></app-barcode-scanner>
 
 <div *ngIf="scanResult !== null">
   <p>QrCode: {{ scanResult }}</p>

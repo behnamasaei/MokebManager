@@ -6,6 +6,7 @@ import {
   Renderer2,
   AfterViewInit,
   OnDestroy,
+  Input,
 } from '@angular/core';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 
@@ -18,11 +19,16 @@ export class BarcodeScannerComponent implements AfterViewInit, OnDestroy {
   scannerStarted = false;
   private html5QrcodeScanner: Html5QrcodeScanner;
   @Output() scanResultEvent = new EventEmitter<string>();
+  @Input() scannerId: string;
 
   constructor() {}
 
+  ngOnInit(): void {
+    this.startScanning();
+  }
+
   ngAfterViewInit(): void {
-    this.initializeScanner();
+    this.startScanning();
   }
 
   ngOnDestroy(): void {
@@ -31,7 +37,7 @@ export class BarcodeScannerComponent implements AfterViewInit, OnDestroy {
 
   private initializeScanner(): void {
     this.html5QrcodeScanner = new Html5QrcodeScanner(
-      'reader',
+      this.scannerId,
       { fps: 60, qrbox: { width: 200, height: 200 } },
       false
     );

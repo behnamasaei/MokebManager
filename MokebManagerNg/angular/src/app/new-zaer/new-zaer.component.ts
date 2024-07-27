@@ -21,6 +21,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { Title } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-zaer',
@@ -53,7 +54,8 @@ export class NewZaerComponent implements OnInit {
     private mokebStateService: MokebStateService,
     private confirmationService: ConfirmationService,
     private reportService: ReportService,
-    private titleService: Title
+    private titleService: Title,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -195,36 +197,49 @@ export class NewZaerComponent implements OnInit {
   }
 
   private saveZaer(formValue: CreateZaerDto, entryDate: string, exitDate: string) {
-    this.zaerService.create(formValue).subscribe(zaerRes => {
-      this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
-        const mokebStateInput: CreateUpdateMokebStateDto = {
-          zaerId: zaerRes.id,
-          mokebId: zaerRes.mokebId,
-          state: freeStateRes,
-        };
-
-        this.mokebStateService.create(mokebStateInput).subscribe(() => {
-          const entryExitDate: CreateUpdateEntryExitZaerDto = {
+    this.zaerService.create(formValue).subscribe(
+      zaerRes => {
+        this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+          const mokebStateInput: CreateUpdateMokebStateDto = {
             zaerId: zaerRes.id,
-            entryDate: entryDate,
-            exitDate: exitDate,
-            exitAfterDate: this.form.get('entryExitDate').value.key,
             mokebId: zaerRes.mokebId,
+            state: freeStateRes,
           };
-          this.entryExitZaerService.create(entryExitDate).subscribe(() => {
-            this.showMessage('success', 'Success', 'Success');
-            this.resetForm();
-            this.printZaerCard(zaerRes.id);
+
+          this.mokebStateService.create(mokebStateInput).subscribe(() => {
+            const entryExitDate: CreateUpdateEntryExitZaerDto = {
+              zaerId: zaerRes.id,
+              entryDate: entryDate,
+              exitDate: exitDate,
+              exitAfterDate: this.form.get('entryExitDate').value.key,
+              mokebId: zaerRes.mokebId,
+            };
+            this.entryExitZaerService.create(entryExitDate).subscribe(() => {
+              this.showMessage('success', 'Success', 'Success');
+              this.resetForm();
+              this.printZaerCard(zaerRes.id);
+            });
           });
         });
-      });
-    });
+      },
+      (error: any) => {
+        console.log(error);
+        const eror = error?.error;
+        const errorCode = eror.message;
+        const errorCodes = error?.error?.code ?? error?.code ?? null;
+        if (errorCode === '307') {
+          this.redirectToReservation();
+        }
+      }
+    );
   }
 
   private resetForm() {
     this.form.reset();
     this.fileUpload.clear();
     this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+    this.fetchInitForm();
+    this.changeGender();
   }
 
   private showMessage(severity: string, summary: string, detail: string) {
@@ -233,6 +248,24 @@ export class NewZaerComponent implements OnInit {
       summary: summary,
       detail: detail,
       life: 1000,
+    });
+  }
+
+  private redirectToReservation() {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'مشخصات تکراری می باشد به صفحه تمدید منتقل شوید؟',
+      header: 'مشخصات تکراری',
+      icon: 'pi pi-print',
+      acceptButtonStyleClass: 'p-button-success p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.router.navigate(['reservation']);
+      },
+      reject: () => {},
     });
   }
 

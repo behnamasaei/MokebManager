@@ -11,6 +11,7 @@ import {
   MokebCapacityDto,
   MokebService,
   MokebStateService,
+  ReportService,
   UploadFileDto,
   ZaerService,
 } from '@proxy';
@@ -20,13 +21,14 @@ import {
   CreateUpdateMokebDto,
 } from '@proxy/domain/create-update-dtos';
 import * as moment from 'moment';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { Title } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-zaer-with-id',
@@ -70,7 +72,10 @@ export class NewZaerWithIdComponent {
     private messageService: MessageService,
     private fileService: FileService,
     private titleService: Title,
-    private mokebStateService: MokebStateService
+    private mokebStateService: MokebStateService,
+    private confirmationService: ConfirmationService,
+    private reportService: ReportService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -239,33 +244,59 @@ export class NewZaerWithIdComponent {
   }
 
   private createZaerWithId(formValue, entryDate, exitDate) {
-    this.zaerService.createNewWithId(formValue).subscribe(zaerRes => {
-      const entryExitDate: CreateUpdateEntryExitZaerDto = {
-        zaerId: zaerRes.id,
-        entryDate: entryDate,
-        exitAfterDate: this.form.get('entryExitDate')?.value.key,
-        exitDate: exitDate,
-        mokebId: zaerRes.mokebId,
-      };
-
-      this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
-        const mokebStateInput: CreateUpdateMokebStateDto = {
+    this.zaerService.createNewWithId(formValue).subscribe(
+      zaerRes => {
+        const entryExitDate: CreateUpdateEntryExitZaerDto = {
           zaerId: zaerRes.id,
+          entryDate: entryDate,
+          exitAfterDate: this.form.get('entryExitDate')?.value.key,
+          exitDate: exitDate,
           mokebId: zaerRes.mokebId,
-          state: freeStateRes,
         };
 
-        this.mokebStateService.create(mokebStateInput).subscribe();
-      });
+        this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+          const mokebStateInput: CreateUpdateMokebStateDto = {
+            zaerId: zaerRes.id,
+            mokebId: zaerRes.mokebId,
+            state: freeStateRes,
+          };
 
-      this.createEntryExitZaer(entryExitDate);
+          this.mokebStateService.create(mokebStateInput).subscribe();
+        });
+
+        this.createEntryExitZaer(entryExitDate);
+      },
+      error => {
+        if (error.error.code === '307') {
+          this.redirectToReservation();
+        }
+      }
+    );
+  }
+
+  private redirectToReservation() {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'مشخصات تکراری می باشد به صفحه تمدید منتقل شوید؟',
+      header: 'مشخصات تکراری',
+      icon: 'pi pi-print',
+      acceptButtonStyleClass: 'p-button-success p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.router.navigate(['reservation']);
+      },
+      reject: () => {},
     });
   }
 
   private createEntryExitZaer(entryExitDate: CreateUpdateEntryExitZaerDto) {
-    this.entryExitZaerService.create(entryExitDate).subscribe(() => {
+    this.entryExitZaerService.create(entryExitDate).subscribe(zaerRes => {
       this.resetForm();
-      this.showMessage('Success', 'Success');
+      this.printZaerCard(zaerRes.id);
+      this.showMessage('Success', 'Success', 'Success');
     });
   }
 
@@ -275,14 +306,29 @@ export class NewZaerWithIdComponent {
     this.scanShow = false;
     this.scanResult = null;
     this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
+    this.fetchInitForm();
+    this.changeGender();
   }
 
-  private showMessage(summary: string, detail: string) {
-    this.messageService.add({
-      severity: 'success',
-      summary: summary,
-      detail: detail,
-      life: 1000,
+  private printZaerCard(id: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'آیا برای زائر کارت چاپ شود؟',
+      header: 'چاپ کارت',
+      icon: 'pi pi-print',
+      acceptButtonStyleClass: 'p-button-success p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.zaerService.getWithDetail(id).subscribe(zaerRes => {
+          this.reportService.generateCardZaer(zaerRes).subscribe(() => {
+            this.showMessage('success', 'Success', 'Success');
+          });
+        });
+      },
+      reject: () => {},
     });
   }
 
@@ -292,5 +338,14 @@ export class NewZaerWithIdComponent {
 
   getExitDate(exitDate: number): string {
     return moment.utc().add(exitDate, 'days').format('YYYY-MM-DDT11:00:00.000');
+  }
+
+  private showMessage(severity: string, summary: string, detail: string) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+      life: 1000,
+    });
   }
 }
