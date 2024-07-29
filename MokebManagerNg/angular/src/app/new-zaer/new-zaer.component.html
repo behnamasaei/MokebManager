@@ -4,39 +4,39 @@
 <div class="p-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-field mb-3">
-      <label for="passportNo">{{ '::PassportNo' | abpLocalization }}</label>
+      <label for="passportNo">شماره پاسپورت</label>
       <input id="passportNo" type="text" pInputText formControlName="passportNo" required="true" />
 
-      <small class="required">* {{ '::requiredField' | abpLocalization }}</small>
+      <small class="required">* فیلد اجباری</small>
     </div>
 
     <div class="p-field mb-3">
-      <label for="gender">{{ '::Gender' | abpLocalization }}</label>
+      <label for="gender">جنسیت</label>
       <p-dropdown
         [options]="genders"
         formControlName="gender"
-        placeholder="{{ '::SelectGender' | abpLocalization }}"
+        placeholder="انتخاب جنسیت"
         (onChange)="changeGender()"
         required="true"
       ></p-dropdown>
-      <small class="required">* {{ '::requiredField' | abpLocalization }}</small>
+      <small class="required">* فیلد اجباری</small>
     </div>
 
     <div class="p-field mb-3">
-      <label for="mokebId">{{ '::Mokeb' | abpLocalization }}</label>
+      <label for="mokebId">موکب</label>
       <p-dropdown
         [options]="mokebsDropDown"
         formControlName="mokebId"
         optionLabel="label"
         optionValue="value"
-        placeholder="{{ '::SelectMokeb' | abpLocalization }}"
+        placeholder="انتخاب موکب"
         required="true"
       />
-      <small class="required">* {{ '::requiredField' | abpLocalization }}</small>
+      <small class="required">* فیلد اجباری</small>
     </div>
 
     <div class="p-field mb-3">
-      <label for="gender">{{ '::StayingTime' | abpLocalization }}</label>
+      <label for="gender">مدت زمان اقامت</label>
       <div class="d-flex gap-5">
         <div *ngFor="let entryExitOption of entryExitOptions" class="field-checkbox">
           <p-radioButton
@@ -57,7 +57,7 @@
     </div>
 
     <div class="p-field mb-3">
-      <label for="phoneNumber">{{ '::PhoneNumber' | abpLocalization }}</label>
+      <label for="phoneNumber">شماره تلفن</label>
       <input id="phoneNumber" type="number" pInputText formControlName="phoneNumber" />
     </div>
 
@@ -65,7 +65,7 @@
       <p-accordion>
         <p-accordionTab header="اطلاعات تکمیلی">
           <div class="p-field mb-3">
-            <label for="image">{{ '::Image' | abpLocalization }}</label>
+            <label for="image">عکس</label>
             <p-fileUpload
               #fileUpload
               name="image"
@@ -83,7 +83,7 @@
               optionLabel="name"
               [filter]="true"
               filterBy="name"
-              placeholder="{{ '::Province' | abpLocalization }}"
+              placeholder="استان"
               (onChange)="getCitiesOfProvice($event)"
             >
               <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -106,7 +106,7 @@
               optionLabel="name"
               [filter]="true"
               filterBy="name"
-              placeholder="{{ '::City' | abpLocalization }}"
+              placeholder="شهر"
             >
               <ng-template pTemplate="selectedItem" let-selectedOption>
                 <div class="flex align-items-center gap-2">
@@ -122,7 +122,7 @@
           </div>
 
           <div class="p-field mb-3">
-            <label for="address">{{ '::Address' | abpLocalization }}</label>
+            <label for="address">آدرس</label>
             <input id="address" type="text" pInputText formControlName="address" />
           </div>
         </p-accordionTab>
@@ -132,7 +132,7 @@
     <button
       type=" submit"
       pButton
-      label="{{ '::Submit' | abpLocalization }}"
+      label="ثبت"
       [disabled]="form.invalid"
     ></button>
   </form>

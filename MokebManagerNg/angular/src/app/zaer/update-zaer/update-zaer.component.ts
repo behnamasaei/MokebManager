@@ -73,14 +73,10 @@ export class UpdateZaerComponent implements OnInit {
   }
 
   private loadLocalizationData() {
-    this.localizationService.get('::Female').subscribe(female => {
-      this.localizationService.get('::Male').subscribe(male => {
-        this.genders = [
-          { label: male, value: Gender.Male },
-          { label: female, value: Gender.Female },
-        ];
-      });
-    });
+    this.genders = [
+      { label: 'آقا', value: Gender.Male },
+      { label: 'خانم', value: Gender.Female },
+    ];
   }
 
   private loadProvincesData() {
@@ -108,17 +104,15 @@ export class UpdateZaerComponent implements OnInit {
   }
 
   getMokebsInformation() {
-    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
-        this.mokebService.getAllList().subscribe(mokeb => {
-          this.mokebs = mokeb.items;
-          this.mokebsDropDown = mokeb.items.map(item => ({
-            label: `${item.name} - ${localization} : ${
-              mokebCapacity.find(x => x.mokebId === item.id).freeCapacityToNight
-            }`,
-            value: item.id,
-          }));
-        });
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getAllList().subscribe(mokeb => {
+        this.mokebs = mokeb.items;
+        this.mokebsDropDown = mokeb.items.map(item => ({
+          label: `${item.name} - ظرفیت خالی امشب : ${
+            mokebCapacity.find(x => x.mokebId === item.id).freeCapacityToNight
+          }`,
+          value: item.id,
+        }));
       });
     });
   }
@@ -127,24 +121,21 @@ export class UpdateZaerComponent implements OnInit {
     const genderValue = event.value;
     const selectedItems = this.mokebs.filter(item => item.gender === genderValue);
 
-    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
-        this.mokebsDropDown = selectedItems
-          .map(item => {
-            const capacity =
-              mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight || 0;
-            return {
-              label: `${item.name} - ${localization}: ${capacity}`,
-              value: item.id,
-              freeCapacityToNight: capacity,
-            };
-          })
-          .filter(item => item.freeCapacityToNight > 0)
-          .map(item => ({
-            label: item.label,
-            value: item.value,
-          }));
-      });
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebsDropDown = selectedItems
+        .map(item => {
+          const capacity = mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight || 0;
+          return {
+            label: `${item.name} - ظرفیت خالی امشب: ${capacity}`,
+            value: item.id,
+            freeCapacityToNight: capacity,
+          };
+        })
+        .filter(item => item.freeCapacityToNight > 0)
+        .map(item => ({
+          label: item.label,
+          value: item.value,
+        }));
     });
   }
 

@@ -49,31 +49,31 @@ export class HomeComponent {
 
     this.items = [
       {
-        label: this.localizationService.instant('::NewZaer'),
+        label: 'زائرجدید',
         icon: 'pi pi-plus',
         command: () => this.router.navigate(['./new-zaer']),
         style: { margin: '10px 0px' },
       },
       {
-        label: this.localizationService.instant('::NewZaerWithId'),
+        label: 'زائرجدید با شناسه',
         icon: 'pi pi-qrcode',
         command: () => this.router.navigate(['./new-zaer-id']),
         style: { margin: '10px 0px' },
       },
       {
-        label: this.localizationService.instant('::SaveEntryExitClock'),
+        label: 'ثبت ساعت عبور و مرور',
         icon: 'pi pi-calendar-minus',
         command: () => this.router.navigate(['./clock-entry-exit']),
         style: { margin: '10px 0px' },
       },
       {
-        label: this.localizationService.instant('ثبت خروج'),
+        label: 'ثبت خروج',
         icon: 'pi pi-clock',
         command: () => this.router.navigate(['./exit-date']),
         style: { margin: '10px 0px' },
       },
       {
-        label: this.localizationService.instant('::ExtensionOfReservation'),
+        label: 'تمدید پذیرش',
         icon: 'pi pi-calendar-plus',
         command: () => this.router.navigate(['./reservation']),
         style: { margin: '10px 0px' },

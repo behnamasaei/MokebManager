@@ -2,33 +2,33 @@
   <form [formGroup]="mokebForm" (ngSubmit)="onSubmit()">
     <div class="p-fluid">
       <div class="p-field mb-3">
-        <label for="name">{{ '::Name' | abpLocalization }}</label>
+        <label for="name">نام</label>
         <input id="name" type="text" pInputText formControlName="name" />
         <div *ngIf="mokebForm.controls['name'].invalid && mokebForm.controls['name'].touched">
-          {{ '::NameRequired' | abpLocalization }}.
+          نام اجباری میباشد.
         </div>
       </div>
 
       <div class="p-field mb-3">
-        <label for="gender">{{ '::Gender' | abpLocalization }}</label>
+        <label for="gender">جنسیت</label>
         <p-dropdown
           id="gender"
           [options]="genders"
           formControlName="gender"
-          placeholder="{{ '::SelectGender' | abpLocalization }}"
+          placeholder="انتخاب جنسیت"
         ></p-dropdown>
         <div *ngIf="mokebForm.controls['gender'].invalid && mokebForm.controls['gender'].touched">
-          {{ '::GenderRequired' | abpLocalization }}.
+          جنسیت اجباری.
         </div>
       </div>
 
       <div class="p-field mb-3">
-        <label for="capacity">{{ '::Capacity' | abpLocalization }}</label>
+        <label for="capacity">ظرفیت</label>
         <input id="capacity" type="number" pInputText formControlName="capacity" />
         <div
           *ngIf="mokebForm.controls['capacity'].invalid && mokebForm.controls['capacity'].touched"
         >
-          {{ '::CapacityRequired' | abpLocalization }}.
+          ظرفیت اجباری.
         </div>
       </div>
 
@@ -45,7 +45,7 @@
       <button
         pButton
         type="submit"
-        label="{{ '::Submit' | abpLocalization }}"
+        label="ثبت"
         class="mt-5"
         [disabled]="mokebForm.invalid"
       ></button>

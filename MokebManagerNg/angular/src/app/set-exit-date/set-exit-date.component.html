@@ -19,7 +19,7 @@
 
 <div class="p-fluid">
   <div class="p-field mb-3">
-    <label for="passportNo">{{ '::PassportNo' | abpLocalization }}</label>
+    <label for="passportNo">شماره پاسپورت</label>
     <input id="passportNo" type="text" pInputText [(ngModel)]="passportNo" />
   </div>
 </div>
@@ -27,7 +27,7 @@
 <button
   type="submit"
   pButton
-  label="{{ '::Submit' | abpLocalization }}"
+  label="ثبت"
   (click)="save()"
   [disabled]="!scanResult && !passportNo"
 ></button>

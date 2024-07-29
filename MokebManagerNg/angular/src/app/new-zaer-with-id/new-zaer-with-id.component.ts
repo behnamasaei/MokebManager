@@ -36,7 +36,7 @@ import { Router } from '@angular/router';
   imports: [SharedModule],
   templateUrl: './new-zaer-with-id.component.html',
   styleUrls: ['./new-zaer-with-id.component.scss'],
-  providers: [MessageService,ConfirmationService],
+  providers: [MessageService, ConfirmationService],
 })
 export class NewZaerWithIdComponent {
   form: FormGroup;
@@ -126,14 +126,10 @@ export class NewZaerWithIdComponent {
   }
 
   private loadGenders() {
-    this.localizationService.get('::Female').subscribe(female => {
-      this.localizationService.get('::Male').subscribe(male => {
-        this.genders = [
-          { label: male, value: Gender.Male },
-          { label: female, value: Gender.Female },
-        ];
-      });
-    });
+    this.genders = [
+      { label: 'آقا', value: Gender.Male },
+      { label: 'خانم', value: Gender.Female },
+    ];
   }
 
   private loadAllProvinces() {
@@ -153,13 +149,11 @@ export class NewZaerWithIdComponent {
   }
 
   getMokebsInformation() {
-    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
-        this.mokebService.getAllList().subscribe(mokeb => {
-          this.mokebs = mokeb.items;
-          this.populateMokebsDropDown(mokebCapacity, localization);
-          this.changeGender();
-        });
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getAllList().subscribe(mokeb => {
+        this.mokebs = mokeb.items;
+        this.populateMokebsDropDown(mokebCapacity, 'ظرفیت خالی امشب');
+        this.changeGender();
       });
     });
   }

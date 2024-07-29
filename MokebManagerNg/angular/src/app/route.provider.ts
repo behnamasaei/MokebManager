@@ -10,7 +10,7 @@ function configureRoutes(routesService: RoutesService) {
     routesService.add([
       {
         path: '/',
-        name: '::Menu:Home',
+        name: 'خانه',
         iconClass: 'fas fa-home',
         order: 1,
         layout: eLayoutType.application,
@@ -24,14 +24,14 @@ function configureRoutes(routesService: RoutesService) {
       // },
       {
         path: '/new-zaer',
-        name: '::NewZaer',
+        name: 'زائر جدید',
         iconClass: 'pi pi-user-plus',
         order: 2,
         layout: eLayoutType.application,
       },
       {
         path: '/new-zaer-id',
-        name: '::NewZaerWithId',
+        name: 'زائر جدید با شناسه',
         iconClass: 'pi pi-qrcode',
         order: 3,
         layout: eLayoutType.application,
@@ -45,14 +45,14 @@ function configureRoutes(routesService: RoutesService) {
       },
       {
         path: '/clock-entry-exit',
-        name: '::SaveEntryExitClock',
+        name: 'ثبت ساعت عبور و مرور',
         iconClass: 'pi pi-clock',
         order: 2,
         layout: eLayoutType.application,
       },
       {
         path: '/zaers',
-        name: '::Zaers',
+        name: 'زائرین',
         iconClass: 'pi pi-users',
         order: 2,
         layout: eLayoutType.application,

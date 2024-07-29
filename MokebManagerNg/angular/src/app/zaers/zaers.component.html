@@ -21,13 +21,13 @@
   <p-table #dt [value]="zaers.items" dataKey="id" [rowHover]="true" [filterDelay]="0">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 14%" id="passportHeader">{{ '::PassportNo' | abpLocalization }}</th>
+        <th style="width: 14%" id="passportHeader">شماره پاسپورت</th>
         <th style="width: 14%" id="genderTable">نام ونام خانوادگی</th>
-        <th style="width: 14%" id="genderTable">{{ '::Gender' | abpLocalization }}</th>
+        <th style="width: 14%" id="genderTable">جنسیت</th>
         <th style="width: 14%" id="genderTable">موکب</th>
         <th style="width: 14%" id="genderTable">جایگاه</th>
 
-        <th style="width: 30%">{{ '::Detail' | abpLocalization }}</th>
+        <th style="width: 30%">جزئیات</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-zaer>
@@ -36,10 +36,10 @@
         <td id="genderTable">{{ zaer.name }} {{ zaer.family }}</td>
         <td id="genderTable">
           <span *ngIf="zaer.gender == 0">
-            {{ '::Male' | abpLocalization }}
+            آقا
           </span>
           <span *ngIf="zaer.gender == 1">
-            {{ '::Female' | abpLocalization }}
+            خانم
           </span>
         </td>
         <td id="genderTable">{{ zaer.mokeb?.name }}</td>

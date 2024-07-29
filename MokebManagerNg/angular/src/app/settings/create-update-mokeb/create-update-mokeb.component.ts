@@ -33,14 +33,10 @@ export class CreateUpdateMokebComponent {
 
   ngOnInit(): void {
     this.mokebId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.localizationService.get('::Female').subscribe(female => {
-      this.localizationService.get('::Male').subscribe(male => {
         this.genders = [
-          { label: male, value: Gender.Male },
-          { label: female, value: Gender.Female },
+          { label: 'آقا', value: Gender.Male },
+          { label: 'خانم', value: Gender.Female },
         ];
-      });
-    });
 
     if (this.mokebId !== null) {
       this.mokebService.get(this.mokebId).subscribe(x => {

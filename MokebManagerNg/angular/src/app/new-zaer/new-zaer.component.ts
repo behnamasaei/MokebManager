@@ -104,14 +104,10 @@ export class NewZaerComponent implements OnInit {
   }
 
   private loadGenders() {
-    this.localizationService.get('::Female').subscribe(female => {
-      this.localizationService.get('::Male').subscribe(male => {
-        this.genders = [
-          { label: male, value: Gender.Male },
-          { label: female, value: Gender.Female },
-        ];
-      });
-    });
+    this.genders = [
+      { label: 'آقا', value: Gender.Male },
+      { label: 'خانم', value: Gender.Female },
+    ];
   }
 
   private loadProvinces() {
@@ -120,18 +116,16 @@ export class NewZaerComponent implements OnInit {
   }
 
   private getMokebsInformation() {
-    this.localizationService.get('::FreeCapacityToNight').subscribe(localization => {
-      this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
-        this.mokebService.getAllList().subscribe(mokeb => {
-          this.mokebs = mokeb.items;
-          this.mokebsDropDown = mokeb.items.map(item => ({
-            label: `${item.name} - ${localization} : ${
-              mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight ?? 0
-            }`,
-            value: item.id,
-          }));
-          this.changeGender();
-        });
+    this.mokebService.getMokebFreeCapacityToNight().subscribe(mokebCapacity => {
+      this.mokebService.getAllList().subscribe(mokeb => {
+        this.mokebs = mokeb.items;
+        this.mokebsDropDown = mokeb.items.map(item => ({
+          label: `${item.name} - ظرفیت خالی موکب : ${
+            mokebCapacity.find(x => x.mokebId === item.id)?.freeCapacityToNight ?? 0
+          }`,
+          value: item.id,
+        }));
+        this.changeGender();
       });
     });
   }
