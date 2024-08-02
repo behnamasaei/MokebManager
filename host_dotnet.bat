@@ -1,0 +1,1 @@
+cd .\MokebManagerNg\aspnet-core\src\MokebManagerNg.HttpApi.Host\bin\Release\net8.0\win-x64\publish && dotnet ./MokebManagerNg.HttpApi.Host.dll --urls="https://0.0.0.0:44355"
