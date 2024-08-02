@@ -43,7 +43,17 @@ export class ReservationComponent {
       { name: '2 شب', key: '2' },
       { name: '3 شب', key: '3' },
     ];
-    this.selectedEntryExit = this.entryExitOptions[0];
+    this.selectedEntryExit = this.entryExitOptions[0]; 
+  }
+
+  ngAfterViewInit(): void {
+    this.barcodescanner.startScanning();
+  }
+
+
+  barcodeScan() {
+    this.scanResult = ''; 
+    this.barcodescanner.startScanning();
   }
 
   handleScanResult(result: string): void {
@@ -72,13 +82,13 @@ export class ReservationComponent {
             detail: 'Success',
             life: 1000,
           });
-
+          this.barcodeScan();
           this.scanResult = null;
           this.selectedEntryExit = this.entryExitOptions[0];
         });
       });
     }
-    if (this.passportNo !== null) {
+    if (this.passportNo !== null && this.passportNo !== '' && this.passportNo !== undefined) {
       this.zaerService.getWithPassportNo(this.passportNo).subscribe(zaer => {
         const input: CreateUpdateEntryExitZaerDto = {
           zaerId: zaer.id,
@@ -94,8 +104,9 @@ export class ReservationComponent {
             detail: 'Success',
             life: 1000,
           });
-
+          this.barcodeScan();
           this.scanResult = null;
+          this.passportNo = '';
           this.selectedEntryExit = this.entryExitOptions[0];
         });
       });

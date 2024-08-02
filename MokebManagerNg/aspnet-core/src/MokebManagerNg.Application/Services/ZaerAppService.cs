@@ -120,7 +120,7 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     public async Task<List<ZaerDto>> GetSearchAsync(string text)
     {
         var zaers = await _repository.GetListAsync(x => x.PassportNo.Contains(text) || x.Name.Contains(text)
-          || x.PhoneNumber.ToString().Contains(text));
+          || x.PhoneNumber.ToString().Contains(text) || x.Id.ToString() == text );
         return ObjectMapper.Map<List<Zaer>, List<ZaerDto>>(zaers);
     }
 

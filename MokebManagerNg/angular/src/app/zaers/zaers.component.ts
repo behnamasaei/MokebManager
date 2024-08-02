@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { SharedModule } from '../shared/shared.module';
 import { ZaerDto } from '@proxy/domain/dtos';
 import { ZaerService } from '@proxy';
@@ -7,6 +8,7 @@ import { PageEvent } from 'src/app/shared/shared.model';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Title } from '@angular/platform-browser';
+import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
 
 @Component({
   selector: 'app-zaers',
@@ -23,6 +25,7 @@ export class ZaersComponent {
   };
   paged: PagedAndSortedResultRequestDto = { skipCount: 0, maxResultCount: 10 };
   searchValue: string;
+  @ViewChild(BarcodeScannerComponent) barcodescanner: BarcodeScannerComponent;
 
   /**
    *
@@ -42,14 +45,28 @@ export class ZaersComponent {
     this.getZaerData();
   }
 
+  ngAfterViewInit(): void {
+    this.barcodescanner.startScanning();
+  }
+
   onPageChange(event: PageEvent) {
     this.paged = { skipCount: event.first, maxResultCount: 10 };
     this.getZaerData();
   }
 
+  handleScanResult(result: string): void {
+    this.searchValue = result;
+    this.showInformation(this.searchValue)
+    console.log('Received scan result:', result);
+    // Additional logic to handle the scanned result
+  }
+
   search() {
     if (this.searchValue !== null && this.searchValue !== '')
-      this.zaerService.getSearch(this.searchValue).subscribe(x => (this.zaers.items = x));
+      this.zaerService.getSearch(this.searchValue).subscribe(x => {
+        this.zaers.items = x;
+        this.barcodescanner.startScanning();
+      });
     else this.getZaerData();
   }
 

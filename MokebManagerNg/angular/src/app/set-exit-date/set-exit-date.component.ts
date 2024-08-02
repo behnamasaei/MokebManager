@@ -35,6 +35,16 @@ export class SetExitDateComponent implements OnInit {
     // Initialization logic if any
   }
 
+  ngAfterViewInit(): void {
+    this.barcodescanner.startScanning();
+  }
+
+  barcodeScan() {
+    this.scanResult = ''; 
+    this.passportNo = '';
+    this.barcodescanner.startScanning();
+  }
+
   handleScanResult(result: string): void {
     this.scanResult = result;
     console.log('Received scan result:', result);
@@ -48,9 +58,11 @@ export class SetExitDateComponent implements OnInit {
       this.processExitDate(this.scanResult, exitDate);
     }
 
-    if (this.passportNo) {
+    if (this.passportNo !== null && this.passportNo !== '' && this.passportNo !== undefined) {
       this.processExitDateWithPassport(this.passportNo, exitDate);
     }
+
+    this.barcodeScan();
   }
 
   private processExitDate(scanResult: string, exitDate: string): void {

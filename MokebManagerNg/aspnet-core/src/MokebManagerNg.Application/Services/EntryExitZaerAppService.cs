@@ -45,7 +45,7 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
 
         var listEntryExit = await _repository.GetListAsync();
         var entryExitListDto = ObjectMapper.Map<List<EntryExitZaer>, List<EntryExitZaerDto>>(listEntryExit);
-        entryExitListDto = entryExitListDto.OrderByDescending(x => x.LastModificationTime).ThenBy(x => x.CreationTime).ToList();
+        entryExitListDto = entryExitListDto.OrderByDescending(x => x.ExitDate).ToList();
         await _entryExitListCache.SetAsync(cacheKey, entryExitListDto);
         return entryExitListDto;
     }

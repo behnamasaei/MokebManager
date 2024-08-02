@@ -2,6 +2,11 @@
 
 <div class="card">
   <p-toolbar>
+    <app-barcode-scanner
+      [scannerId]="'zaerScannerId'"
+      (scanResultEvent)="handleScanResult($event)"
+    ></app-barcode-scanner>
+
     <div class="p-toolbar-group-start">
       <input pInputText placeholder="جستجو" [(ngModel)]="searchValue" />
       <p-button
