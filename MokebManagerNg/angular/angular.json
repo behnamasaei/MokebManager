@@ -42,6 +42,11 @@
             "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
             "styles": [
               {
+                "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/bootstrap-dim.css",
+                "inject": false,
+                "bundleName": "bootstrap-dim"
+              },
+              {
                 "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/ng-bundle.css",
                 "inject": false,
                 "bundleName": "ng-bundle"
@@ -62,12 +67,12 @@
                 "bundleName": "bootstrap-dim.rtl"
               },
               {
-                "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.rtl.css",
+                "input": "src/assets/styles/Inter/inter.css",
                 "inject": false,
                 "bundleName": "font-bundle.rtl"
               },
               {
-                "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.css",
+                "input": "src/assets/styles/Inter/inter.css",
                 "inject": false,
                 "bundleName": "font-bundle"
               },
@@ -88,32 +93,32 @@
               },
               {
                 "input": "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-                "inject": false,
+                "inject": true,
                 "bundleName": "bootstrap-icons"
               },
               {
                 "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-                "inject": false,
+                "inject": true,
                 "bundleName": "fontawesome-all.min"
               },
               {
                 "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
-                "inject": false,
+                "inject": true,
                 "bundleName": "fontawesome-v4-shims.min"
               },
               {
                 "input": "node_modules/@swimlane/ngx-datatable/index.css",
-                "inject": false,
+                "inject": true,
                 "bundleName": "ngx-datatable-index"
               },
               {
                 "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
-                "inject": false,
+                "inject": true,
                 "bundleName": "ngx-datatable-icons"
               },
               {
                 "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
-                "inject": false,
+                "inject": true,
                 "bundleName": "ngx-datatable-material"
               },
               "node_modules/primeicons/primeicons.css",
