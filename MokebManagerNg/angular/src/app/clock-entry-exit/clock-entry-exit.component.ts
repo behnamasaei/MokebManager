@@ -5,6 +5,7 @@ import {
   CreateUpdateClockEntryExitDto,
   EntryExitZaerService,
   MokebService,
+  ZaerService,
 } from '@proxy';
 import moment from 'moment';
 import { Title } from '@angular/platform-browser';
@@ -30,9 +31,10 @@ export class ClockEntryExitComponent {
     private clockEntryExitService: ClockEntryExitService,
     private entryExitService: EntryExitZaerService,
     private messageService: MessageService,
+    private zaerService: ZaerService,
     private mokebService: MokebService,
     private titleService: Title
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('مدیریت موکب | ساعت عبور');
@@ -75,10 +77,15 @@ export class ClockEntryExitComponent {
       const exitDate = moment(entryExitRes.exitDate);
 
       if (currentTime.isBefore(exitDate)) {
-        this.accessResult = 'مجاز';
-        this.style = 'green';
-        this.mokebService.get(entryExitRes.mokebId).subscribe(mokebRes => {
-          this.mokebName = mokebRes.name;
+
+
+
+        this.zaerService.getWithDetail(entryExitRes.zaerId).subscribe(zaerRes => {
+          this.accessResult = `
+          <span>مجاز</span><br>
+          <span>موکب: ${zaerRes.mokeb.name}</span><br>
+          <span>جایگاه: ${zaerRes.mokebState.state}</span><br>`;
+          this.style = 'green';
           this.clockEntryExitService.create(input).subscribe(
             () => {
               this.scanResult = null;

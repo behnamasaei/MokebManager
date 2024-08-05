@@ -86,10 +86,17 @@ export class NewZaerWithIdComponent {
     this.loadAllProvinces();
     this.getMokebsInformation();
   }
+
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     this.fetchInitForm();
+    this.barcodeScan();
+  }
+
+  barcodeScan() {
+    this.scanResult = ''; 
+    this.barcodescanner.startScanning();
   }
 
   handleScanResult(result: string): void {
@@ -290,6 +297,7 @@ export class NewZaerWithIdComponent {
     this.entryExitZaerService.create(entryExitDate).subscribe(zaerRes => {
       this.resetForm();
       this.printZaerCard(zaerRes.id);
+      this.barcodeScan();
       this.showMessage('Success', 'Success', 'Success');
     });
   }

@@ -19,13 +19,15 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
                         CreateUpdateEntryExitZaerDto, CreateUpdateEntryExitZaerDto>,
     IEntryExitZaerDateAppService
 {
-
+    private readonly IDistributedCache<PagedResultDto<MokebDto>> _mokebListCache;
     private readonly IDistributedCache<List<EntryExitZaerDto>> _entryExitListCache;
     private readonly IRepository<EntryExitZaer, Guid> _repository;
 
     public EntryExitZaerAppService(IRepository<EntryExitZaer, Guid> repository,
+    IDistributedCache<PagedResultDto<MokebDto>> mokebListCache,
     IDistributedCache<List<EntryExitZaerDto>> entryExitListCache) : base(repository)
     {
+        _mokebListCache = mokebListCache;
         _entryExitListCache = entryExitListCache;
         _repository = repository;
     }
@@ -76,6 +78,9 @@ public class EntryExitZaerAppService : CrudAppService<EntryExitZaer, EntryExitZa
     {
         string cacheKey = "AllEntryExit_cache";
         await _entryExitListCache.RemoveAsync(cacheKey);
+
+        cacheKey = "MokebDtoList_cache";
+        await _mokebListCache.RemoveAsync(cacheKey);
 
         var entryExits = await GetAsync(zaerId);
 

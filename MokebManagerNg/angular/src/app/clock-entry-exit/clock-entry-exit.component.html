@@ -9,7 +9,8 @@
 
 <div>
   <h3 class="d-flex justify-content-center" [style]="{ color: style }">
-    {{ accessResult }}<br />
+    <div [innerHTML]="accessResult"></div>
+    <br />
     {{ mokebName }}
   </h3>
 

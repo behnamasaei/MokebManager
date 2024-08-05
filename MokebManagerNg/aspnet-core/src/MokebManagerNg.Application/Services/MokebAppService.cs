@@ -100,7 +100,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         // now = now.AddDays(2);
 
         // Set the specific date and time
-        DateTime nowDate = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0, 0, DateTimeKind.Utc);
+        DateTime nowDate = DateTime.Now;
 
 
         foreach (var mokeb in mokebs.Items)
@@ -110,7 +110,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
                 Mokeb = mokeb,
                 MokebId = mokeb.Id,
                 FreeCapacityToNight = mokeb.Capacity - reservations.Count(x => x.MokebId == mokeb.Id &&
-                 nowDate < x.ExitDate)
+                 nowDate > x.ExitDate)
             });
         }
 
