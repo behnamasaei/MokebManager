@@ -42,17 +42,33 @@ export class ReservationComponent {
       { name: '1 شب', key: '1' },
       { name: '2 شب', key: '2' },
       { name: '3 شب', key: '3' },
+      { name: '4 شب', key: '4' },
+      { name: '5 شب', key: '5' },
+      { name: '6 شب', key: '6' },
+      { name: '7 شب', key: '7' },
+      { name: '8 شب', key: '8' },
+      { name: '9 شب', key: '9' },
+      { name: '10 شب', key: '10' },
+      { name: '11 شب', key: '11' },
+      { name: '12 شب', key: '12' },
+      { name: '13 شب', key: '13' },
+      { name: '14 شب', key: '14' },
+      { name: '15 شب', key: '15' },
+      { name: '16 شب', key: '16' },
+      { name: '17 شب', key: '17' },
+      { name: '18 شب', key: '18' },
+      { name: '19 شب', key: '19' },
+      { name: '20 شب', key: '20' },
     ];
-    this.selectedEntryExit = this.entryExitOptions[0]; 
+    this.selectedEntryExit = this.entryExitOptions[0];
   }
 
   ngAfterViewInit(): void {
     this.barcodescanner.startScanning();
   }
 
-
   barcodeScan() {
-    this.scanResult = ''; 
+    this.scanResult = '';
     this.barcodescanner.startScanning();
   }
 

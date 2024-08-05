@@ -26,7 +26,15 @@
 
 <div class="p-field mb-3">
   <label for="gender">مدت زمان اقامت</label>
-  <div class="d-flex gap-5">
+
+  <p-dropdown
+    [(ngModel)]="selectedEntryExit"
+    [options]="entryExitOptions"
+    optionLabel="name"
+    placeholder="Select a City"
+  />
+
+  <!-- <div class="d-flex gap-5">
     <div *ngFor="let entryExitOption of entryExitOptions" class="field-checkbox">
       <p-radioButton
         [inputId]="entryExitOption.key"
@@ -37,7 +45,7 @@
         {{ entryExitOption.name }}
       </label>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <button type="submit" pButton label="ثبت" (click)="save()"></button>
