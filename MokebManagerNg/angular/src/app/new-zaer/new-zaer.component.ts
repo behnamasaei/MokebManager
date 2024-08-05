@@ -191,9 +191,9 @@ export class NewZaerComponent implements OnInit {
   }
 
   private saveZaer(formValue: CreateZaerDto, entryDate: string, exitDate: string) {
-    this.zaerService.create(formValue).subscribe(
-      zaerRes => {
-        this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+    this.mokebStateService.getFreeState(formValue.mokebId).subscribe(freeStateRes => {
+      this.zaerService.create(formValue).subscribe(
+        zaerRes => {
           const mokebStateInput: CreateUpdateMokebStateDto = {
             zaerId: zaerRes.id,
             mokebId: zaerRes.mokebId,
@@ -214,18 +214,18 @@ export class NewZaerComponent implements OnInit {
               this.printZaerCard(zaerRes.id);
             });
           });
-        });
-      },
-      (error: any) => {
-        console.log(error);
-        const eror = error?.error;
-        const errorCode = eror.message;
-        const errorCodes = error?.error?.code ?? error?.code ?? null;
-        if (errorCode === '307') {
-          this.redirectToReservation();
+        },
+        (error: any) => {
+          console.log(error);
+          const eror = error?.error;
+          const errorCode = eror.message;
+          const errorCodes = error?.error?.code ?? error?.code ?? null;
+          if (errorCode === '307') {
+            this.redirectToReservation();
+          }
         }
-      }
-    );
+      );
+    });
   }
 
   private resetForm() {

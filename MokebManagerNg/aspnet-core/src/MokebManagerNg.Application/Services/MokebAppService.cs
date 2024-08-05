@@ -95,13 +95,8 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
         var reservations = await _entryExitZaerDate.GetAllEntryExitAsync();
         List<MokebCapacityDto> mokebCapacityToNight = new();
 
-        // Get the current date and time
-        DateTime now = DateTime.UtcNow;
-        // now = now.AddDays(2);
-
         // Set the specific date and time
         DateTime nowDate = DateTime.Now;
-
 
         foreach (var mokeb in mokebs.Items)
         {
@@ -110,7 +105,7 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
                 Mokeb = mokeb,
                 MokebId = mokeb.Id,
                 FreeCapacityToNight = mokeb.Capacity - reservations.Count(x => x.MokebId == mokeb.Id &&
-                 nowDate > x.ExitDate)
+                 nowDate < x.ExitDate)
             });
         }
 

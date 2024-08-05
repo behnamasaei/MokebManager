@@ -65,10 +65,18 @@ public class MokebStateAppService : CrudAppService<MokebState, MokebStateDto, Gu
 
     public async Task<int> GetFreeStateAsync(Guid MokebId)
     {
+        DateTime nowDate = DateTime.Now;
+
         var mokeb = await _mokebAppService.GetAsync(MokebId);
-        // var mokebStates = await GetAllListAsync();
-        var mokebStates = ObjectMapper.Map<List<MokebState>, List<MokebStateDto>>(await _repository.GetListAsync());
-        mokebStates = mokebStates.Where(x => x.MokebId == MokebId).ToList();
+
+        var mokebStates = await GetListWithDetailAsync();
+        mokebStates = mokebStates
+            .Where(x => x.MokebId == MokebId &&
+                        x.Zaer.EntryExitZaerDates
+                           .OrderByDescending(o => o.ExitDate)
+                           .FirstOrDefault()?.ExitDate > nowDate)
+            .ToList();
+
 
         var firstFreeState = FindFirstMissingNumber(mokebStates, mokeb.Capacity);
 
