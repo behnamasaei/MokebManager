@@ -89,15 +89,30 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     // [Authorize(MokebManagerNgPermissions.ZaerRead)]
     public async Task<PagedResultDto<ZaerDto>> GetListWithDetailAsync(PagedAndSortedResultRequestDto input)
     {
-        var queryable = await _repository.WithDetailsAsync(e => e.EntryExitZaerDates,
-            e => e.ClockEntryExits, e => e.Mokeb, e => e.MokebState);
+        var queryable = await _repository.WithDetailsAsync(
+            e => e.EntryExitZaerDates,
+            e => e.ClockEntryExits,
+            e => e.Mokeb,
+            e => e.MokebState
+        );
+
         var dataWithDetail = await AsyncExecuter.ToListAsync(queryable);
+
+        var orderedData = dataWithDetail
+            .OrderByDescending(o => o.EntryExitZaerDates.OrderByDescending(ee => ee.EntryDate).FirstOrDefault()?.EntryDate)
+            .ToList();
+
+        var paginatedData = orderedData
+            .Skip(input.SkipCount)
+            .Take(input.MaxResultCount)
+            .ToList();
 
         var response = new PagedResultDto<ZaerDto>()
         {
-            Items = ObjectMapper.Map<List<Zaer>, List<ZaerDto>>(dataWithDetail.Skip(input.SkipCount).Take(input.MaxResultCount).ToList()),
-            TotalCount = dataWithDetail.Count()
+            Items = ObjectMapper.Map<List<Zaer>, List<ZaerDto>>(paginatedData),
+            TotalCount = orderedData.Count
         };
+
 
         return response;
     }
@@ -120,7 +135,7 @@ public class ZaerAppService : CrudAppService<Zaer, ZaerDto, Guid, PagedAndSorted
     public async Task<List<ZaerDto>> GetSearchAsync(string text)
     {
         var zaers = await _repository.GetListAsync(x => x.PassportNo.Contains(text) || x.Name.Contains(text)
-          || x.PhoneNumber.ToString().Contains(text) || x.Id.ToString() == text );
+          || x.PhoneNumber.ToString().Contains(text) || x.Id.ToString() == text);
         return ObjectMapper.Map<List<Zaer>, List<ZaerDto>>(zaers);
     }
 
