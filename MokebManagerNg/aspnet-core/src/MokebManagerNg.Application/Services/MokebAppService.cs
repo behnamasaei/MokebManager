@@ -97,9 +97,11 @@ public class MokebAppService : CrudAppService<Mokeb, MokebDto, Guid, PagedAndSor
 
         // Set the specific date and time
         DateTime nowDate = DateTime.Now;
+        DateTime nightDate = new DateTime(nowDate.Year, nowDate.Month, nowDate.Day, 0, 0, 0).AddDays(1);
 
         foreach (var mokeb in mokebs.Items)
         {
+
             mokebCapacityToNight.Add(new MokebCapacityDto
             {
                 Mokeb = mokeb,

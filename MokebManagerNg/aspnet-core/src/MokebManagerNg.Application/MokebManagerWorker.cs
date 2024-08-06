@@ -23,7 +23,7 @@ namespace MokebManagerNg
             Trigger = TriggerBuilder.Create()
                 .WithIdentity(nameof(MokebManagerWorker))
                 .WithSimpleSchedule(s => s
-                    .WithIntervalInHours(1) // Set the interval to 1 hour
+                    .WithIntervalInMinutes(1)
                     .RepeatForever()
                     .WithMisfireHandlingInstructionIgnoreMisfires())
                 .Build();
@@ -41,14 +41,14 @@ namespace MokebManagerNg
         {
 
             var mokebStates = await _serviceProvider.GetListWithDetailAsync();
-            var utcNow = DateTime.UtcNow;
+            var dateNow = DateTime.Now;
 
             foreach (var mokebState in mokebStates)
             {
                 var exitZaerDates = mokebState.Zaer.EntryExitZaerDates.Max(x => x.ExitDate);
                 if (exitZaerDates != null)
                 {
-                    if (utcNow >= exitZaerDates)
+                    if (dateNow >= exitZaerDates)
                     {
                         await _serviceProvider.DeleteAsync(mokebState.Id);
                     }

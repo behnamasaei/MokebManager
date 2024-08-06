@@ -15,7 +15,7 @@ import {
   UploadFileDto,
   ZaerService,
 } from '@proxy';
-import { MokebDto } from '@proxy/domain/dtos';
+import { MokebDto, ZaerDto } from '@proxy/domain/dtos';
 import {
   CreateUpdateEntryExitZaerDto,
   CreateUpdateMokebDto,
@@ -56,6 +56,8 @@ export class NewZaerWithIdComponent {
   hasPermission: boolean;
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo;
+  zaerInformation: ZaerDto;
+  visible: boolean = false;
   @ViewChild('fileUpload') fileUpload: FileUpload;
   @ViewChild('scanner', { static: false }) scanner: ZXingScannerComponent;
   @ViewChild(BarcodeScannerComponent) barcodescanner: BarcodeScannerComponent;
@@ -85,6 +87,7 @@ export class NewZaerWithIdComponent {
     this.loadGenders();
     this.loadAllProvinces();
     this.getMokebsInformation();
+    this.visible = false;
   }
 
   ngAfterViewInit(): void {
@@ -262,34 +265,34 @@ export class NewZaerWithIdComponent {
   }
 
   private createZaerWithId(formValue, entryDate, exitDate) {
-    this.zaerService.createNewWithId(formValue).subscribe(
-      zaerRes => {
-        const entryExitDate: CreateUpdateEntryExitZaerDto = {
-          zaerId: zaerRes.id,
-          entryDate: entryDate,
-          exitAfterDate: this.form.get('entryExitDate')?.value.key,
-          exitDate: exitDate,
-          mokebId: zaerRes.mokebId,
-        };
-
-        this.mokebStateService.getFreeState(zaerRes.mokebId).subscribe(freeStateRes => {
+    this.mokebStateService.getFreeState(formValue.mokebId).subscribe(freeStateRes => {
+      this.zaerService.createNewWithId(formValue).subscribe(
+        zaerRes => {
           const mokebStateInput: CreateUpdateMokebStateDto = {
             zaerId: zaerRes.id,
             mokebId: zaerRes.mokebId,
             state: freeStateRes,
           };
 
-          this.mokebStateService.create(mokebStateInput).subscribe();
-        });
+          const entryExitDate: CreateUpdateEntryExitZaerDto = {
+            zaerId: zaerRes.id,
+            entryDate: entryDate,
+            exitAfterDate: this.form.get('entryExitDate')?.value.key,
+            exitDate: exitDate,
+            mokebId: zaerRes.mokebId,
+          };
 
-        this.createEntryExitZaer(entryExitDate);
-      },
-      error => {
-        if (error.error.code === '307') {
-          this.redirectToReservation();
+          this.mokebStateService.create(mokebStateInput).subscribe(() => {
+            this.createEntryExitZaer(entryExitDate);
+          });
+        },
+        error => {
+          if (error.error.code === '307') {
+            this.redirectToReservation();
+          }
         }
-      }
-    );
+      );
+    });
   }
 
   private redirectToReservation() {
@@ -311,9 +314,9 @@ export class NewZaerWithIdComponent {
   }
 
   private createEntryExitZaer(entryExitDate: CreateUpdateEntryExitZaerDto) {
-    this.entryExitZaerService.create(entryExitDate).subscribe(zaerRes => {
+    this.entryExitZaerService.create(entryExitDate).subscribe(entryExitRes => {
       this.resetForm();
-      this.printZaerCard(zaerRes.id);
+      this.showZaerInformation(entryExitDate.zaerId);
       this.barcodeScan();
       this.showMessage('Success', 'Success', 'Success');
     });
@@ -327,6 +330,13 @@ export class NewZaerWithIdComponent {
     this.form.patchValue({ entryExitDate: this.entryExitOptions[0] });
     this.fetchInitForm();
     this.changeGender();
+  }
+
+  private showZaerInformation(id: string) {
+    this.zaerService.getWithDetail(id).subscribe(zaerRes => {
+      this.zaerInformation = zaerRes;
+      this.visible = true;
+    });
   }
 
   private printZaerCard(id: string) {

@@ -1,5 +1,23 @@
 <!-- clock-example.component.html -->
-<p-toast /> <p-confirmDialog />
+<p-toast />
+
+<p-confirmDialog> </p-confirmDialog>
+<p-dialog
+  header="مشخصات زائر"
+  [(visible)]="visible"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <h3>موکب: {{ zaerInformation?.mokeb?.name }}</h3>
+  <br />
+  <h3>جایگاه: {{ zaerInformation?.mokebState?.state }}</h3>
+  <br />
+
+  <button pButton label="بستن" (click)="this.visible = false"></button>
+</p-dialog>
 
 <div class="p-fluid">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">

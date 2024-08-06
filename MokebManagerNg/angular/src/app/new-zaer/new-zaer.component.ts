@@ -14,7 +14,7 @@ import {
   ReportService,
   ZaerService,
 } from '@proxy';
-import { EntryExitZaerDto, MokebDto, ZaerDto } from '@proxy/domain/dtos';
+import { MokebDto, ZaerDto } from '@proxy/domain/dtos';
 import { CreateUpdateEntryExitZaerDto } from '@proxy/domain/create-update-dtos';
 import moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -41,6 +41,8 @@ export class NewZaerComponent implements OnInit {
   mokebCapacityToNight: MokebCapacityDto[] = [];
   allProvinces: any[] = [];
   citiesOfProvince: any[] = [];
+  visible: boolean = false;
+  zaerInformation: ZaerDto;
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
   constructor(
@@ -65,6 +67,7 @@ export class NewZaerComponent implements OnInit {
     this.loadGenders();
     this.loadProvinces();
     this.getMokebsInformation();
+    this.visible = false;
   }
 
   ngAfterViewInit(): void {
@@ -228,7 +231,7 @@ export class NewZaerComponent implements OnInit {
             this.entryExitZaerService.create(entryExitDate).subscribe(() => {
               this.showMessage('success', 'Success', 'Success');
               this.resetForm();
-              this.printZaerCard(zaerRes.id);
+              this.showZaerInformation(zaerRes.id);
             });
           });
         },
@@ -277,6 +280,13 @@ export class NewZaerComponent implements OnInit {
         this.router.navigate(['reservation']);
       },
       reject: () => {},
+    });
+  }
+
+  private showZaerInformation(id: string) {
+    this.zaerService.getWithDetail(id).subscribe(zaerRes => {
+      this.zaerInformation = zaerRes;
+      this.visible = true;
     });
   }
 

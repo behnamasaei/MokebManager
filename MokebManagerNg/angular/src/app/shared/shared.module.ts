@@ -49,6 +49,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideDateFnsAdapter } from 'ngx-material-date-fns-adapter';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { BarcodeScannerComponent } from '../barcode-scanner/barcode-scanner.component';
+import { DialogModule } from 'primeng/dialog';
 
 const primeNgModules = [
   TableModule,
@@ -84,6 +85,7 @@ const primeNgModules = [
   PasswordModule,
   CheckboxModule,
   SelectButtonModule,
+  DialogModule,
 ];
 
 @NgModule({
